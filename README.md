@@ -11,6 +11,10 @@ Official website for **VIGAM Labs** — fast, private AI software built to run 1
 - **Shivam Thakur** — [Portfolio](https://shivam-thakur-portfolio.vercel.app/) | [GitHub](https://github.com/MavihsLH) | [LinkedIn](https://www.linkedin.com/in/shivam-thakur-swe/)
 - **Vignesh A. Palan** — [GitHub](https://github.com/Vigneshpalan) | [LinkedIn](https://www.linkedin.com/in/vignesh-palan-692251246/)
 
+## Contact
+
+- Email: [vigam4ai@gmail.com](mailto:vigam4ai@gmail.com)
+
 ## Local Preview
 
 ```bash
