@@ -121,14 +121,21 @@ a {
 }
 
 .brand-mark {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
   border: 1px solid var(--line-strong);
-  background: #000;
-  display: block;
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
-  object-fit: cover;
+}
+
+.brand-mark svg {
+  width: 13px;
+  height: 16px;
+  display: block;
+  color: var(--ink);
 }
 
 .nav-right {
