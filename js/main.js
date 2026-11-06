@@ -47,44 +47,7 @@
   });
 
   /* -------------------------------------------------------------------------
-     2. STAGE VIEW TABS (Interactive Mockup vs Raw Screenshots)
-     ------------------------------------------------------------------------- */
-  var mockupView = document.getElementById('klang-mockup-view');
-  var screenshotsView = document.getElementById('klang-screenshots-view');
-  var stageImg = document.getElementById('stage-img');
-
-  document.querySelectorAll('[data-stage-mode]').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var mode = tab.getAttribute('data-stage-mode');
-      document.querySelectorAll('[data-stage-mode]').forEach(function (t) {
-        var active = t === tab;
-        t.classList.toggle('active', active);
-        t.setAttribute('aria-selected', active ? 'true' : 'false');
-      });
-      if (mode === 'screenshots') {
-        if (mockupView) mockupView.hidden = true;
-        if (screenshotsView) screenshotsView.hidden = false;
-      } else {
-        if (mockupView) mockupView.hidden = false;
-        if (screenshotsView) screenshotsView.hidden = true;
-      }
-    });
-  });
-
-  document.querySelectorAll('[data-ss]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var src = btn.getAttribute('data-ss');
-      document.querySelectorAll('[data-ss]').forEach(function (b) {
-        b.classList.toggle('active', b === btn);
-      });
-      if (stageImg && src) {
-        stageImg.src = src;
-      }
-    });
-  });
-
-  /* -------------------------------------------------------------------------
-     3. WORKING KLANG MOCKUP — SAMPLE & PRESET DATABASE
+     2. WORKING KLANG MOCKUP — SAMPLE & PRESET DATABASE
      ------------------------------------------------------------------------- */
   var AUDIO_LIBRARY = [
     // Warm Analog Pads
