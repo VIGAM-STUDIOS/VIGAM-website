@@ -1,0 +1,7 @@
+.git
+.gitignore
+.wrangler
+.claude
+README.md
+vercel.json
+wrangler.jsonc
