@@ -5,9 +5,6 @@
 (function () {
   'use strict';
 
-  var prefersReduced = window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   /* -------------------------------------------------------------------------
      1. THEME TOGGLE & EMAIL COPY TOAST
      ------------------------------------------------------------------------- */
@@ -665,7 +662,7 @@
     isPlaying: false,
     playProgress: 0.436,    // starts at 1.74s / 3.99s like screenshot!
     pitchSt: 0,
-    loop: true,
+    loop: false,
     masterVol: 75,
     userInteracted: false
   };
@@ -870,7 +867,7 @@
     rowsContainer.innerHTML = html;
     updateTransportUI();
 
-    if (animateEntrance && window.gsap && !prefersReduced) {
+    if (animateEntrance && window.gsap) {
       gsap.fromTo(
         rowsContainer.querySelectorAll('.ka-row'),
         { opacity: 0, y: 8 },
@@ -1066,7 +1063,7 @@
     var arcEl = document.getElementById('dial-arc-' + macro);
     var rotorEl = document.getElementById('dial-rotor-' + macro);
 
-    if (window.gsap && !prefersReduced) {
+    if (window.gsap) {
       if (arcEl) gsap.to(arcEl, { strokeDashoffset: cfg.offset, duration: 0.42, ease: 'expo.out' });
       if (rotorEl) gsap.to(rotorEl, { attr: { transform: 'rotate(' + cfg.angle + ' 28 28)' }, duration: 0.42, ease: 'expo.out' });
     } else {
@@ -1224,36 +1221,6 @@
   // Initial render of KLANG rows
   renderRows(false);
 
-  // Gentle Idle Auto-Demo Cycle (stops immediately when user clicks or types anywhere in KLANG)
-  var DEMO_SCENES = [
-    { query: 'warm analog pad', length: 'all', tone: 'all', attack: 'all', playId: 's1' },
-    { query: 'punchy dusty snare', length: 'oneshot', tone: 'warm', attack: 'punchy', playId: 's6' },
-    { query: 'distorted sub 808', length: 'oneshot', tone: 'warm', attack: 'punchy', playId: 's10' },
-    { query: 'glassy arp pluck', length: 'all', tone: 'bright', attack: 'punchy', playId: 's13' }
-  ];
-  var demoSceneIdx = 0;
-
-  if (!prefersReduced) {
-    setInterval(function () {
-      if (state.userInteracted || state.isPlaying || document.hidden) return;
-      demoSceneIdx = (demoSceneIdx + 1) % DEMO_SCENES.length;
-      var sc = DEMO_SCENES[demoSceneIdx];
-      state.query = sc.query;
-      state.playingId = sc.playId;
-      state.playProgress = 0.436;
-      if (searchInput) searchInput.value = sc.query;
-
-      document.querySelectorAll('[data-preset-query]').forEach(function (c) {
-        c.classList.toggle('active', c.getAttribute('data-preset-query') === sc.query);
-      });
-
-      setMacroState('length', sc.length, false);
-      setMacroState('tone', sc.tone, false);
-      setMacroState('attack', sc.attack, false);
-      renderRows(true);
-    }, 5200);
-  }
-
   /* -------------------------------------------------------------------------
      10. GSAP + SCROLLTRIGGER CHOREOGRAPHY
      ------------------------------------------------------------------------- */
@@ -1316,8 +1283,6 @@
     return el.querySelectorAll('.gsap-word');
   }
 
-  if (prefersReduced) return;
-
   // 10.1 Top Scroll Progress Bar
   var progressBar = document.getElementById('scroll-progress-bar');
   if (progressBar && window.ScrollTrigger) {
@@ -1333,44 +1298,51 @@
     });
   }
 
-  // 10.2 Hero Entrance Sequence (Word-Masked Headline + Lede + Actions)
+  // 10.2 Hero & KLANG Stage Load Choreography + Scroll-Scrubbed Parallax
   var heroTitle = document.getElementById('hero-title');
   var heroWords = splitWordsForReveal(heroTitle);
-  var heroTl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+  var klangStage = document.getElementById('klang-stage');
 
-  if (heroWords.length) {
-    heroTl.from(heroWords, {
-      yPercent: 115,
-      rotate: 2,
-      opacity: 0,
-      duration: 0.95,
-      stagger: 0.045
-    }, 0.05);
-  }
+  var loadTl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-  heroTl.from('.hero-lede', {
-    y: 18,
+  loadTl.from('.nav', {
+    y: -28,
     opacity: 0,
     duration: 0.8
-  }, 0.35).from('.hero-actions .btn', {
-    y: 14,
-    opacity: 0,
-    duration: 0.7,
-    stagger: 0.08,
-    clearProps: 'all'
-  }, 0.48);
+  }, 0);
 
-  // 10.3 KLANG Stage 3D Perspective Unfold & Waveform Ripple on Load + Scroll Parallax
-  var klangStage = document.getElementById('klang-stage');
+  if (heroWords.length) {
+    loadTl.from(heroWords, {
+      yPercent: 120,
+      rotate: 3,
+      opacity: 0,
+      duration: 1.05,
+      stagger: 0.055
+    }, 0.08);
+  }
+
+  loadTl.from('.hero-lede', {
+    y: 24,
+    opacity: 0,
+    duration: 0.9
+  }, 0.38).from('.hero-actions .btn', {
+    y: 18,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.09,
+    clearProps: 'opacity,transform'
+  }, 0.5);
+
   if (klangStage) {
-    gsap.fromTo(
+    // Unmistakable 3D studio hardware entrance on load
+    loadTl.fromTo(
       klangStage,
       {
-        y: 36,
-        rotateX: 9,
-        scale: 0.965,
+        y: 72,
+        rotateX: 18,
+        scale: 0.91,
         opacity: 0,
-        transformPerspective: 1400,
+        transformPerspective: 1200,
         transformOrigin: '50% 0%'
       },
       {
@@ -1378,26 +1350,75 @@
         rotateX: 0,
         scale: 1,
         opacity: 1,
-        duration: 1.15,
-        ease: 'expo.out',
-        delay: 0.25
-      }
+        duration: 1.35,
+        ease: 'expo.out'
+      },
+      0.32
     );
 
-    // Ripple the SVG waveform bars inside KLANG as the stage enters
+    // Sweep the 4 analog rotary dials and ripple the 380 waveform bars
+    var dialArcs = klangStage.querySelectorAll('.ka-dial-arc');
+    var dialRotors = klangStage.querySelectorAll('.ka-dial-rotor');
+    loadTl.from(dialArcs, {
+      strokeDashoffset: 99,
+      duration: 1.2,
+      stagger: 0.09,
+      ease: 'expo.out'
+    }, 0.55).from(dialRotors, {
+      attr: { transform: 'rotate(-135 28 28)' },
+      duration: 1.2,
+      stagger: 0.09,
+      ease: 'expo.out'
+    }, 0.55);
+
     var initialBars = klangStage.querySelectorAll('.ka-wave-bar');
     if (initialBars.length) {
-      gsap.from(initialBars, {
-        scaleY: 0.12,
+      loadTl.from(initialBars, {
+        scaleY: 0.08,
         transformOrigin: '50% 50%',
-        duration: 0.75,
-        stagger: { amount: 0.45, from: 'start' },
-        ease: 'back.out(1.6)',
-        delay: 0.45
+        duration: 0.95,
+        stagger: { amount: 0.65, from: 'center' },
+        ease: 'back.out(1.8)'
+      }, 0.5);
+    }
+
+    // Scroll-Linked Hero Parallax + Live KLANG Playhead/Waveform Scroll Scrubbing
+    if (window.ScrollTrigger) {
+      gsap.fromTo(
+        '.hero .wrap',
+        { y: 0, scale: 1, opacity: 1 },
+        {
+          y: -64,
+          scale: 0.94,
+          opacity: 0.12,
+          transformOrigin: '50% 0%',
+          ease: 'none',
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.35
+          }
+        }
+      );
+
+      // As user scrolls past KLANG, scrub the active sample playhead & subtle 3D stage depth
+      ScrollTrigger.create({
+        trigger: '#klang',
+        start: 'top 65%',
+        end: 'bottom 20%',
+        scrub: 0.3,
+        onUpdate: function (self) {
+          if (!state.isPlaying && !state.userInteracted) {
+            state.playProgress = 0.18 + self.progress * 0.68;
+            updateTransportUI();
+          }
+        }
       });
     }
 
-    // Subtle 3D Studio Hardware Mouse-Tilt & Spotlight Tracking
+    // Damped 3D Studio Hardware Mouse-Tilt & Spotlight Tracking
     var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (canHover) {
       var rotX = gsap.quickTo(klangStage, 'rotateX', { duration: 0.55, ease: 'power3.out' });
@@ -1409,8 +1430,8 @@
         var py = (e.clientY - r.top) / r.height;
         klangStage.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
         klangStage.style.setProperty('--my', (py * 100).toFixed(1) + '%');
-        rotY((px - 0.5) * 2.6);
-        rotX((0.5 - py) * 2.2);
+        rotY((px - 0.5) * 3.2);
+        rotX((0.5 - py) * 2.6);
       });
 
       klangStage.addEventListener('mouseleave', function () {
@@ -1429,8 +1450,8 @@
         var r = btn.getBoundingClientRect();
         var dx = e.clientX - (r.left + r.width / 2);
         var dy = e.clientY - (r.top + r.height / 2);
-        xTo(dx * 0.18);
-        yTo(dy * 0.22);
+        xTo(dx * 0.22);
+        yTo(dy * 0.26);
       });
       btn.addEventListener('mouseleave', function () {
         xTo(0);
@@ -1439,190 +1460,244 @@
     });
   }
 
-  // 10.5 Scroll-Velocity & Cursor-Plucked Signal String Dividers (.signal-divider)
-  document.querySelectorAll('.signal-divider').forEach(function (divider) {
-    var path = divider.querySelector('.signal-path');
-    if (!path) return;
-    var proxy = { cy: 14, cx: 520 };
+  // 10.5 Scroll-Scrubbed Studio Harmonic Spectrum Wave Dividers (.signal-divider)
+  document.querySelectorAll('.signal-divider').forEach(function (divider, divIdx) {
+    var svg = divider.querySelector('svg');
+    if (!svg) return;
+    svg.setAttribute('viewBox', '0 0 1040 44');
 
-    function renderCurve() {
-      path.setAttribute('d', 'M 0 14 Q ' + proxy.cx.toFixed(0) + ' ' + proxy.cy.toFixed(1) + ' 1040 14');
+    var numBars = 64;
+    var barMarkup = '<path class="signal-path" d="M 0 22 Q 520 22 1040 22"></path>';
+    for (var i = 0; i < numBars; i++) {
+      var x = (12 + (i / (numBars - 1)) * 1016).toFixed(1);
+      barMarkup += '<rect class="signal-bar" x="' + x + '" y="19" width="2" height="6" rx="1"></rect>';
     }
+    svg.innerHTML = barMarkup;
 
-    function pluck(deflection, centerX) {
-      if (typeof centerX === 'number') proxy.cx = centerX;
-      gsap.killTweensOf(proxy);
-      proxy.cy = 14 + deflection;
-      renderCurve();
-      gsap.to(proxy, {
-        cy: 14,
-        duration: 1.15,
-        ease: 'elastic.out(1.25, 0.18)',
-        onUpdate: renderCurve
+    var path = svg.querySelector('.signal-path');
+    var bars = svg.querySelectorAll('.signal-bar');
+    var proxy = { cy: 22, cx: 520 };
+
+    function updateBarsForProgress(prog) {
+      var centerIdx = prog * (numBars - 1);
+      bars.forEach(function (bar, idx) {
+        var dist = Math.abs(idx - centerIdx);
+        var wave = Math.max(0, 1 - dist / 14);
+        var ripple = Math.sin(idx * 0.55 + prog * Math.PI * 5 + divIdx) * 0.5 + 0.5;
+        var h = 4 + (wave * 26 * (0.45 + 0.55 * ripple));
+        var y = 22 - h / 2;
+        bar.setAttribute('height', h.toFixed(1));
+        bar.setAttribute('y', y.toFixed(1));
+        bar.style.opacity = (0.3 + wave * 0.7).toFixed(2);
       });
     }
 
-    // Pluck when scrolling past via ScrollTrigger velocity
+    updateBarsForProgress(0.5);
+
     if (window.ScrollTrigger) {
       ScrollTrigger.create({
         trigger: divider,
-        start: 'top 85%',
-        end: 'bottom 15%',
-        onEnter: function (self) {
-          var v = Math.max(-22, Math.min(22, self.getVelocity() / 65));
-          pluck(v || 10, 520);
-        },
-        onEnterBack: function (self) {
-          var v = Math.max(-22, Math.min(22, self.getVelocity() / 65));
-          pluck(v || -10, 520);
+        start: 'clamp(top 95%)',
+        end: 'clamp(bottom 5%)',
+        scrub: 0.3,
+        onUpdate: function (self) {
+          updateBarsForProgress(self.progress);
+          var v = Math.max(-20, Math.min(20, self.getVelocity() / 55));
+          if (Math.abs(v) > 1.5 && path) {
+            proxy.cy = 22 + v;
+            path.setAttribute('d', 'M 0 22 Q ' + proxy.cx.toFixed(0) + ' ' + proxy.cy.toFixed(1) + ' 1040 22');
+            gsap.to(proxy, {
+              cy: 22,
+              duration: 0.9,
+              overwrite: 'auto',
+              ease: 'elastic.out(1.2, 0.2)',
+              onUpdate: function () {
+                path.setAttribute('d', 'M 0 22 Q ' + proxy.cx.toFixed(0) + ' ' + proxy.cy.toFixed(1) + ' 1040 22');
+              }
+            });
+          }
         }
       });
     }
 
-    // Also pluck when user moves cursor across the signal line
     divider.addEventListener('mousemove', function (e) {
       var r = divider.getBoundingClientRect();
-      var relX = ((e.clientX - r.left) / r.width) * 1040;
-      var relY = (e.clientY - (r.top + r.height / 2)) * 1.35;
-      pluck(Math.max(-20, Math.min(20, relY)), relX);
+      var pctX = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+      updateBarsForProgress(pctX);
+      if (path) {
+        proxy.cx = pctX * 1040;
+        proxy.cy = 22 + ((e.clientY - (r.top + r.height / 2)) * 1.4);
+        path.setAttribute('d', 'M 0 22 Q ' + proxy.cx.toFixed(0) + ' ' + proxy.cy.toFixed(1) + ' 1040 22');
+        gsap.to(proxy, {
+          cy: 22,
+          duration: 1.05,
+          overwrite: 'auto',
+          ease: 'elastic.out(1.2, 0.18)',
+          onUpdate: function () {
+            path.setAttribute('d', 'M 0 22 Q ' + proxy.cx.toFixed(0) + ' ' + proxy.cy.toFixed(1) + ' 1040 22');
+          }
+        });
+      }
     });
   });
 
-  // 10.6 ScrollTrigger Section Reveals (Ethos, About Us, Contact)
+  // 10.6 ScrollTrigger Scrubbed Section Choreography (Ethos, About Us, Contact)
   if (window.ScrollTrigger) {
-    // Ethos Section Reveal + Hardware Meter Fill + SVG Stroke Draw
+    // Ethos Section: 3D Card Unfold + SVG Stroke Draw + Live Meter Fill + Latency Count-Down
     var ethosSection = document.getElementById('ethos');
     if (ethosSection) {
       var ethosH2Words = splitWordsForReveal(ethosSection.querySelector('.section-head h2'));
       var ethosTl = gsap.timeline({
         scrollTrigger: {
           trigger: ethosSection,
-          start: 'top 82%',
-          toggleActions: 'play none none none'
+          start: 'clamp(top 92%)',
+          end: 'clamp(top 38%)',
+          scrub: 0.45
         }
       });
 
       if (ethosH2Words.length) {
         ethosTl.from(ethosH2Words, {
-          yPercent: 110,
+          yPercent: 115,
           opacity: 0,
-          duration: 0.75,
-          stagger: 0.04,
-          ease: 'expo.out'
+          duration: 0.5,
+          stagger: 0.05,
+          ease: 'power2.out'
         }, 0);
       }
 
       ethosTl.from(ethosSection.querySelector('.section-head p'), {
-        y: 14,
+        y: 20,
         opacity: 0,
-        duration: 0.65,
-        ease: 'expo.out'
-      }, 0.1).from(ethosSection.querySelectorAll('.ethos-cell'), {
-        y: 34,
+        duration: 0.5,
+        ease: 'power2.out'
+      }, 0.08).from(ethosSection.querySelectorAll('.ethos-cell'), {
+        y: 68,
+        rotateX: 16,
+        scale: 0.93,
         opacity: 0,
-        duration: 0.85,
-        stagger: 0.12,
-        ease: 'expo.out'
-      }, 0.18);
+        transformOrigin: '50% 100%',
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out'
+      }, 0.12);
 
-      // SVG icon stroke draw animation inside Ethos cards
-      ethosSection.querySelectorAll('.ethos-icon svg path, .ethos-icon svg rect, .ethos-icon svg circle, .ethos-icon svg line').forEach(function (shape) {
-        gsap.fromTo(
-          shape,
+      // SVG icon stroke draw inside Ethos cards
+      var ethosShapes = ethosSection.querySelectorAll('.ethos-icon svg path, .ethos-icon svg rect, .ethos-icon svg circle, .ethos-icon svg line');
+      if (ethosShapes.length) {
+        ethosTl.fromTo(
+          ethosShapes,
           { strokeDasharray: 80, strokeDashoffset: 80 },
-          {
-            strokeDashoffset: 0,
-            duration: 1.1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: ethosSection,
-              start: 'top 80%'
-            }
-          }
+          { strokeDashoffset: 0, duration: 0.7, stagger: 0.04, ease: 'none' },
+          0.2
+        );
+      }
+
+      // Meter fill & latency counter
+      ethosSection.querySelectorAll('.ethos-meter-fill').forEach(function (fillEl) {
+        var targetPct = Number(fillEl.getAttribute('data-fill')) || 0;
+        ethosTl.fromTo(
+          fillEl,
+          { width: '0%' },
+          { width: targetPct + '%', duration: 0.7, ease: 'power2.out' },
+          0.3
         );
       });
 
-      // Animate the meter fills
-      ethosSection.querySelectorAll('.ethos-meter-fill').forEach(function (fillEl) {
-        var targetPct = Number(fillEl.getAttribute('data-fill')) || 0;
-        ethosTl.to(fillEl, {
-          width: targetPct + '%',
-          duration: 1.1,
-          ease: 'expo.out'
-        }, 0.35);
-      });
+      var latencyBadge = ethosSection.querySelector('[data-count-target]');
+      if (latencyBadge) {
+        var counterObj = { val: 95 };
+        ethosTl.to(counterObj, {
+          val: 11,
+          duration: 0.7,
+          ease: 'power2.out',
+          onUpdate: function () {
+            latencyBadge.textContent = Math.round(counterObj.val) + ' ms';
+          }
+        }, 0.3);
+      }
     }
 
-    // About Us Reveal
+    // About Us Section: Scroll-Scrubbed Staggered Reveal
     var aboutSection = document.getElementById('about');
     if (aboutSection) {
       var aboutH2Words = splitWordsForReveal(aboutSection.querySelector('.about-copy h2'));
       var aboutTl = gsap.timeline({
         scrollTrigger: {
           trigger: aboutSection,
-          start: 'top 84%',
-          toggleActions: 'play none none none'
+          start: 'clamp(top 92%)',
+          end: 'clamp(bottom 78%)',
+          scrub: 0.45
         }
       });
 
       if (aboutH2Words.length) {
         aboutTl.from(aboutH2Words, {
-          yPercent: 110,
+          yPercent: 115,
           opacity: 0,
-          duration: 0.75,
-          stagger: 0.05,
-          ease: 'expo.out'
+          duration: 0.5,
+          stagger: 0.06,
+          ease: 'power2.out'
         }, 0);
       }
 
       aboutTl.from(aboutSection.querySelector('.about-copy p'), {
+        y: 28,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, 0.08).from(aboutSection.querySelectorAll('.founder-row'), {
+        x: 56,
         y: 18,
+        scale: 0.96,
         opacity: 0,
         duration: 0.75,
-        ease: 'expo.out'
-      }, 0.1).from(aboutSection.querySelectorAll('.founder-row'), {
-        x: 28,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: 'expo.out'
-      }, 0.16);
+        stagger: 0.18,
+        ease: 'power2.out'
+      }, 0.14);
     }
 
-    // Contact Reveal
+    // Contact Section: Scroll-Scrubbed Staggered Reveal
     var contactSection = document.getElementById('contact');
     if (contactSection) {
       var contactH2Words = splitWordsForReveal(contactSection.querySelector('.contact-copy h2'));
       var contactTl = gsap.timeline({
         scrollTrigger: {
           trigger: contactSection,
-          start: 'top 86%',
-          toggleActions: 'play none none none'
+          start: 'clamp(top 95%)',
+          end: 'clamp(bottom 92%)',
+          scrub: 0.45
         }
       });
 
       if (contactH2Words.length) {
         contactTl.from(contactH2Words, {
-          yPercent: 110,
+          yPercent: 115,
           opacity: 0,
-          duration: 0.75,
-          stagger: 0.05,
-          ease: 'expo.out'
+          duration: 0.5,
+          stagger: 0.06,
+          ease: 'power2.out'
         }, 0);
       }
 
       contactTl.from(contactSection.querySelector('.contact-copy p'), {
+        y: 28,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, 0.08).from(contactSection.querySelectorAll('.contact-card'), {
+        x: 56,
         y: 18,
+        scale: 0.96,
         opacity: 0,
         duration: 0.75,
-        ease: 'expo.out'
-      }, 0.1).from(contactSection.querySelectorAll('.contact-card'), {
-        x: 28,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: 'expo.out'
-      }, 0.16);
+        stagger: 0.18,
+        ease: 'power2.out'
+      }, 0.14);
     }
+
+    window.addEventListener('load', function () {
+      ScrollTrigger.refresh();
+    });
   }
 })();
