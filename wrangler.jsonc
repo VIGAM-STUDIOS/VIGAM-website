@@ -1,11 +1,23 @@
 {
   "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
   "name": "vigam",
+  "main": "src/index.js",
   "compatibility_date": "2026-11-04",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "vigamai.com", "custom_domain": true },
+    { "pattern": "www.vigamai.com", "custom_domain": true }
+  ],
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "."
-  }
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/klang", "/klang/*"]
+  },
+  // KLANG is its own Worker (repo VIGAM-STUDIOS/klang-website); it is served at /klang/.
+  "services": [
+    { "binding": "KLANG", "service": "klang-website" }
+  ]
 }

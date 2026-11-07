@@ -4,7 +4,7 @@ Official website for **VIGAM Labs** — fast, private AI software built to run 1
 
 ## Projects
 
-- **KLANG** ([klang-website.vigam4ai.workers.dev](https://klang-website.vigam4ai.workers.dev/)): Search your audio samples and synth presets by sound, not filename. Runs locally on Windows and macOS.
+- **KLANG** ([vigamai.com/klang](https://vigamai.com/klang/)): Search your audio samples and synth presets by sound, not filename. Runs locally on Windows and macOS.
 
 ## Founders
 
