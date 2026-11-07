@@ -26,11 +26,6 @@
 </head>
 <body>
 
-  <!-- Scroll Progress Hairline -->
-  <div class="scroll-progress" aria-hidden="true">
-    <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
-  </div>
-
   <!-- Navigation -->
   <header class="nav">
     <div class="wrap nav-inner">
@@ -70,7 +65,7 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero" id="hero-section">
       <div class="wrap">
         <h1 id="hero-title">
           Ethical AI solutions.<br>
@@ -100,8 +95,8 @@
             <div class="stage-identity">
               <div class="klang-mark" aria-hidden="true">
                 <svg viewBox="0 0 256 256">
-                  <rect x="52" y="40" width="26" height="176" fill="#FFFFFF"/>
-                  <polyline points="191.5,39.5 103.5,127.5 191.5,215.5" fill="none" stroke="#FFFFFF" stroke-width="26" stroke-linecap="butt" stroke-linejoin="miter"/>
+                  <rect x="52" y="40" width="26" height="176" fill="currentColor"/>
+                  <polyline points="191.5,39.5 103.5,127.5 191.5,215.5" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="butt" stroke-linejoin="miter"/>
                 </svg>
               </div>
               <div class="stage-title-group">
@@ -127,8 +122,8 @@
             <div class="ka-topbar">
               <div class="ka-logo" aria-hidden="true">
                 <svg viewBox="0 0 256 256">
-                  <rect x="52" y="40" width="26" height="176" fill="#FFFFFF"/>
-                  <polyline points="191.5,39.5 103.5,127.5 191.5,215.5" fill="none" stroke="#FFFFFF" stroke-width="26" stroke-linecap="butt" stroke-linejoin="miter"/>
+                  <rect x="52" y="40" width="26" height="176" fill="currentColor"/>
+                  <polyline points="191.5,39.5 103.5,127.5 191.5,215.5" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="butt" stroke-linejoin="miter"/>
                 </svg>
               </div>
 
@@ -195,6 +190,16 @@
                   <input id="ka-master-vol" type="range" min="0" max="100" value="75" class="ka-slider" aria-label="Master preview volume">
                   <span id="ka-vol-label" class="ka-vol-val">75%</span>
                 </div>
+
+                <button type="button" id="ka-theme-toggle" class="ka-icon-action ka-theme-btn" title="Switch KLANG dark/light theme" aria-label="Switch KLANG dark or light theme">
+                  <svg class="ka-i-sun" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+                  </svg>
+                  <svg class="ka-i-moon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                  </svg>
+                </button>
               </div>
             </div>
 
@@ -388,7 +393,7 @@
                 </div>
 
                 <div class="ka-transport-right">
-                  <span class="ka-engine-badge">ON-DEVICE ENGINE &middot; 0 B CLOUD</span>
+                  <span class="ka-engine-badge">Local Engine &middot; Offline</span>
                 </div>
               </div>
             </div>
@@ -435,11 +440,11 @@
       </div>
     </section>
 
-    <!-- Scroll-Reactive Signal String Divider -->
+    <!-- Scroll-Reactive Hairline Divider -->
     <div class="wrap">
       <div class="signal-divider" aria-hidden="true">
-        <svg viewBox="0 0 1040 28" preserveAspectRatio="none">
-          <path class="signal-path" d="M 0 14 Q 520 14 1040 14"></path>
+        <svg viewBox="0 0 1040 24" preserveAspectRatio="none">
+          <path class="signal-path" d="M 0 12 Q 520 12 1040 12"></path>
         </svg>
       </div>
     </div>
@@ -467,13 +472,6 @@
             </div>
             <h3>100% Local Inference</h3>
             <p>Models execute directly on your machine. Your files, audio, and queries never touch a cloud server.</p>
-            <div class="ethos-meter" aria-hidden="true">
-              <div class="ethos-meter-bar"><span class="ethos-meter-fill" data-fill="100"></span></div>
-              <div class="ethos-meter-labels">
-                <span>ON-DEVICE EXECUTION</span>
-                <span>100%</span>
-              </div>
-            </div>
           </div>
 
           <!-- Cell 2: Zero Subscriptions -->
@@ -489,13 +487,6 @@
             </div>
             <h3>Zero Subscriptions</h3>
             <p>Pay once and own your software outright. No monthly rent, credit packs, or API lock-in.</p>
-            <div class="ethos-meter" aria-hidden="true">
-              <div class="ethos-meter-bar"><span class="ethos-meter-fill" data-fill="0"></span></div>
-              <div class="ethos-meter-labels">
-                <span>RECURRING RENT</span>
-                <span>$0 FOREVER</span>
-              </div>
-            </div>
           </div>
 
           <!-- Cell 3: Zero Telemetry -->
@@ -507,17 +498,10 @@
                   <line x1="1" y1="1" x2="23" y2="23"></line>
                 </svg>
               </div>
-              <span class="ethos-metric">0 B/s</span>
+              <span class="ethos-metric">0 B / s</span>
             </div>
             <h3>Zero Telemetry</h3>
             <p>No mandatory accounts, no background analytics, and full functionality completely offline.</p>
-            <div class="ethos-meter" aria-hidden="true">
-              <div class="ethos-meter-bar"><span class="ethos-meter-fill" data-fill="0"></span></div>
-              <div class="ethos-meter-labels">
-                <span>OUTBOUND PACKETS</span>
-                <span>AIR-GAPPED</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -679,6 +663,7 @@
     <span id="toast-text">Email copied</span>
   </div>
 
+  <script src="js/lenis.min.js"></script>
   <script src="js/gsap.min.js"></script>
   <script src="js/ScrollTrigger.min.js"></script>
   <script src="js/main.js"></script>
