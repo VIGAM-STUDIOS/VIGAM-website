@@ -348,7 +348,7 @@ a {
 
 /* ---------------------------------------------------------------- Project Stage (KLANG) */
 .showcase-section {
-  padding-bottom: 56px;
+  padding: 24px 0 56px;
 }
 
 .stage-perspective {
@@ -444,31 +444,50 @@ a {
   flex-wrap: wrap;
 }
 
-/* Stage Engine Status Badge */
-.stage-engine-badge {
-  display: inline-flex;
+.query-chips {
+  display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--ink-2);
-  letter-spacing: 0.03em;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.engine-dot-pulse {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.65);
+.query-chips-label {
+  font-size: 12px;
+  color: var(--ink-3);
+  font-weight: 500;
+  margin-right: 2px;
+}
+
+.query-chip {
+  padding: 4px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.query-chip:hover {
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.query-chip.active {
+  color: var(--ink);
+  background: var(--surface-2);
+  border-color: var(--line-strong);
+}
+
+/* ---------------------------------------------------------------- Responsive Visibility Utilities */
+.mobile-only {
+  display: none !important;
 }
 
 /* ============================================================================
-   PRODUCT SHOWCASE VIEWPORT (Picture of KLANG)
+   MOBILE PRODUCT SHOWCASE VIEWPORT (Picture of KLANG)
    ============================================================================ */
 .stage-viewport {
   position: relative;
@@ -527,11 +546,11 @@ a {
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #717684;
-  background: rgba(255, 255, 255, 0.04);
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.28);
   padding: 2px 7px;
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .stage-img-wrap {
@@ -552,7 +571,8 @@ a {
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.stage-frame-link:hover .stage-img {
+.stage-frame-link:hover .stage-img,
+.stage-frame-link:active .stage-img {
   transform: scale(1.012);
   filter: brightness(1.03);
 }
@@ -577,16 +597,16 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 22px;
-  border-radius: 999px;
+  padding: 10px 18px;
   background: #ffffff;
   color: #0b0c0e;
-  font-size: 13.5px;
+  border-radius: 999px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.2);
-  transform: translateY(8px);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  transform: translateY(4px);
+  transition: transform 0.3s ease;
 }
 
 .stage-frame-link:hover .stage-cta-pill {
@@ -596,11 +616,1188 @@ a {
 .stage-cta-pill svg {
   width: 14px;
   height: 14px;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  fill: none;
+}
+
+.stage-engine-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.engine-dot-pulse {
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+  animation: pulseDot 2.2s infinite ease-out;
+}
+
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+  70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* ============================================================================
+   WORKING KLANG DESKTOP MOCKUP (.klang-app)
+   Supports full Dark Mode & Light Mode (Teenage Engineering Field Aesthetic)
+   ============================================================================ */
+:root[data-theme="dark"] .klang-app:not([data-klang-theme="light"]),
+.klang-app[data-klang-theme="dark"] {
+  --ka-bg: #0c0d10;
+  --ka-ink: #f4f5f7;
+  --ka-ink-2: #8e929e;
+  --ka-ink-3: #636773;
+  --ka-border: rgba(255, 255, 255, 0.08);
+  --ka-topbar-bg: #0e1014;
+  --ka-box-bg: #14161c;
+  --ka-box-border: rgba(255, 255, 255, 0.12);
+  --ka-box-focus-border: rgba(255, 255, 255, 0.28);
+  --ka-box-focus-shadow: rgba(255, 255, 255, 0.04);
+  --ka-action-hover: rgba(255, 255, 255, 0.07);
+  --ka-kbd-bg: #1b1d24;
+  --ka-kbd-border: rgba(255, 255, 255, 0.1);
+  --ka-kbd-ink: #828691;
+  --ka-mode-pill-bg: #14161c;
+  --ka-mode-pill-border: rgba(255, 255, 255, 0.1);
+  --ka-mode-btn-active-bg: #232630;
+  --ka-mode-btn-active-ink: #f4f5f7;
+  --ka-mode-btn-active-sub: #b5b9c4;
+  --ka-mode-btn-shadow: none;
+  --ka-pill-bg: #171920;
+  --ka-pill-border: rgba(255, 255, 255, 0.12);
+  --ka-pill-ink: #c8cbd4;
+  --ka-pill-hover-border: rgba(255, 255, 255, 0.22);
+  --ka-pill-active-bg: #1f232c;
+  --ka-pill-active-border: rgba(255, 255, 255, 0.22);
+  --ka-pill-active-ink: #ffffff;
+  --ka-slider-track: #262934;
+  --ka-slider-thumb-border: #0e1014;
+  --ka-drawer-bg: #0b0c0f;
+  --ka-key-bg: #13151b;
+  --ka-key-border: rgba(255, 255, 255, 0.08);
+  --ka-key-hover-border: rgba(255, 255, 255, 0.2);
+  --ka-key-active-bg: #252833;
+  --ka-key-active-border: rgba(255, 255, 255, 0.28);
+  --ka-key-active-ink: #ffffff;
+  --ka-card-bg: #12141a;
+  --ka-card-border: rgba(255, 255, 255, 0.075);
+  --ka-card-hover-bg: #15171e;
+  --ka-card-hover-border: rgba(255, 255, 255, 0.15);
+  --ka-card-shadow: none;
+  --ka-dial-track: #252833;
+  --ka-dial-fill: #f4f5f7;
+  --ka-seg-bg: #171a22;
+  --ka-seg-border: rgba(255, 255, 255, 0.08);
+  --ka-seg-ink: #8b8f9c;
+  --ka-seg-hover-border: rgba(255, 255, 255, 0.18);
+  --ka-seg-active-bg: #2a2e3b;
+  --ka-seg-active-border: rgba(255, 255, 255, 0.28);
+  --ka-seg-active-ink: #ffffff;
+  --ka-rows-bg: #0c0d10;
+  --ka-row-border: rgba(255, 255, 255, 0.055);
+  --ka-row-hover: rgba(255, 255, 255, 0.025);
+  --ka-row-selected: rgba(255, 255, 255, 0.025);
+  --ka-row-playing: rgba(255, 255, 255, 0.045);
+  --ka-grip-ink: #454852;
+  --ka-play-btn-bg: #171920;
+  --ka-play-btn-border: rgba(255, 255, 255, 0.12);
+  --ka-play-btn-ink: #d5d8e0;
+  --ka-play-btn-hover-border: rgba(255, 255, 255, 0.3);
+  --ka-accent-btn-bg: #f4f5f7;
+  --ka-accent-btn-ink: #0b0c0e;
+  --ka-wave-idle: #444854;
+  --ka-wave-hover: #5a5f6e;
+  --ka-wave-played: #f4f5f7;
+  --ka-wave-unplayed: #5e6372;
+  --ka-playhead-bg: #ffffff;
+  --ka-playhead-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  --ka-tag-bg: rgba(16, 185, 129, 0.13);
+  --ka-tag-border: rgba(52, 211, 153, 0.28);
+  --ka-tag-ink: #34d399;
+  --ka-dur-ink: #e1e4ec;
+  --ka-similar-bg: #15171e;
+  --ka-similar-border: rgba(255, 255, 255, 0.1);
+  --ka-similar-ink: #c2c6d1;
+  --ka-similar-hover-bg: #222631;
+  --ka-similar-hover-border: rgba(255, 255, 255, 0.24);
+  --ka-transport-bg: #090a0d;
+  --ka-trans-track: #1c1f28;
+  --ka-trans-fill: #f4f5f7;
+  --ka-stepper-bg: #14161c;
+  --ka-stepper-border: rgba(255, 255, 255, 0.1);
+  --ka-step-hover-bg: rgba(255, 255, 255, 0.08);
+  --ka-pitch-ink: #e1e4ec;
+  --ka-loop-active-bg: #232733;
+  --ka-loop-active-border: rgba(255, 255, 255, 0.24);
+  --ka-loop-active-ink: #f4f5f7;
+}
+
+:root[data-theme="light"] .klang-app:not([data-klang-theme="dark"]),
+.klang-app[data-klang-theme="light"] {
+  --ka-bg: #ffffff;
+  --ka-ink: #0f1115;
+  --ka-ink-2: #525763;
+  --ka-ink-3: #8a909d;
+  --ka-border: rgba(15, 17, 21, 0.09);
+  --ka-topbar-bg: #f8f9fb;
+  --ka-box-bg: #ffffff;
+  --ka-box-border: rgba(15, 17, 21, 0.15);
+  --ka-box-focus-border: rgba(15, 17, 21, 0.4);
+  --ka-box-focus-shadow: rgba(15, 17, 21, 0.05);
+  --ka-action-hover: rgba(15, 17, 21, 0.06);
+  --ka-kbd-bg: #f1f3f6;
+  --ka-kbd-border: rgba(15, 17, 21, 0.12);
+  --ka-kbd-ink: #4b5563;
+  --ka-mode-pill-bg: #edf0f4;
+  --ka-mode-pill-border: rgba(15, 17, 21, 0.09);
+  --ka-mode-btn-active-bg: #ffffff;
+  --ka-mode-btn-active-ink: #0f1115;
+  --ka-mode-btn-active-sub: #475569;
+  --ka-mode-btn-shadow: 0 1px 3px rgba(15, 17, 21, 0.08);
+  --ka-pill-bg: #f1f3f6;
+  --ka-pill-border: rgba(15, 17, 21, 0.12);
+  --ka-pill-ink: #374151;
+  --ka-pill-hover-border: rgba(15, 17, 21, 0.24);
+  --ka-pill-active-bg: #e5e8ed;
+  --ka-pill-active-border: rgba(15, 17, 21, 0.2);
+  --ka-pill-active-ink: #0f1115;
+  --ka-slider-track: #e2e8f0;
+  --ka-slider-thumb-border: #ffffff;
+  --ka-drawer-bg: #fcfdfe;
+  --ka-key-bg: #f1f3f6;
+  --ka-key-border: rgba(15, 17, 21, 0.09);
+  --ka-key-hover-border: rgba(15, 17, 21, 0.22);
+  --ka-key-active-bg: #0f1115;
+  --ka-key-active-border: #0f1115;
+  --ka-key-active-ink: #ffffff;
+  --ka-card-bg: #ffffff;
+  --ka-card-border: rgba(15, 17, 21, 0.09);
+  --ka-card-hover-bg: #f9fafb;
+  --ka-card-hover-border: rgba(15, 17, 21, 0.18);
+  --ka-card-shadow: 0 1px 3px rgba(15, 17, 21, 0.04);
+  --ka-dial-track: #e2e8f0;
+  --ka-dial-fill: #0f1115;
+  --ka-seg-bg: #f1f3f6;
+  --ka-seg-border: rgba(15, 17, 21, 0.08);
+  --ka-seg-ink: #525763;
+  --ka-seg-hover-border: rgba(15, 17, 21, 0.2);
+  --ka-seg-active-bg: #0f1115;
+  --ka-seg-active-border: #0f1115;
+  --ka-seg-active-ink: #ffffff;
+  --ka-rows-bg: #ffffff;
+  --ka-row-border: rgba(15, 17, 21, 0.065);
+  --ka-row-hover: rgba(15, 17, 21, 0.025);
+  --ka-row-selected: rgba(15, 17, 21, 0.035);
+  --ka-row-playing: rgba(15, 17, 21, 0.048);
+  --ka-grip-ink: #cbd5e1;
+  --ka-play-btn-bg: #f1f3f6;
+  --ka-play-btn-border: rgba(15, 17, 21, 0.12);
+  --ka-play-btn-ink: #374151;
+  --ka-play-btn-hover-border: rgba(15, 17, 21, 0.3);
+  --ka-accent-btn-bg: #0f1115;
+  --ka-accent-btn-ink: #ffffff;
+  --ka-wave-idle: #cbd5e1;
+  --ka-wave-hover: #94a3b8;
+  --ka-wave-played: #0f1115;
+  --ka-wave-unplayed: #64748b;
+  --ka-playhead-bg: #0f1115;
+  --ka-playhead-shadow: 0 0 5px rgba(15, 17, 21, 0.4);
+  --ka-tag-bg: rgba(16, 185, 129, 0.12);
+  --ka-tag-border: rgba(16, 185, 129, 0.35);
+  --ka-tag-ink: #047857;
+  --ka-dur-ink: #1f2937;
+  --ka-similar-bg: #f1f3f6;
+  --ka-similar-border: rgba(15, 17, 21, 0.1);
+  --ka-similar-ink: #475569;
+  --ka-similar-hover-bg: #e2e8f0;
+  --ka-similar-hover-border: rgba(15, 17, 21, 0.22);
+  --ka-transport-bg: #f8f9fb;
+  --ka-trans-track: #e2e8f0;
+  --ka-trans-fill: #0f1115;
+  --ka-stepper-bg: #f1f3f6;
+  --ka-stepper-border: rgba(15, 17, 21, 0.12);
+  --ka-step-hover-bg: rgba(15, 17, 21, 0.06);
+  --ka-pitch-ink: #1f2937;
+  --ka-loop-active-bg: #0f1115;
+  --ka-loop-active-border: #0f1115;
+  --ka-loop-active-ink: #ffffff;
+}
+
+.klang-app {
+  background: var(--ka-bg);
+  color: var(--ka-ink);
+  border-bottom: 1px solid var(--ka-border);
+  user-select: none;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  max-width: 100%;
+  overflow: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* 1. Top Search & Controls Bar */
+.ka-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: var(--ka-topbar-bg);
+  border-bottom: 1px solid var(--ka-border);
+  flex-wrap: wrap;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.ka-logo {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--ka-ink);
+}
+
+.ka-logo svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+
+.ka-search-box {
+  flex: 1 1 220px;
+  min-width: 0;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 10px 0 12px;
+  background: var(--ka-box-bg);
+  border: 1px solid var(--ka-box-border);
+  border-radius: 8px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.25s ease;
+}
+
+.ka-search-box:focus-within {
+  border-color: var(--ka-box-focus-border);
+  box-shadow: 0 0 0 3px var(--ka-box-focus-shadow);
+}
+
+.ka-search-box.voice-active {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.ka-search-icon {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--ka-ink-2);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  flex-shrink: 0;
+}
+
+.ka-search-input {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--ka-ink);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.ka-search-input::placeholder {
+  color: var(--ka-ink-3);
+}
+
+.ka-search-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.ka-icon-action {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  color: var(--ka-ink-2);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.ka-icon-action:hover {
+  color: var(--ka-ink);
+  background: var(--ka-action-hover);
+}
+
+.ka-icon-action.recording {
+  color: #059669;
+  background: rgba(5, 150, 105, 0.12);
+}
+
+.ka-icon-action svg {
+  width: 13.5px;
+  height: 13.5px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 1.85;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.ka-kbd {
+  display: inline-grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 4px;
+  border: 1px solid var(--ka-kbd-border);
+  background: var(--ka-kbd-bg);
+  color: var(--ka-kbd-ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+}
+
+.ka-status-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--ka-ink-2);
+  white-space: nowrap;
+}
+
+.ka-count-main {
+  color: var(--ka-ink);
+  font-weight: 500;
+}
+
+.ka-count-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ka-ink-2);
+}
+
+.ka-topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ka-mode-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  background: var(--ka-mode-pill-bg);
+  border: 1px solid var(--ka-mode-pill-border);
+  border-radius: 7px;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.ka-mode-btn {
+  padding: 4px 10px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  color: var(--ka-ink-2);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.ka-mode-btn span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ka-ink-3);
+}
+
+.ka-mode-btn.active {
+  background: var(--ka-mode-btn-active-bg);
+  color: var(--ka-mode-btn-active-ink);
+  box-shadow: var(--ka-mode-btn-shadow);
+}
+
+.ka-mode-btn.active span {
+  color: var(--ka-mode-btn-active-sub);
+}
+
+.ka-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 7px;
+  border: 1px solid var(--ka-pill-border);
+  background: var(--ka-pill-bg);
+  color: var(--ka-pill-ink);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.ka-pill-btn:hover {
+  border-color: var(--ka-pill-hover-border);
+  color: var(--ka-ink);
+}
+
+.ka-pill-btn.active {
+  background: var(--ka-pill-active-bg);
+  border-color: var(--ka-pill-active-border);
+  color: var(--ka-pill-active-ink);
+}
+
+.ka-pill-btn svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.85;
+  stroke-linecap: round;
+}
+
+.ka-filter-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  opacity: 0.4;
+  transition: opacity 0.15s ease;
+}
+
+.ka-pill-btn.active .ka-filter-dot {
+  opacity: 1;
+}
+
+.ka-vol-Top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ka-ink-2);
+}
+
+.ka-vol-Top svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ka-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 68px;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--ka-slider-track);
+  outline: none;
+  cursor: pointer;
+}
+
+.ka-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ka-accent-btn-bg);
+  border: 2px solid var(--ka-slider-thumb-border);
+  cursor: pointer;
+}
+
+.ka-vol-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ka-ink-2);
+  min-width: 28px;
+}
+
+/* In-mockup Theme Toggle Pill */
+.ka-theme-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--ka-box-border);
+  background: var(--ka-box-bg);
+}
+
+.ka-theme-btn:hover {
+  background: var(--ka-pill-active-bg);
+}
+
+.ka-theme-btn .ka-i-moon {
+  display: none;
+}
+
+:root[data-theme="light"] .klang-app:not([data-klang-theme="dark"]) .ka-theme-btn .ka-i-sun,
+.klang-app[data-klang-theme="light"] .ka-theme-btn .ka-i-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .klang-app:not([data-klang-theme="dark"]) .ka-theme-btn .ka-i-moon,
+.klang-app[data-klang-theme="light"] .ka-theme-btn .ka-i-moon {
+  display: block;
+}
+
+/* 2. Analog / Studio Macro Filters Drawer */
+.ka-macro-drawer {
+  background: var(--ka-drawer-bg);
+  border-bottom: 1px solid var(--ka-border);
+  padding: 12px 18px 16px;
+  overflow: hidden;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.ka-macro-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--ka-border);
+  flex-wrap: wrap;
+}
+
+.ka-macro-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ka-ink-2);
+}
+
+.ka-macro-title svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.ka-key-strip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.ka-key-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ka-ink-3);
+  margin-right: 4px;
+}
+
+.ka-key-btn {
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 4px;
+  border: 1px solid var(--ka-key-border);
+  background: var(--ka-key-bg);
+  color: var(--ka-ink-2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.ka-key-btn:hover {
+  color: var(--ka-ink);
+  border-color: var(--ka-key-hover-border);
+}
+
+.ka-key-btn.active {
+  background: var(--ka-key-active-bg);
+  color: var(--ka-key-active-ink);
+  border-color: var(--ka-key-active-border);
+}
+
+.ka-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: transparent;
+  color: var(--ka-ink-2);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.ka-reset-btn:hover {
+  color: var(--ka-ink);
+}
+
+.ka-reset-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* 4 Rotary Studio Dial Cards */
+.ka-dials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ka-dial-card {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 11px;
+  background: var(--ka-card-bg);
+  border: 1px solid var(--ka-card-border);
+  border-radius: 10px;
+  box-shadow: var(--ka-card-shadow);
+  transition: border-color 0.15s ease, background 0.15s ease;
+  min-width: 0;
+}
+
+.ka-dial-card:hover {
+  border-color: var(--ka-card-hover-border);
+  background: var(--ka-card-hover-bg);
+}
+
+.ka-dial-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.ka-rotary {
+  width: 40px;
+  height: 40px;
+  cursor: ns-resize;
+  position: relative;
+}
+
+.ka-rotary svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.ka-dial-track {
+  fill: none;
+  stroke: var(--ka-dial-track);
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  transform: rotate(135deg);
+  transform-origin: 28px 28px;
+}
+
+.ka-dial-arc {
+  fill: none;
+  stroke: var(--ka-dial-fill);
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  transform: rotate(135deg);
+  transform-origin: 28px 28px;
+}
+
+.ka-dial-rotor line {
+  stroke: var(--ka-dial-fill);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.ka-dial-rotor circle {
+  fill: var(--ka-dial-fill);
+}
+
+.ka-dial-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--ka-ink-2);
+}
+
+.ka-dial-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ka-dial-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.ka-dial-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ka-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ka-dial-unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: var(--ka-ink-3);
+  flex-shrink: 0;
+}
+
+.ka-dial-seg {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.ka-seg-btn {
+  height: 23px;
+  padding: 0 2px;
+  border-radius: 5px;
+  border: 1px solid var(--ka-seg-border);
+  background: var(--ka-seg-bg);
+  color: var(--ka-seg-ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.ka-seg-btn:hover {
+  color: var(--ka-ink);
+  border-color: var(--ka-seg-hover-border);
+}
+
+.ka-seg-btn.active {
+  background: var(--ka-seg-active-bg);
+  color: var(--ka-seg-active-ink);
+  border-color: var(--ka-seg-active-border);
+}
+
+/* 3. Sample Rows List */
+.ka-rows {
+  display: flex;
+  flex-direction: column;
+  min-height: 295px;
+  background: var(--ka-rows-bg);
+  transition: background-color 0.25s ease;
+}
+
+.ka-row {
+  display: grid;
+  grid-template-columns: 14px 32px minmax(175px, 1.25fr) minmax(200px, 2.1fr) 42px 124px 40px 64px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--ka-row-border);
+  transition: background 0.15s ease;
+}
+
+.ka-row:hover {
+  background: var(--ka-row-hover);
+}
+
+.ka-row.selected {
+  background: var(--ka-row-selected);
+}
+
+.ka-row.playing {
+  background: var(--ka-row-playing);
+}
+
+.ka-grip {
+  color: var(--ka-grip-ink);
+  font-size: 12px;
+  letter-spacing: -1px;
+  text-align: center;
+  cursor: grab;
+}
+
+.ka-play-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--ka-play-btn-border);
+  background: var(--ka-play-btn-bg);
+  color: var(--ka-play-btn-ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.ka-play-btn:hover {
+  border-color: var(--ka-play-btn-hover-border);
+  color: var(--ka-ink);
+  transform: scale(1.04);
+}
+
+.ka-row.selected .ka-play-btn,
+.ka-row.playing .ka-play-btn {
+  background: var(--ka-accent-btn-bg);
+  color: var(--ka-accent-btn-ink);
+  border-color: var(--ka-accent-btn-bg);
+}
+
+.ka-play-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  display: block;
+}
+
+.ka-sample-meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ka-sample-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ka-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ka-sample-cat {
+  font-size: 11.5px;
+  color: var(--ka-ink-2);
+}
+
+.ka-wave-wrap {
+  position: relative;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.ka-wave-svg {
+  width: 100%;
+  height: 32px;
+  display: block;
+  overflow: visible;
+}
+
+.ka-wave-bar {
+  fill: var(--ka-wave-idle);
+  transition: fill 0.12s ease;
+  transform-origin: center center;
+}
+
+.ka-row:hover .ka-wave-bar {
+  fill: var(--ka-wave-hover);
+}
+
+.ka-row.selected .ka-wave-bar.played,
+.ka-row.playing .ka-wave-bar.played {
+  fill: var(--ka-wave-played);
+}
+
+.ka-row.selected .ka-wave-bar.unplayed,
+.ka-row.playing .ka-wave-bar.unplayed {
+  fill: var(--ka-wave-unplayed);
+}
+
+.ka-playhead {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: 1.5px;
+  background: var(--ka-playhead-bg);
+  box-shadow: var(--ka-playhead-shadow);
+  pointer-events: none;
+  opacity: 0;
+  left: 0%;
+}
+
+.ka-row.selected .ka-playhead,
+.ka-row.playing .ka-playhead {
+  opacity: 1;
+}
+
+.ka-key-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 5px;
+  background: var(--ka-tag-bg);
+  border: 1px solid var(--ka-tag-border);
+  color: var(--ka-tag-ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  justify-self: center;
+}
+
+.ka-tech-info {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  white-space: nowrap;
+}
+
+.ka-dur {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ka-dur-ink);
+}
+
+.ka-rate {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--ka-ink-3);
+}
+
+.ka-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ka-ink-2);
+  text-align: right;
+}
+
+.ka-similar-btn {
+  height: 27px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid var(--ka-similar-border);
+  background: var(--ka-similar-bg);
+  color: var(--ka-similar-ink);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  justify-self: end;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.ka-similar-btn:hover {
+  color: var(--ka-ink);
+  background: var(--ka-similar-hover-bg);
+  border-color: var(--ka-similar-hover-border);
+}
+
+/* 4. Bottom Studio Transport Bar */
+.ka-transport {
+  background: var(--ka-transport-bg);
+  border-top: 1px solid var(--ka-border);
+  position: relative;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.ka-transport-progress {
+  width: 100%;
+  height: 3px;
+  background: var(--ka-trans-track);
+  cursor: pointer;
+  position: relative;
+}
+
+.ka-transport-fill {
+  height: 100%;
+  width: 43.6%;
+  background: var(--ka-trans-fill);
+  transition: width 0.06s linear;
+}
+
+.ka-transport-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 18px;
+  flex-wrap: wrap;
+}
+
+.ka-transport-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.ka-transport-play {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ka-accent-btn-bg);
+  color: var(--ka-accent-btn-ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ka-transport-play svg {
+  width: 11px;
+  height: 11px;
+  fill: currentColor;
+}
+
+.ka-transport-play .i-stop {
+  display: none;
+}
+
+.ka-transport-play.playing .i-play {
+  display: none;
+}
+
+.ka-transport-play.playing .i-stop {
+  display: block;
+}
+
+.ka-transport-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ka-ink-2);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ka-transport-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ka-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+
+.ka-transport-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ka-pitch-stepper {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid var(--ka-stepper-border);
+  background: var(--ka-stepper-bg);
+  overflow: hidden;
+}
+
+.ka-step-btn {
+  width: 24px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: var(--ka-ink-2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.ka-step-btn:hover {
+  background: var(--ka-step-hover-bg);
+  color: var(--ka-ink);
+}
+
+.ka-pitch-val {
+  min-width: 42px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ka-pitch-ink);
+}
+
+.ka-loop-btn {
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid var(--ka-stepper-border);
+  background: var(--ka-stepper-bg);
+  color: var(--ka-ink-2);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.ka-loop-btn.active {
+  background: var(--ka-loop-active-bg);
+  color: var(--ka-loop-active-ink);
+  border-color: var(--ka-loop-active-border);
+}
+
+.ka-transport-right {
+  display: flex;
+  align-items: center;
+}
+
+.ka-engine-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--ka-ink-2);
 }
 
 /* Stage Footer */
@@ -622,6 +1819,13 @@ a {
   color: var(--ink-2);
   line-height: 1.55;
   margin-bottom: 12px;
+}
+
+.stage-summary p.stage-mockup-note {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  margin: 10px 0 0;
+  line-height: 1.4;
 }
 
 .stage-specs {
@@ -676,6 +1880,25 @@ a {
 .section-head p {
   font-size: 14px;
   color: var(--ink-2);
+}
+
+.projects-head {
+  margin-bottom: 24px;
+}
+
+.section-head-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.section-kicker {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 
 .ethos-grid {
@@ -1099,6 +2322,20 @@ a {
 
 /* ---------------------------------------------------------------- Responsive */
 @media (max-width: 920px) {
+  .ka-dials-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ka-row {
+    grid-template-columns: 32px minmax(110px, 1.2fr) minmax(100px, 1.8fr) 38px 42px 62px;
+    gap: 10px;
+  }
+
+  .ka-grip,
+  .ka-tech-info {
+    display: none;
+  }
+
   .ethos-grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1122,63 +2359,21 @@ a {
   }
 }
 
-@media (max-width: 640px) {
-  .wrap {
-    padding-inline: 16px;
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
   }
 
-  .hero {
-    padding: 44px 0 32px;
+  .mobile-only {
+    display: block !important;
   }
 
-  .nav-inner {
-    gap: 8px;
-  }
-
-  .brand {
-    font-size: 14px;
-    gap: 8px;
-  }
-
-  .brand-mark {
-    width: 26px;
-    height: 26px;
-  }
-
-  .nav-right {
-    gap: 10px;
-  }
-
-  .nav-links {
-    gap: 12px;
-  }
-
-  .nav-links a {
-    font-size: 13px;
-  }
-
-  .icon-btn {
-    width: 32px;
-    height: 32px;
-  }
-
-  .stage {
-    border-radius: 12px;
+  .mobile-only.stage-top-right {
+    display: flex !important;
   }
 
   .stage-top {
     padding: 12px 14px;
-    gap: 10px;
-  }
-
-  .stage-tagline {
-    font-size: 12px;
-    line-height: 1.4;
-  }
-
-  .stage-engine-badge {
-    font-size: 10px;
-    padding: 3px 8px;
   }
 
   .stage-window-bar {
@@ -1187,10 +2382,7 @@ a {
 
   .window-title {
     font-size: 10px;
-    max-width: 170px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: 180px;
   }
 
   .window-badge {
@@ -1198,12 +2390,19 @@ a {
   }
 
   .stage-bottom {
-    padding: 16px 14px;
+    padding: 18px 16px;
     gap: 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stage-bottom .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .stage-summary p {
-    font-size: 13px;
+    font-size: 13.5px;
     margin-bottom: 12px;
   }
 
@@ -1215,27 +2414,39 @@ a {
     font-size: 12px;
   }
 
-  .stage-bottom .btn {
-    width: 100%;
-    justify-content: center;
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
 
-  /* Prevent hover overlay from blocking tap on touch devices */
-  .stage-hover-overlay {
-    display: none;
+  .section-head p {
+    max-width: 100%;
   }
 }
 
-@media (max-width: 400px) {
-  .brand span {
-    display: none;
+@media (max-width: 640px) {
+  .wrap {
+    padding-inline: 14px;
   }
 
-  .nav-links {
+  .hero {
+    padding: 44px 0 32px;
+  }
+
+  .nav-inner {
+    gap: 8px;
+  }
+
+  .nav-right {
     gap: 10px;
   }
 
+  .nav-links {
+    gap: 12px;
+  }
+
   .nav-links a {
-    font-size: 12px;
+    font-size: 12.5px;
   }
 }
