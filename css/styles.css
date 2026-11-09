@@ -2074,6 +2074,11 @@ a {
   flex-shrink: 0;
 }
 
+.founder-avatar-shivam,
+.founder-avatar[src*="shivam"] {
+  object-position: center top;
+}
+
 .founder-name {
   font-size: 14.5px;
   font-weight: 600;
