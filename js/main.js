@@ -1612,9 +1612,8 @@
       var aboutTl = gsap.timeline({
         scrollTrigger: {
           trigger: aboutSection,
-          start: 'clamp(top 92%)',
-          end: 'clamp(bottom 78%)',
-          scrub: 0.45
+          start: 'top 85%',
+          toggleActions: 'play none none none'
         }
       });
 
@@ -1623,25 +1622,25 @@
           yPercent: 115,
           opacity: 0,
           duration: 0.5,
-          stagger: 0.06,
+          stagger: 0.05,
           ease: 'power2.out'
         }, 0);
       }
 
       aboutTl.from(aboutSection.querySelector('.about-copy p'), {
-        y: 24,
+        y: 18,
         opacity: 0,
-        duration: 0.6,
+        duration: 0.55,
         ease: 'power2.out'
       }, 0.08).from(aboutSection.querySelectorAll('.founder-row'), {
-        x: 42,
-        y: 14,
-        scale: 0.97,
+        y: 22,
+        scale: 0.98,
         opacity: 0,
-        duration: 0.75,
-        stagger: 0.16,
-        ease: 'power2.out'
-      }, 0.14);
+        duration: 0.65,
+        stagger: 0.12,
+        ease: 'power2.out',
+        clearProps: 'transform,opacity'
+      }, 0.12);
     }
 
     var contactSection = document.getElementById('contact');
@@ -1650,9 +1649,8 @@
       var contactTl = gsap.timeline({
         scrollTrigger: {
           trigger: contactSection,
-          start: 'clamp(top 95%)',
-          end: 'clamp(bottom 92%)',
-          scrub: 0.45
+          start: 'top 85%',
+          toggleActions: 'play none none none'
         }
       });
 
@@ -1661,25 +1659,25 @@
           yPercent: 115,
           opacity: 0,
           duration: 0.5,
-          stagger: 0.06,
+          stagger: 0.05,
           ease: 'power2.out'
         }, 0);
       }
 
       contactTl.from(contactSection.querySelector('.contact-copy p'), {
-        y: 24,
+        y: 18,
         opacity: 0,
-        duration: 0.6,
+        duration: 0.55,
         ease: 'power2.out'
       }, 0.08).from(contactSection.querySelectorAll('.contact-card'), {
-        x: 42,
-        y: 14,
-        scale: 0.97,
+        y: 22,
+        scale: 0.98,
         opacity: 0,
-        duration: 0.75,
-        stagger: 0.16,
-        ease: 'power2.out'
-      }, 0.14);
+        duration: 0.65,
+        stagger: 0.12,
+        ease: 'power2.out',
+        clearProps: 'transform,opacity'
+      }, 0.12);
     }
 
     window.addEventListener('load', function () {
