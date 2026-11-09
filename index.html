@@ -86,7 +86,7 @@
       </div>
     </section>
 
-    <!-- Featured Project: KLANG (Interactive Working Mockup) -->
+    <!-- Featured Project: KLANG -->
     <section id="klang" class="showcase-section" aria-label="Featured project KLANG">
       <div class="wrap stage-perspective">
         <article id="klang-stage" class="stage">
@@ -106,297 +106,44 @@
             </div>
 
             <div class="stage-top-right">
-              <div class="query-chips" aria-label="Try sample queries">
-                <span class="query-chips-label">Try:</span>
-                <button type="button" class="query-chip active" data-preset-query="warm analog pad">warm analog pad</button>
-                <button type="button" class="query-chip" data-preset-query="punchy dusty snare">punchy dusty snare</button>
-                <button type="button" class="query-chip" data-preset-query="distorted sub 808">distorted sub 808</button>
-                <button type="button" class="query-chip" data-preset-query="glassy arp pluck">glassy arp pluck</button>
-              </div>
+              <span class="stage-engine-badge">
+                <span class="engine-dot-pulse" aria-hidden="true"></span>
+                100% On-Device Engine
+              </span>
             </div>
           </div>
 
-          <!-- ==================== INTERACTIVE WORKING KLANG MOCKUP ==================== -->
-          <div id="klang-mockup-view" class="klang-app" role="region" aria-label="Interactive KLANG desktop application mockup">
-            <!-- 1. KLANG Top Search & Utility Bar -->
-            <div class="ka-topbar">
-              <div class="ka-logo" aria-hidden="true">
-                <svg viewBox="0 0 256 256">
-                  <rect x="52" y="40" width="26" height="176" fill="currentColor"/>
-                  <polyline points="191.5,39.5 103.5,127.5 191.5,215.5" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="butt" stroke-linejoin="miter"/>
-                </svg>
+          <!-- Product Showcase Window (Picture of KLANG) -->
+          <div class="stage-viewport">
+            <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="stage-frame-link" aria-label="Explore KLANG">
+              <div class="stage-window-bar" aria-hidden="true">
+                <div class="window-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="window-title">KLANG &mdash; Local Sound Search &amp; Sampler</div>
+                <div class="window-badge">Standalone App</div>
               </div>
-
-              <div class="ka-search-box" id="ka-search-box">
-                <svg class="ka-search-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="11" cy="11" r="7"></circle>
-                  <path d="M20 20l-3.8-3.8"></path>
-                </svg>
-                <input
-                  id="ka-search-input"
-                  type="text"
-                  class="ka-search-input"
-                  value="warm analog pad"
-                  placeholder="Describe a sound (e.g. warm analog pad, woody snare, dark 808)..."
-                  autocomplete="off"
-                  spellcheck="false"
-                  aria-label="Search audio samples by sound description"
+              <div class="stage-img-wrap">
+                <img
+                  src="assets/klang-hero.png"
+                  alt="KLANG desktop application searching audio samples by sound description"
+                  class="stage-img"
+                  loading="eager"
+                  width="1920"
+                  height="1080"
                 >
-                <div class="ka-search-actions">
-                  <button type="button" id="ka-clear-btn" class="ka-icon-action" title="Clear query" aria-label="Clear search query">
+                <div class="stage-hover-overlay">
+                  <span class="stage-cta-pill">
+                    Explore KLANG
                     <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M18 6L6 18M6 6l12 12"></path>
+                      <path d="M7 17L17 7M9 7h8v8"></path>
                     </svg>
-                  </button>
-                  <button type="button" id="ka-mic-btn" class="ka-icon-action" title="Simulate voice / beatbox query" aria-label="Simulate voice query">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <rect x="9" y="2" width="6" height="11" rx="3"></rect>
-                      <path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"></path>
-                    </svg>
-                  </button>
-                  <kbd class="ka-kbd">/</kbd>
+                  </span>
                 </div>
               </div>
-
-              <div class="ka-status-meta">
-                <span id="ka-count-text" class="ka-count-main">5 sounds</span>
-                <span class="ka-count-sep">&middot;</span>
-                <span id="ka-latency-text" class="ka-count-sub">11 ms local</span>
-              </div>
-
-              <div class="ka-topbar-right">
-                <div class="ka-mode-pill" role="group" aria-label="Library type">
-                  <button type="button" class="ka-mode-btn active" data-lib-mode="audio">
-                    Audio <span id="ka-audio-badge">25</span>
-                  </button>
-                  <button type="button" class="ka-mode-btn" data-lib-mode="presets">
-                    Presets <span>5</span>
-                  </button>
-                </div>
-
-                <button type="button" id="ka-filters-toggle" class="ka-pill-btn active" aria-expanded="true">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 6h16M7 12h10M10 18h4"></path>
-                  </svg>
-                  Filters
-                  <span class="ka-filter-dot" aria-hidden="true"></span>
-                </button>
-
-                <div class="ka-vol-Top" title="Preview output gain">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                  </svg>
-                  <input id="ka-master-vol" type="range" min="0" max="100" value="75" class="ka-slider" aria-label="Master preview volume">
-                  <span id="ka-vol-label" class="ka-vol-val">75%</span>
-                </div>
-
-                <button type="button" id="ka-theme-toggle" class="ka-icon-action ka-theme-btn" title="Switch KLANG dark/light theme" aria-label="Switch KLANG dark or light theme">
-                  <svg class="ka-i-sun" viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
-                  </svg>
-                  <svg class="ka-i-moon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- 2. Analog / Studio Macro Filters Drawer -->
-            <div id="ka-macro-drawer" class="ka-macro-drawer">
-              <div class="ka-macro-bar">
-                <div class="ka-macro-title">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <line x1="4" y1="21" x2="4" y2="14"></line>
-                    <line x1="4" y1="10" x2="4" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12" y2="3"></line>
-                    <line x1="20" y1="21" x2="20" y2="16"></line>
-                    <line x1="20" y1="12" x2="20" y2="3"></line>
-                    <line x1="1" y1="14" x2="7" y2="14"></line>
-                    <line x1="9" y1="8" x2="15" y2="8"></line>
-                    <line x1="17" y1="16" x2="23" y2="16"></line>
-                  </svg>
-                  <span>MACRO FILTERS</span>
-                </div>
-
-                <div class="ka-key-strip" role="group" aria-label="Filter by musical key">
-                  <span class="ka-key-label">KEY:</span>
-                  <button type="button" class="ka-key-btn active" data-key="Any">Any</button>
-                  <button type="button" class="ka-key-btn" data-key="C">C</button>
-                  <button type="button" class="ka-key-btn" data-key="D">D</button>
-                  <button type="button" class="ka-key-btn" data-key="E">E</button>
-                  <button type="button" class="ka-key-btn" data-key="F">F</button>
-                  <button type="button" class="ka-key-btn" data-key="G">G</button>
-                  <button type="button" class="ka-key-btn" data-key="A">A</button>
-                  <button type="button" class="ka-key-btn" data-key="B">B</button>
-                </div>
-
-                <button type="button" id="ka-reset-filters" class="ka-reset-btn">
-                  Reset
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M18 6L6 18M6 6l12 12"></path>
-                  </svg>
-                </button>
-              </div>
-
-              <!-- 4 Studio Rotary Dial Cards -->
-              <div class="ka-dials-grid">
-                <!-- LENGTH DIAL -->
-                <div class="ka-dial-card" data-macro="length">
-                  <div class="ka-dial-col">
-                    <div class="ka-rotary" data-dial="length" title="Click or drag vertically to adjust Length">
-                      <svg viewBox="0 0 56 56" aria-hidden="true">
-                        <circle class="ka-dial-track" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="0"></circle>
-                        <circle class="ka-dial-arc" id="dial-arc-length" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="65"></circle>
-                        <g class="ka-dial-rotor" id="dial-rotor-length" transform="rotate(-90 28 28)">
-                          <line x1="28" y1="28" x2="28" y2="12"></line>
-                          <circle cx="28" cy="28" r="2.2"></circle>
-                        </g>
-                      </svg>
-                    </div>
-                    <span class="ka-dial-caption">LENGTH</span>
-                  </div>
-                  <div class="ka-dial-body">
-                    <div class="ka-dial-head">
-                      <span class="ka-dial-val" id="dial-val-length">Any Length</span>
-                      <span class="ka-dial-unit">min/max</span>
-                    </div>
-                    <div class="ka-dial-seg">
-                      <button type="button" class="ka-seg-btn active" data-macro-btn="length" data-val="all">All</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="length" data-val="oneshot">1-Shot</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="length" data-val="loop">Loop</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- TONE DIAL -->
-                <div class="ka-dial-card" data-macro="tone">
-                  <div class="ka-dial-col">
-                    <div class="ka-rotary" data-dial="tone" title="Click or drag vertically to adjust Tone">
-                      <svg viewBox="0 0 56 56" aria-hidden="true">
-                        <circle class="ka-dial-track" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="0"></circle>
-                        <circle class="ka-dial-arc" id="dial-arc-tone" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="32"></circle>
-                        <g class="ka-dial-rotor" id="dial-rotor-tone" transform="rotate(0 28 28)">
-                          <line x1="28" y1="28" x2="28" y2="12"></line>
-                          <circle cx="28" cy="28" r="2.2"></circle>
-                        </g>
-                      </svg>
-                    </div>
-                    <span class="ka-dial-caption">TONE</span>
-                  </div>
-                  <div class="ka-dial-body">
-                    <div class="ka-dial-head">
-                      <span class="ka-dial-val" id="dial-val-tone">Any Tone</span>
-                      <span class="ka-dial-unit">min/max</span>
-                    </div>
-                    <div class="ka-dial-seg">
-                      <button type="button" class="ka-seg-btn" data-macro-btn="tone" data-val="warm">Warm</button>
-                      <button type="button" class="ka-seg-btn active" data-macro-btn="tone" data-val="all">Mid</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="tone" data-val="bright">Bright</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- ATTACK DIAL -->
-                <div class="ka-dial-card" data-macro="attack">
-                  <div class="ka-dial-col">
-                    <div class="ka-rotary" data-dial="attack" title="Click or drag vertically to adjust Attack">
-                      <svg viewBox="0 0 56 56" aria-hidden="true">
-                        <circle class="ka-dial-track" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="0"></circle>
-                        <circle class="ka-dial-arc" id="dial-arc-attack" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="48"></circle>
-                        <g class="ka-dial-rotor" id="dial-rotor-attack" transform="rotate(-45 28 28)">
-                          <line x1="28" y1="28" x2="28" y2="12"></line>
-                          <circle cx="28" cy="28" r="2.2"></circle>
-                        </g>
-                      </svg>
-                    </div>
-                    <span class="ka-dial-caption">ATTACK</span>
-                  </div>
-                  <div class="ka-dial-body">
-                    <div class="ka-dial-head">
-                      <span class="ka-dial-val" id="dial-val-attack">Any Attack</span>
-                      <span class="ka-dial-unit">min/max</span>
-                    </div>
-                    <div class="ka-dial-seg">
-                      <button type="button" class="ka-seg-btn active" data-macro-btn="attack" data-val="all">All</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="attack" data-val="punchy">Punchy</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="attack" data-val="soft">Soft</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- MATCH CUTOFF DIAL -->
-                <div class="ka-dial-card" data-macro="match">
-                  <div class="ka-dial-col">
-                    <div class="ka-rotary" data-dial="match" title="Click or drag vertically to adjust Match Cutoff">
-                      <svg viewBox="0 0 56 56" aria-hidden="true">
-                        <circle class="ka-dial-track" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="0"></circle>
-                        <circle class="ka-dial-arc" id="dial-arc-match" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="72"></circle>
-                        <g class="ka-dial-rotor" id="dial-rotor-match" transform="rotate(-75 28 28)">
-                          <line x1="28" y1="28" x2="28" y2="12"></line>
-                          <circle cx="28" cy="28" r="2.2"></circle>
-                        </g>
-                      </svg>
-                    </div>
-                    <span class="ka-dial-caption">MATCH</span>
-                  </div>
-                  <div class="ka-dial-body">
-                    <div class="ka-dial-head">
-                      <span class="ka-dial-val" id="dial-val-match">&ge; 20% Match</span>
-                      <span class="ka-dial-unit">cutoff</span>
-                    </div>
-                    <div class="ka-dial-seg">
-                      <button type="button" class="ka-seg-btn active" data-macro-btn="match" data-val="20">All</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="match" data-val="50">&gt;50%</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="match" data-val="75">&gt;75%</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3. Sample Results List -->
-            <div id="ka-rows" class="ka-rows" role="list" aria-label="Matching audio samples">
-              <!-- Populated and animated via JS -->
-            </div>
-
-            <!-- 4. Bottom Studio Transport Bar -->
-            <div class="ka-transport">
-              <div class="ka-transport-progress" id="ka-transport-track" title="Click to seek">
-                <div id="ka-transport-fill" class="ka-transport-fill"></div>
-              </div>
-
-              <div class="ka-transport-inner">
-                <div class="ka-transport-left">
-                  <button type="button" id="ka-transport-play" class="ka-transport-play" aria-label="Play or pause active sample">
-                    <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true">
-                      <polygon points="6 4 20 12 6 20 6 4"></polygon>
-                    </svg>
-                    <svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true">
-                      <rect x="6" y="6" width="12" height="12" rx="1.5"></rect>
-                    </svg>
-                  </button>
-                  <span id="ka-transport-time" class="ka-transport-time">0.00s / 3.99s</span>
-                  <span id="ka-transport-name" class="ka-transport-name">pad_warm_detuned_analog_Dmin.wav</span>
-                  <span id="ka-transport-key" class="ka-key-tag">Dm</span>
-                </div>
-
-                <div class="ka-transport-center">
-                  <div class="ka-pitch-stepper" role="group" aria-label="Real-time pitch transpose in semitones">
-                    <button type="button" id="ka-pitch-down" class="ka-step-btn" aria-label="Transpose down 1 semitone">&minus;</button>
-                    <span id="ka-pitch-val" class="ka-pitch-val">0 st</span>
-                    <button type="button" id="ka-pitch-up" class="ka-step-btn" aria-label="Transpose up 1 semitone">+</button>
-                  </div>
-                  <button type="button" id="ka-loop-btn" class="ka-loop-btn" aria-pressed="false">Loop</button>
-                </div>
-
-                <div class="ka-transport-right">
-                  <span class="ka-engine-badge">Local Engine &middot; Offline</span>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
 
           <!-- Stage Footer Summary -->
@@ -426,11 +173,10 @@
                   Free tier &middot; $24 one-time Pro
                 </li>
               </ul>
-              <p class="stage-mockup-note">Interactive web mockup of the KLANG desktop application.</p>
             </div>
 
             <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic-btn">
-              Visit KLANG Website
+              Explore KLANG
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M7 17L17 7M9 7h8v8"></path>
               </svg>
