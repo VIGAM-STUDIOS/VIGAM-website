@@ -110,36 +110,42 @@ a {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+  text-decoration: none;
   flex-shrink: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.brand-mark {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  border: 1px solid var(--line-strong);
-  background: var(--surface-2);
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.brand:hover .brand-mark {
-  border-color: var(--ink-2);
+.brand:hover {
+  opacity: 0.82;
   transform: translateY(-1px);
 }
 
-.brand-mark svg {
-  width: 13px;
-  height: 16px;
+.brand-logo {
+  height: 32px;
+  width: auto;
   display: block;
-  color: var(--ink);
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Theme-adaptive brand logo */
+:root[data-theme="dark"] .brand-logo-light,
+:root:not([data-theme="light"]) .brand-logo-light {
+  display: none !important;
+}
+
+:root[data-theme="dark"] .brand-logo-dark,
+:root:not([data-theme="light"]) .brand-logo-dark {
+  display: block !important;
+}
+
+:root[data-theme="light"] .brand-logo-dark {
+  display: none !important;
+}
+
+:root[data-theme="light"] .brand-logo-light {
+  display: block !important;
 }
 
 .nav-right {
@@ -2459,6 +2465,10 @@ a {
 
   .nav-inner {
     gap: 8px;
+  }
+
+  .brand-logo {
+    height: 28px;
   }
 
   .nav-right {
