@@ -71,8 +71,9 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Pointer event listeners
+    // Pointer event listeners (desktop only; mobile allows native unhindered touch scrolling)
     canvas.addEventListener('pointerenter', function () {
+      if (width <= 768) return;
       pointer.isHovered = true;
     });
 
@@ -84,6 +85,7 @@
     });
 
     canvas.addEventListener('pointerdown', function (e) {
+      if (width <= 768) return;
       pointer.isDragging = true;
       var rect = canvas.getBoundingClientRect();
       var px = e.clientX - rect.left;
@@ -100,6 +102,7 @@
     });
 
     canvas.addEventListener('pointermove', function (e) {
+      if (width <= 768) return;
       var rect = canvas.getBoundingClientRect();
       pointer.targetX = e.clientX - rect.left;
       pointer.targetY = e.clientY - rect.top;
@@ -190,48 +193,70 @@
             }
           }
 
-          // 1. Primary Rolling Swell (Trochoidal wave sharpening)
-          var u1 = (c * 0.8 + pointer.tiltX * 20) * k1 + (r * 1.2 + pointer.tiltY * 20) * k1 - time * spd1;
-          var swell1 = Math.sin(u1) + 0.3 * Math.sin(2 * u1);
+          var normH;
+          if (isMobile) {
+            // Downward ASCII Waterfall Simulation
+            var normY = r / (rows - 1);
+            var dropSpd = 3.8;
+            // Downward streaming ribbon cascade with horizontal oscillation
+            var stream1 = Math.sin(r * 0.22 - time * dropSpd + Math.cos(c * 0.30) * 0.9);
+            // Secondary accelerating torrent cross-stream
+            var stream2 = Math.sin(r * 0.38 - time * (dropSpd * 1.35) + c * 0.16) * 0.65;
+            // Vertical water curtain streaks
+            var curtain = Math.sin(c * 0.48 + Math.sin(r * 0.08 - time * 1.2) * 0.8) * 0.45;
+            // Fine droplet spray & turbulence
+            var spray = Math.sin(r * 0.70 - time * 5.2 + c * 0.55) * 0.25;
 
-          // 2. Cross-Sea Harmonic (Diagonal interference wave)
-          var u2 = (c * 1.1) * k2 - (r * 0.9) * k2 + time * spd2;
-          var swell2 = Math.sin(u2) * 0.65;
+            var rawH = stream1 * 0.9 + stream2 + curtain + spray;
+            // Gravity acceleration: top is gentle streaming mist, bottom crashes in dense foam
+            normH = (rawH + 1.8) / 3.6;
+            normH = normH * (0.65 + normY * 0.55);
+            normH = Math.max(0, Math.min(1, normH));
+          } else {
+            // Desktop Rolling Swells & Cross-Sea Gerstner Wave
+            // 1. Primary Rolling Swell (Trochoidal wave sharpening)
+            var u1 = (c * 0.8 + pointer.tiltX * 20) * k1 + (r * 1.2 + pointer.tiltY * 20) * k1 - time * spd1;
+            var swell1 = Math.sin(u1) + 0.3 * Math.sin(2 * u1);
 
-          // 3. Capillary Chop & Wind Ripples
-          var u3 = (c * 1.6) * k3 + (r * 1.8) * k3 - time * spd3;
-          var chop = Math.sin(u3) * 0.25;
+            // 2. Cross-Sea Harmonic (Diagonal interference wave)
+            var u2 = (c * 1.1) * k2 - (r * 0.9) * k2 + time * spd2;
+            var swell2 = Math.sin(u2) * 0.65;
 
-          // 4. Mouse Hydrodynamic Bow Wake
-          var wakeBump = 0;
-          if (pointer.isHovered) {
-            var dxM = px - pointer.x;
-            var dyM = py - pointer.y;
-            var distM = Math.sqrt(dxM * dxM + dyM * dyM);
-            if (distM < 64) {
-              wakeBump = Math.cos(distM * 0.15 - time * 4) * Math.exp(-distM / 28) * 1.2;
+            // 3. Capillary Chop & Wind Ripples
+            var u3 = (c * 1.6) * k3 + (r * 1.8) * k3 - time * spd3;
+            var chop = Math.sin(u3) * 0.25;
+
+            // 4. Mouse Hydrodynamic Bow Wake
+            var wakeBump = 0;
+            if (pointer.isHovered) {
+              var dxM = px - pointer.x;
+              var dyM = py - pointer.y;
+              var distM = Math.sqrt(dxM * dxM + dyM * dyM);
+              if (distM < 64) {
+                wakeBump = Math.cos(distM * 0.15 - time * 4) * Math.exp(-distM / 28) * 1.2;
+              }
             }
-          }
 
-          // 5. Sonic Depth Charge Ripple Interference
-          var rippleBump = 0;
-          for (var ripIdx = 0; ripIdx < ripples.length; ripIdx++) {
-            var rip = ripples[ripIdx];
-            var rx = px - rip.x;
-            var ry = py - rip.y;
-            var rDist = Math.sqrt(rx * rx + ry * ry);
-            var diffR = Math.abs(rDist - rip.radius);
-            if (diffR < 24) {
-              rippleBump += Math.cos(diffR * 0.26) * (1 - diffR / 24) * rip.strength * 1.6;
+            // 5. Sonic Depth Charge Ripple Interference
+            var rippleBump = 0;
+            for (var ripIdx = 0; ripIdx < ripples.length; ripIdx++) {
+              var rip = ripples[ripIdx];
+              var rx = px - rip.x;
+              var ry = py - rip.y;
+              var rDist = Math.sqrt(rx * rx + ry * ry);
+              var diffR = Math.abs(rDist - rip.radius);
+              if (diffR < 24) {
+                rippleBump += Math.cos(diffR * 0.26) * (1 - diffR / 24) * rip.strength * 1.6;
+              }
             }
+
+            // Combined ocean surface height field
+            var hTotal = swell1 * 1.0 + swell2 + chop + wakeBump + rippleBump;
+
+            // Standard wave height spans roughly [-1.8, 1.8]
+            normH = (hTotal + 1.8) / 3.6;
+            normH = Math.max(0, Math.min(1, normH));
           }
-
-          // Combined ocean surface height field
-          var hTotal = swell1 * 1.0 + swell2 + chop + wakeBump + rippleBump;
-
-          // Standard wave height spans roughly [-1.8, 1.8]
-          var normH = (hTotal + 1.8) / 3.6;
-          normH = Math.max(0, Math.min(1, normH));
 
           var charIdx = Math.floor(normH * (GLYPHS.length - 1));
           var ch = GLYPHS[charIdx];
