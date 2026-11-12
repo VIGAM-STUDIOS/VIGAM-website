@@ -101,7 +101,7 @@
       <hr class="divider">
     </div>
 
-    <!-- Product Section: KLANG -->
+    <!-- Product Section: KLANG (Light-Mode Carousel Showcase) -->
     <section class="section product-section" id="klang">
       <div class="grid-wrap">
         <!-- Left Column: Context & Specifications -->
@@ -134,23 +134,92 @@
           </div>
         </div>
 
-        <!-- Right Column: Visual Showcase -->
+        <!-- Right Column: Interactive Light-Mode Image Carousel -->
         <div class="col-main">
-          <figure class="product-figure">
-            <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="image-link" aria-label="Open KLANG product page">
-              <img
-                src="assets/klang-hero.png"
-                alt="KLANG desktop application searching audio samples by sound description"
-                class="product-image"
-                width="1920"
-                height="1080"
-                loading="eager"
-              >
-            </a>
-            <figcaption class="product-caption">
-              KLANG desktop interface with acoustic descriptor search and oscillogram audition.
-            </figcaption>
-          </figure>
+          <div class="carousel" id="klang-carousel" aria-roledescription="carousel" aria-label="KLANG application interface screenshots">
+            <div class="carousel-viewport">
+              <div class="carousel-track">
+                <!-- Slide 1: Home / Natural Search -->
+                <figure class="carousel-slide active" role="group" aria-roledescription="slide" aria-label="1 of 4: Search interface" data-caption="Natural sound search across local sample libraries and synthesizer patches.">
+                  <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="image-link" aria-label="Open KLANG product page">
+                    <img
+                      src="assets/klang-light-search.png"
+                      alt="KLANG desktop interface with natural language acoustic search bar"
+                      class="carousel-image"
+                      width="1920"
+                      height="1080"
+                      loading="eager"
+                    >
+                  </a>
+                </figure>
+
+                <!-- Slide 2: Search Results -->
+                <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 4: Search results" data-caption="Instant similarity ranking with real-time waveform display and harmonic key detection.">
+                  <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="image-link" aria-label="Open KLANG product page">
+                    <img
+                      src="assets/klang-light-results.jpg"
+                      alt="KLANG sample search results list showing matching acoustic snares with waveforms and musical keys"
+                      class="carousel-image"
+                      width="1920"
+                      height="1080"
+                      loading="lazy"
+                    >
+                  </a>
+                </figure>
+
+                <!-- Slide 3: Acoustic Macros -->
+                <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 4: Macro filters" data-caption="Acoustic macro filters for dialing in envelope duration, timbre, and transient attack.">
+                  <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="image-link" aria-label="Open KLANG product page">
+                    <img
+                      src="assets/klang-light-macros.jpg"
+                      alt="KLANG macro filter panel expanded with rotary dials for length, tone, attack, and match threshold"
+                      class="carousel-image"
+                      width="1920"
+                      height="1080"
+                      loading="lazy"
+                    >
+                  </a>
+                </figure>
+
+                <!-- Slide 4: Preset Inspection -->
+                <figure class="carousel-slide" role="group" aria-roledescription="slide" aria-label="4 of 4: Preset inspection" data-caption="Synthesizer patch inspection with amplitude envelopes, filter parameters, and direct drag-and-drop to DAW.">
+                  <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="image-link" aria-label="Open KLANG product page">
+                    <img
+                      src="assets/klang-light-preset.png"
+                      alt="KLANG preset inspection view for Vital patch with amplitude envelope and filter curves"
+                      class="carousel-image"
+                      width="1920"
+                      height="854"
+                      loading="lazy"
+                    >
+                  </a>
+                </figure>
+              </div>
+            </div>
+
+            <!-- Carousel Metadata & Navigation Bar -->
+            <div class="carousel-meta">
+              <div class="carousel-caption-wrap">
+                <figcaption id="carousel-caption" class="carousel-caption">
+                  Natural sound search across local sample libraries and synthesizer patches.
+                </figcaption>
+              </div>
+
+              <div class="carousel-controls">
+                <div class="carousel-indicators" role="tablist" aria-label="Select slide">
+                  <button type="button" class="indicator-btn active" role="tab" aria-selected="true" aria-label="Slide 1: Search" data-slide-index="0">01</button>
+                  <button type="button" class="indicator-btn" role="tab" aria-selected="false" aria-label="Slide 2: Results" data-slide-index="1">02</button>
+                  <button type="button" class="indicator-btn" role="tab" aria-selected="false" aria-label="Slide 3: Macros" data-slide-index="2">03</button>
+                  <button type="button" class="indicator-btn" role="tab" aria-selected="false" aria-label="Slide 4: Preset" data-slide-index="3">04</button>
+                </div>
+
+                <div class="carousel-arrows">
+                  <button type="button" id="prev-slide" class="nav-arrow-btn" aria-label="Previous screenshot">&larr;</button>
+                  <button type="button" id="next-slide" class="nav-arrow-btn" aria-label="Next screenshot">&rarr;</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

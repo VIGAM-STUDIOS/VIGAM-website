@@ -1,5 +1,5 @@
 /* =============================================================================
-   VIGAM LABS — Interactive 3D ASCII Tensor Field & Minimalist Utilities
+   VIGAM LABS — Interactive 3D ASCII Tensor Field & Minimalist Carousel
    Pure Trigonometric Mathematical Projection | 60 FPS Canvas | Zero Bloat
    ============================================================================= */
 
@@ -35,7 +35,6 @@
     var targetRotY = 0;
     var velA = 0.009;
     var velB = 0.006;
-    var isHovered = false;
     var isDragging = false;
     var lastPointerX = 0;
     var lastPointerY = 0;
@@ -134,21 +133,10 @@
       requestAnimationFrame(renderAsciiFrame);
     }
 
-    // Pointer event listeners
-    canvas.addEventListener('pointerenter', function () {
-      isHovered = true;
-    });
-
-    canvas.addEventListener('pointerleave', function () {
-      isHovered = false;
-      isDragging = false;
-    });
-
     canvas.addEventListener('pointerdown', function (e) {
       isDragging = true;
       lastPointerX = e.clientX;
       lastPointerY = e.clientY;
-      // Pulse of rotational acceleration on click
       targetRotX += (Math.random() - 0.5) * 0.4;
       targetRotY += (Math.random() - 0.5) * 0.4;
     });
@@ -178,7 +166,86 @@
   }
 
   /* -------------------------------------------------------------------------
-     2. EMAIL CLIPBOARD COPY
+     2. LIGHT-MODE KLANG IMAGE CAROUSEL
+     ------------------------------------------------------------------------- */
+  var carouselEl = document.getElementById('klang-carousel');
+  if (carouselEl) {
+    var slides = carouselEl.querySelectorAll('.carousel-slide');
+    var indicators = carouselEl.querySelectorAll('.indicator-btn');
+    var captionEl = document.getElementById('carousel-caption');
+    var prevBtn = document.getElementById('prev-slide');
+    var nextBtn = document.getElementById('next-slide');
+    var currentIndex = 0;
+
+    function showSlide(index) {
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+      currentIndex = index;
+
+      slides.forEach(function (slide, i) {
+        var isActive = i === currentIndex;
+        slide.classList.toggle('active', isActive);
+      });
+
+      indicators.forEach(function (btn, i) {
+        var isActive = i === currentIndex;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      var currentSlide = slides[currentIndex];
+      if (currentSlide && captionEl) {
+        var captionText = currentSlide.getAttribute('data-caption');
+        if (captionText) {
+          captionEl.textContent = captionText;
+        }
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        showSlide(currentIndex - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        showSlide(currentIndex + 1);
+      });
+    }
+
+    indicators.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(btn.getAttribute('data-slide-index'), 10);
+        if (!isNaN(idx)) {
+          showSlide(idx);
+        }
+      });
+    });
+
+    // Touch swipe gestures
+    var startTouchX = 0;
+    var endTouchX = 0;
+
+    carouselEl.addEventListener('touchstart', function (e) {
+      startTouchX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carouselEl.addEventListener('touchend', function (e) {
+      endTouchX = e.changedTouches[0].screenX;
+      var diff = endTouchX - startTouchX;
+      if (Math.abs(diff) > 40) {
+        if (diff < 0) {
+          showSlide(currentIndex + 1); // Swipe left
+        } else {
+          showSlide(currentIndex - 1); // Swipe right
+        }
+      }
+    }, { passive: true });
+  }
+
+  /* -------------------------------------------------------------------------
+     3. EMAIL CLIPBOARD COPY
      ------------------------------------------------------------------------- */
   var copyBtn = document.querySelector('[data-copy]');
   var copyLabel = document.getElementById('copy-label');

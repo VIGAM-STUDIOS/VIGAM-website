@@ -409,7 +409,7 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   7. PRODUCT SECTION (KLANG)
+   7. PRODUCT SECTION (KLANG LIGHT-MODE CAROUSEL)
    ----------------------------------------------------------------------------- */
 .spec-list {
   display: flex;
@@ -442,27 +442,123 @@ button {
   margin-top: auto;
 }
 
-/* Unboxed Product Figure */
-.product-figure {
-  margin-bottom: 0;
+/* Carousel Container */
+.carousel {
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-viewport {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--divider);
+  border-radius: 2px;
+  background-color: #FAF9F6;
+  overflow: hidden;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.carousel-slide.active {
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .image-link {
   display: block;
+  cursor: pointer;
 }
 
-.product-image {
+.carousel-image {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 2px;
 }
 
-.product-caption {
+/* Carousel Metadata & Controls */
+.carousel-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.carousel-caption-wrap {
+  flex: 1;
+  min-width: 220px;
+}
+
+.carousel-caption {
   font-size: 13px;
-  color: var(--text-muted);
-  margin-top: 12px;
   line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.carousel-indicators {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.indicator-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-faint);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.indicator-btn:hover {
+  color: var(--text);
+}
+
+.indicator-btn.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.carousel-arrows {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-arrow-btn {
+  font-size: 15px;
+  color: var(--text-muted);
+  padding: 2px 6px;
+  border-radius: 2px;
+  transition: color 0.15s ease, transform 0.08s ease;
+}
+
+.nav-arrow-btn:hover {
+  color: var(--text);
+}
+
+.nav-arrow-btn:active {
+  transform: translateY(1px);
 }
 
 .text-link-primary {
@@ -792,5 +888,15 @@ button {
 
   .channel-address {
     font-size: 17px;
+  }
+
+  .carousel-meta {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .carousel-controls {
+    width: 100%;
+    justify-content: space-between;
   }
 }
