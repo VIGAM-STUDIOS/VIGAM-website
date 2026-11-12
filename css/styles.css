@@ -15,7 +15,7 @@
   --text-muted: #66635E;
   --text-faint: #8E8A83;
 
-  /* Subtle hairline dividers (at most two in view) */
+  /* Subtle hairline dividers between all sections */
   --divider: #DDD9D0;
 
   /* Accent: Used ONLY as a tiny indicator dot or single primary button */
@@ -106,7 +106,7 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   3. HEADER & NAVIGATION
+   3. HEADER & NAVIGATION (PERFECT BILATERAL SWISS BALANCE)
    ----------------------------------------------------------------------------- */
 .header {
   padding-top: 40px;
@@ -120,6 +120,8 @@ button {
 
 .col-logo {
   grid-column: 1 / span 4;
+  display: flex;
+  align-items: center;
 }
 
 .brand {
@@ -134,15 +136,21 @@ button {
   display: block;
 }
 
+/* Right-aligned navigation flush to column 12 */
 .col-nav {
   grid-column: 5 / span 8;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 36px;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
@@ -316,96 +324,29 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   6. INTERACTIVE 3D ASCII TENSOR FIELD (HERO RIGHT COLUMN)
-   Inspired by 1970s Cybernetics, Bell Labs ASCII Graphics, & Dieter Rams Functionalism
+   6. PURE INTERACTIVE 3D SILICON DIE ART (HERO RIGHT COLUMN)
+   Zero surrounding text · Pure tactile kinetic novelty
    ----------------------------------------------------------------------------- */
-.hero-graphic {
+.hero-art {
   grid-column: 8 / span 5;
-  display: flex;
-  flex-direction: column;
-  user-select: none;
-  padding-left: 8px;
-}
-
-.graphic-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--divider);
-  margin-bottom: 14px;
-}
-
-.graphic-title {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.graphic-hint {
-  font-size: 12px;
-  color: var(--text-faint);
-}
-
-/* ASCII Canvas Viewport */
-.ascii-viewport {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 400 / 280;
-  background-color: transparent;
-  cursor: grab;
-  touch-action: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  aspect-ratio: 440 / 340;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
 }
 
-.ascii-viewport:active {
+.hero-art:active {
   cursor: grabbing;
 }
 
-#ascii-canvas {
+#art-canvas {
   width: 100%;
   height: 100%;
   display: block;
-}
-
-/* Telemetry Readout */
-.graphic-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-top: 14px;
-  border-top: 1px solid var(--divider);
-  margin-top: 14px;
-}
-
-.graphic-readout {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.readout-label {
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-faint);
-}
-
-.readout-value {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-}
-
-.graphic-latency {
-  font-size: 12px;
-  color: var(--text-faint);
-  text-align: right;
 }
 
 /* -----------------------------------------------------------------------------
@@ -750,9 +691,8 @@ button {
    11. FOOTER
    ----------------------------------------------------------------------------- */
 .footer {
-  padding-top: 48px;
+  padding-top: 40px;
   padding-bottom: 64px;
-  border-top: 1px solid var(--divider);
 }
 
 .footer-inner {
@@ -796,11 +736,10 @@ button {
     grid-column: 1 / -1;
   }
 
-  .hero-graphic {
+  .hero-art {
     grid-column: 1 / -1;
     max-width: 440px;
-    margin-top: 48px;
-    padding-left: 0;
+    margin-top: 36px;
   }
 
   .col-sidebar {
