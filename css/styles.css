@@ -25,6 +25,9 @@
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Mechanical motion curve inspired by Dieter Rams precision engineering */
+  --ease-swiss: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* -----------------------------------------------------------------------------
@@ -103,6 +106,17 @@ button {
   border: 0;
   border-top: 1px solid var(--divider);
   margin: 0;
+}
+
+html.js .divider {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.75s var(--ease-swiss);
+  will-change: transform;
+}
+
+html.js .divider.revealed {
+  transform: scaleX(1);
 }
 
 /* -----------------------------------------------------------------------------
@@ -237,6 +251,16 @@ button {
   touch-action: none;
 }
 
+html.js .hero-ocean-wrap {
+  opacity: 0;
+  transition: opacity 1.2s ease 0.1s;
+  will-change: opacity;
+}
+
+html.js .hero-ocean-wrap.revealed {
+  opacity: 1;
+}
+
 #ocean-canvas {
   width: 100%;
   height: 100%;
@@ -277,6 +301,40 @@ button {
   margin-bottom: 24px;
 }
 
+/* Headline baseline mask slide */
+.mask-line {
+  display: block;
+  overflow: hidden;
+}
+
+.mask-inner {
+  display: block;
+}
+
+html.js .mask-inner {
+  transform: translateY(105%);
+  opacity: 0;
+  transition: transform 0.8s var(--ease-swiss), opacity 0.8s ease;
+  will-change: transform, opacity;
+}
+
+html.js .hero-headline.revealed .mask-inner {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+html.js .hero-headline.revealed .mask-line:nth-child(1) .mask-inner {
+  transition-delay: 0.05s;
+}
+
+html.js .hero-headline.revealed .mask-line:nth-child(2) .mask-inner {
+  transition-delay: 0.12s;
+}
+
+html.js .hero-headline.revealed .mask-line:nth-child(3) .mask-inner {
+  transition-delay: 0.19s;
+}
+
 .hero-lead {
   font-size: 19px;
   font-weight: 400;
@@ -286,11 +344,37 @@ button {
   margin-bottom: 36px;
 }
 
+html.js .hero-lead {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.75s ease, transform 0.75s var(--ease-swiss);
+  will-change: opacity, transform;
+}
+
+html.js .hero-main.revealed .hero-lead {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.28s;
+}
+
 .hero-actions {
   display: flex;
   align-items: center;
   gap: 28px;
   flex-wrap: wrap;
+}
+
+html.js .hero-actions {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.75s ease, transform 0.75s var(--ease-swiss);
+  will-change: opacity, transform;
+}
+
+html.js .hero-main.revealed .hero-actions {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.38s;
 }
 
 /* Single primary button in accent color with tactile physical state */
@@ -315,7 +399,7 @@ button {
 }
 
 .btn-primary:active {
-  transform: translateY(1px);
+  transform: translateY(2px) scale(0.985);
 }
 
 .text-link {
@@ -822,3 +906,50 @@ button {
     justify-content: space-between;
   }
 }
+
+/* -----------------------------------------------------------------------------
+   12. SCROLL REVEAL (INTERSECTIONOBSERVER)
+   Dieter Rams / Ulm Clean Print Entrance · 0 KB Overhead · GPU Composited
+   ----------------------------------------------------------------------------- */
+html.js .reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s var(--ease-swiss);
+  will-change: opacity, transform;
+}
+
+html.js .reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger variants for sequential elements */
+html.js .reveal-on-scroll.stagger-1 {
+  transition-delay: 0.08s;
+}
+
+html.js .reveal-on-scroll.stagger-2 {
+  transition-delay: 0.16s;
+}
+
+html.js .reveal-on-scroll.stagger-3 {
+  transition-delay: 0.24s;
+}
+
+/* -----------------------------------------------------------------------------
+   13. ACCESSIBILITY: PREFERS REDUCED MOTION
+   ----------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html.js .mask-inner,
+  html.js .hero-lead,
+  html.js .hero-actions,
+  html.js .hero-ocean-wrap,
+  html.js .divider,
+  html.js .reveal-on-scroll {
+    transition-duration: 0.001s !important;
+    transition-delay: 0s !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+

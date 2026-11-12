@@ -357,4 +357,59 @@
       });
     });
   }
+
+  /* -------------------------------------------------------------------------
+     4. SCROLL REVEALS & HERO ENTRANCE (VANILLA INTERSECTIONOBSERVER)
+     Dieter Rams Precision Print Entrance · 0 KB Overhead · GPU Composited
+     ------------------------------------------------------------------------- */
+  function initScrollReveals() {
+    // 1. Hero Entrance trigger
+    var heroHeadline = document.querySelector('.hero-headline');
+    var heroMain = document.querySelector('.hero-main');
+    var heroOceanWrap = document.querySelector('.hero-ocean-wrap');
+
+    // Double RAF ensures initial off-screen style is registered before transition starts
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (heroHeadline) heroHeadline.classList.add('revealed');
+        if (heroMain) heroMain.classList.add('revealed');
+        if (heroOceanWrap) heroOceanWrap.classList.add('revealed');
+      });
+    });
+
+    // 2. Scroll Reveal Observer for Dividers and Content Blocks
+    if (!('IntersectionObserver' in window)) {
+      var elements = document.querySelectorAll('.reveal-on-scroll, .divider');
+      elements.forEach(function (el) {
+        el.classList.add('revealed');
+      });
+      return;
+    }
+
+    var observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.05
+    };
+
+    var revealObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    var revealTargets = document.querySelectorAll('.reveal-on-scroll, .divider');
+    revealTargets.forEach(function (target) {
+      revealObserver.observe(target);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollReveals);
+  } else {
+    initScrollReveals();
+  }
 })();
