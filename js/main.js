@@ -172,10 +172,10 @@
           var px = c * cellW + cellW * 0.5;
 
           // Panoramic Text Clearance:
-          // On desktop (width >= 768), left side (normX < 0.38) is cleared so headline & copy sit in unblemished whitespace.
-          // On mobile (width < 768), ocean occupies its dedicated lower-deck stage, rendering edge-to-edge across full width!
+          // On desktop (width >= 1025), left side (normX < 0.38) is cleared so headline & copy sit in unblemished whitespace.
+          // On mobile & tablet portrait (width < 1025), ocean occupies its dedicated lower deck, rendering edge-to-edge across full width!
           var textClearance = 1.0;
-          if (width >= 768) {
+          if (width >= 1025) {
             if (normX < 0.38) {
               continue;
             } else if (normX < 0.52) {

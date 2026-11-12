@@ -43,17 +43,6 @@
   <main>
     <!-- Hero Section -->
     <section class="section hero-section">
-      <!-- Panoramic Dense ASCII Ocean (On Desktop: Ambient right-side surge; On Mobile: Dedicated lower-deck viewport) -->
-      <div class="hero-ocean-stage">
-        <div class="ocean-stage-header mono">
-          <span class="stage-tag">Hydrodynamics · 60 FPS</span>
-          <span class="stage-hint">Touch to pulse &darr;</span>
-        </div>
-        <div class="hero-ocean-wrap" aria-hidden="true">
-          <canvas id="ocean-canvas"></canvas>
-        </div>
-      </div>
-
       <div class="grid-wrap hero-content">
         <!-- Left Column: Primary Headline, Rationale & CTA -->
         <div class="hero-main">
@@ -81,12 +70,9 @@
         <div class="hero-spacer"></div>
       </div>
 
-      <!-- Mobile Scroll Cue (Only visible on mobile at bottom of 100dvh) -->
-      <div class="hero-scroll-cue">
-        <a href="#klang" class="scroll-cue-link" aria-label="Scroll to product specifications">
-          <span class="mono">KLANG 01</span>
-          <span class="cue-arrow">&darr;</span>
-        </a>
+      <!-- Panoramic Dense ASCII Ocean Canvas -->
+      <div class="hero-ocean-wrap" aria-hidden="true">
+        <canvas id="ocean-canvas"></canvas>
       </div>
     </section>
 

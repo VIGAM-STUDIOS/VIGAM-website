@@ -230,25 +230,7 @@ button {
   background-position: -1px -1px;
 }
 
-/* Panoramic Dense ASCII Ocean Stage */
-.hero-ocean-stage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: auto;
-}
-
-.ocean-stage-header {
-  display: none; /* Only visible on mobile/tablet dedicated stage */
-}
-
-.hero-scroll-cue {
-  display: none; /* Only visible on mobile opening fold */
-}
-
+/* Panoramic Dense ASCII Ocean Canvas Background */
 .hero-ocean-wrap {
   position: absolute;
   top: 0;
@@ -805,36 +787,58 @@ html.js .hero-actions {
   }
 
   .hero-section {
-    padding-top: 52px;
-    padding-bottom: 72px;
-    min-height: 480px;
+    position: relative;
+    min-height: calc(100dvh - 66px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    overflow: hidden;
   }
 
-  .hero-ocean-wrap {
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 38%, rgba(0,0,0,1) 75%);
-    mask-image: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 38%, rgba(0,0,0,1) 75%);
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 44px 28px 24px;
+    flex: 0 0 auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .hero-main {
-    grid-column: 1 / span 8;
+    max-width: 620px;
   }
 
   .hero-spacer {
-    grid-column: 9 / span 4;
-    min-height: 300px;
+    display: none;
   }
 
   .hero-headline {
     font-size: 42px;
     line-height: 1.1;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .hero-lead {
-    font-size: 17.5px;
+    font-size: 17px;
     line-height: 1.55;
-    max-width: 38ch;
-    margin-bottom: 30px;
+    max-width: 44ch;
+    margin-bottom: 26px;
+  }
+
+  .hero-ocean-wrap {
+    position: relative;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 380px;
+    border-top: 1px solid var(--divider);
+    background-color: var(--bg);
+    overflow: hidden;
+    touch-action: none;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .col-sidebar {
@@ -946,18 +950,16 @@ html.js .hero-actions {
     font-weight: 500;
   }
 
-  /* --- HERO SECTION: DEDICATED FULL-VIEWPORT OPENING STAGE --- */
+  /* --- HERO SECTION: FULL-VIEWPORT HERO POSTER --- */
   .hero-section {
     position: relative;
-    height: calc(100dvh - 54px);
-    min-height: 560px;
-    max-height: 840px;
+    min-height: calc(100svh - 54px);
+    min-height: calc(100dvh - 54px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 0;
     overflow: hidden;
-    background-size: 24px 24px;
   }
 
   /* Upper Deck: Pure Unobscured Dieter Rams Typography */
@@ -966,9 +968,8 @@ html.js .hero-actions {
     z-index: 2;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 24px 20px 16px;
-    flex: 1 1 auto;
+    padding: 28px 20px 20px;
+    flex: 0 0 auto;
     width: 100%;
     margin: 0;
     box-sizing: border-box;
@@ -983,7 +984,7 @@ html.js .hero-actions {
   }
 
   .hero-headline {
-    font-size: clamp(26px, 7.4vw, 32px);
+    font-size: clamp(26px, 7.2vw, 32px);
     line-height: 1.12;
     letter-spacing: -0.03em;
     margin-bottom: 12px;
@@ -994,7 +995,7 @@ html.js .hero-actions {
     line-height: 1.5;
     color: var(--text-muted);
     max-width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
 
   .hero-actions {
@@ -1007,6 +1008,8 @@ html.js .hero-actions {
 
   .btn-primary {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
     padding: 11px 22px;
     font-size: 13.5px;
@@ -1018,45 +1021,14 @@ html.js .hero-actions {
     font-size: 13.5px;
   }
 
-  /* Lower Deck: Dedicated Living ASCII Ocean Stage */
-  .hero-ocean-stage {
-    position: relative;
-    width: 100%;
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid var(--divider);
-    background-color: #FAF9F6;
-    z-index: 2;
-  }
-
-  .ocean-stage-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 7px 20px;
-    font-size: 10px;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    background: rgba(239, 236, 230, 0.95);
-    border-bottom: 1px solid rgba(221, 217, 208, 0.6);
-  }
-
-  .stage-tag {
-    font-weight: 500;
-    color: var(--text-muted);
-  }
-
-  .stage-hint {
-    color: var(--accent);
-    font-weight: 500;
-  }
-
+  /* Lower Deck: Dedicated Living ASCII Ocean Deck */
   .hero-ocean-wrap {
     position: relative;
     width: 100%;
-    height: clamp(180px, 28vh, 230px);
+    flex: 1 1 auto;
+    min-height: 240px;
+    border-top: 1px solid var(--divider);
+    background-color: var(--bg);
     overflow: hidden;
     touch-action: none;
     -webkit-mask-image: none;
@@ -1068,38 +1040,6 @@ html.js .hero-actions {
     height: 100%;
     display: block;
     cursor: crosshair;
-  }
-
-  /* Bottom Cue: Anchors the bottom of the 100dvh fold */
-  .hero-scroll-cue {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 0;
-    border-top: 1px solid var(--divider);
-    background: var(--bg);
-    z-index: 2;
-  }
-
-  .scroll-cue-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    transition: color 0.15s ease;
-  }
-
-  .scroll-cue-link:hover {
-    color: var(--accent);
-  }
-
-  .cue-arrow {
-    display: inline-block;
-    font-size: 12px;
   }
 
   /* --- SECTIONS COMMON --- */
