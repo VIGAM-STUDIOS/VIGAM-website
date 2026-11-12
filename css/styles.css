@@ -230,7 +230,25 @@ button {
   background-position: -1px -1px;
 }
 
-/* Panoramic Dense ASCII Ocean Canvas Background */
+/* Panoramic Dense ASCII Ocean Stage */
+.hero-ocean-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.ocean-stage-header {
+  display: none; /* Only visible on mobile/tablet dedicated stage */
+}
+
+.hero-scroll-cue {
+  display: none; /* Only visible on mobile opening fold */
+}
+
 .hero-ocean-wrap {
   position: absolute;
   top: 0;
@@ -928,24 +946,32 @@ html.js .hero-actions {
     font-weight: 500;
   }
 
-  /* --- HERO SECTION & ADAPTIVE OCEAN MASK --- */
+  /* --- HERO SECTION: DEDICATED FULL-VIEWPORT OPENING STAGE --- */
   .hero-section {
-    padding-top: 36px;
-    padding-bottom: 48px;
-    min-height: auto;
+    position: relative;
+    height: calc(100dvh - 54px);
+    min-height: 560px;
+    max-height: 840px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    overflow: hidden;
     background-size: 24px 24px;
   }
 
-  .hero-ocean-wrap {
-    /* Subtle background wash behind mobile copy, surging to full density near bottom */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.85) 100%);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.85) 100%);
-  }
-
+  /* Upper Deck: Pure Unobscured Dieter Rams Typography */
   .hero-content {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    padding: 24px 20px 16px;
+    flex: 1 1 auto;
     width: 100%;
+    margin: 0;
+    box-sizing: border-box;
   }
 
   .hero-main {
@@ -957,40 +983,123 @@ html.js .hero-actions {
   }
 
   .hero-headline {
-    font-size: clamp(28px, 8vw, 36px);
+    font-size: clamp(26px, 7.4vw, 32px);
     line-height: 1.12;
     letter-spacing: -0.03em;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .hero-lead {
-    font-size: 16px;
+    font-size: 14.5px;
     line-height: 1.5;
     color: var(--text-muted);
     max-width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
 
   .hero-actions {
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
   }
 
   .btn-primary {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    padding: 13px 20px;
-    font-size: 14px;
+    display: inline-flex;
+    width: auto;
+    padding: 11px 22px;
+    font-size: 13.5px;
   }
 
   .hero-actions .text-link {
-    text-align: center;
-    padding: 6px 0;
-    font-size: 14px;
+    text-align: left;
+    padding: 4px 0;
+    font-size: 13.5px;
+  }
+
+  /* Lower Deck: Dedicated Living ASCII Ocean Stage */
+  .hero-ocean-stage {
+    position: relative;
+    width: 100%;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--divider);
+    background-color: #FAF9F6;
+    z-index: 2;
+  }
+
+  .ocean-stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 20px;
+    font-size: 10px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    background: rgba(239, 236, 230, 0.95);
+    border-bottom: 1px solid rgba(221, 217, 208, 0.6);
+  }
+
+  .stage-tag {
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .stage-hint {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .hero-ocean-wrap {
+    position: relative;
+    width: 100%;
+    height: clamp(180px, 28vh, 230px);
+    overflow: hidden;
+    touch-action: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  #ocean-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: crosshair;
+  }
+
+  /* Bottom Cue: Anchors the bottom of the 100dvh fold */
+  .hero-scroll-cue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+    border-top: 1px solid var(--divider);
+    background: var(--bg);
+    z-index: 2;
+  }
+
+  .scroll-cue-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.15s ease;
+  }
+
+  .scroll-cue-link:hover {
+    color: var(--accent);
+  }
+
+  .cue-arrow {
+    display: inline-block;
+    font-size: 12px;
   }
 
   /* --- SECTIONS COMMON --- */

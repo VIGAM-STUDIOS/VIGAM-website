@@ -172,13 +172,15 @@
           var px = c * cellW + cellW * 0.5;
 
           // Panoramic Text Clearance:
-          // Left side (normX < 0.38) is completely cleared so the headline & copy sit in 100% pure, unblemished whitespace!
-          // Between 0.38 and 0.52, the ocean smoothly dissolves into view.
+          // On desktop (width >= 768), left side (normX < 0.38) is cleared so headline & copy sit in unblemished whitespace.
+          // On mobile (width < 768), ocean occupies its dedicated lower-deck stage, rendering edge-to-edge across full width!
           var textClearance = 1.0;
-          if (normX < 0.38) {
-            continue;
-          } else if (normX < 0.52) {
-            textClearance = (normX - 0.38) / 0.14;
+          if (width >= 768) {
+            if (normX < 0.38) {
+              continue;
+            } else if (normX < 0.52) {
+              textClearance = (normX - 0.38) / 0.14;
+            }
           }
 
           // 1. Primary Rolling Swell (Trochoidal wave sharpening)
