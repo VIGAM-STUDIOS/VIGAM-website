@@ -209,29 +209,62 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   5. HERO SECTION & SUBTLE SWISS MODULAR DOT GRID BACKGROUND
+   5. HERO SECTION & PANORAMIC DENSE ASCII OCEAN BACKGROUND
    ----------------------------------------------------------------------------- */
 .hero-section {
   position: relative;
+  overflow: hidden;
   padding-top: 64px;
   padding-bottom: 96px;
+  min-height: 520px;
   /* Faint architectural Swiss coordinate dot grid (Otl Aicher Ulm grid) */
   background-image: radial-gradient(circle at 1px 1px, rgba(28, 28, 28, 0.065) 1px, transparent 0);
   background-size: 36px 36px;
   background-position: -1px -1px;
 }
 
+/* Panoramic Dense ASCII Ocean Canvas Background */
+.hero-ocean-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto;
+  user-select: none;
+  touch-action: none;
+}
+
+#ocean-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
 .hero-content {
+  position: relative;
+  z-index: 2;
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 32px;
   align-items: center;
+  pointer-events: none;
 }
 
 /* Left column (cols 1-7): Big statement & Call to action */
 .hero-main {
   grid-column: 1 / span 7;
+  pointer-events: auto;
+}
+
+/* Right spacer column (cols 8-12): Where the dense ASCII swells surge */
+.hero-spacer {
+  grid-column: 8 / span 5;
+  min-height: 340px;
+  pointer-events: none;
 }
 
 .status-indicator {
@@ -321,32 +354,6 @@ button {
 
 .text-link:active {
   transform: translateY(1px);
-}
-
-/* -----------------------------------------------------------------------------
-   6. PURE INTERACTIVE 3D SILICON DIE ART (HERO RIGHT COLUMN)
-   Zero surrounding text · Pure tactile kinetic novelty
-   ----------------------------------------------------------------------------- */
-.hero-art {
-  grid-column: 8 / span 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  aspect-ratio: 440 / 340;
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
-}
-
-.hero-art:active {
-  cursor: grabbing;
-}
-
-#art-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
 }
 
 /* -----------------------------------------------------------------------------
@@ -736,10 +743,8 @@ button {
     grid-column: 1 / -1;
   }
 
-  .hero-art {
-    grid-column: 1 / -1;
-    max-width: 440px;
-    margin-top: 36px;
+  .hero-spacer {
+    display: none;
   }
 
   .col-sidebar {
