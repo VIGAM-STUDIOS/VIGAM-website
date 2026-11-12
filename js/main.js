@@ -58,14 +58,27 @@
 
       if (width === 0 || height === 0) return;
 
-      // On mobile (<= 768px), use high-density 4.2px x 6.8px character cells for intricate halftone detail
       var isMobile = width <= 768;
-      cellW = isMobile ? 4.2 : 7.0;
-      cellH = isMobile ? 6.8 : 11.0;
+      // Cap DPR to 1.5 on mobile to avoid GPU bandwidth thrashing while keeping crisp detail
+      var effectiveDpr = isMobile ? Math.min(dpr, 1.5) : Math.min(dpr, 2);
 
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cellW = isMobile ? 5.5 : 7.0;
+      cellH = isMobile ? 8.6 : 11.0;
+
+      canvas.width = Math.round(width * effectiveDpr);
+      canvas.height = Math.round(height * effectiveDpr);
+      ctx.setTransform(effectiveDpr, 0, 0, effectiveDpr, 0, 0);
+    }
+
+    // Visibility-aware execution: pause canvas when scrolled out of view to free 100% CPU
+    var isOceanVisible = true;
+    if ('IntersectionObserver' in window) {
+      var oceanObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          isOceanVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0.05 });
+      oceanObserver.observe(canvas);
     }
 
     window.addEventListener('resize', resize);
@@ -129,6 +142,11 @@
     var lastTimestamp = performance.now();
 
     function renderOceanFrame(now) {
+      if (!isOceanVisible) {
+        requestAnimationFrame(renderOceanFrame);
+        return;
+      }
+
       var dt = (now - lastTimestamp) * 0.001;
       if (dt > 0.1) dt = 0.1;
       lastTimestamp = now;
@@ -165,7 +183,7 @@
       var time = now * 0.0016;
 
       var isMobile = width <= 768;
-      var fontSize = isMobile ? '6.5px' : '10.5px';
+      var fontSize = isMobile ? '7.5px' : '10.5px';
       ctx.font = '500 ' + fontSize + ' "JetBrains Mono", Menlo, monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -173,6 +191,13 @@
       // Wave constants (Rolling Swells preset)
       var k1 = 0.12, k2 = 0.09, k3 = 0.22;
       var spd1 = 1.3, spd2 = 0.95, spd3 = 1.8;
+
+      // Static style cache to avoid garbage collection and string allocation overhead
+      var activeStyle = null;
+      var STYLE_ORANGE = 'rgba(217, 78, 31, 0.95)';
+      var STYLE_DARK   = 'rgba(28, 28, 28, 0.90)';
+      var STYLE_MID    = 'rgba(69, 67, 62, 0.75)';
+      var STYLE_FAINT  = 'rgba(142, 138, 131, 0.55)';
 
       for (var r = 0; r < rows; r++) {
         var py = r * cellH + cellH * 0.5;
@@ -183,7 +208,7 @@
 
           // Panoramic Text Clearance:
           // On desktop (width > 768), left side (normX < 0.38) is cleared so headline & copy sit in unblemished whitespace.
-          // On mobile (width <= 768), ocean occupies its dedicated lower deck flush against bottom: 0 with top gradient mask, rendering edge-to-edge!
+          // On mobile (width <= 768), ocean waterfall occupies full width with top gradient mask!
           var textClearance = 1.0;
           if (width > 768) {
             if (normX < 0.38) {
@@ -194,9 +219,9 @@
           }
 
           var normH;
+          var normY = r / (rows - 1);
           if (isMobile) {
             // Downward ASCII Waterfall Simulation
-            var normY = r / (rows - 1);
             var dropSpd = 3.8;
             // Downward streaming ribbon cascade with horizontal oscillation
             var stream1 = Math.sin(r * 0.22 - time * dropSpd + Math.cos(c * 0.30) * 0.9);
@@ -262,20 +287,24 @@
           var ch = GLYPHS[charIdx];
 
           if (!ch || ch === ' ') continue;
+          // In upper misty zone behind headline, cull faint dots to keep text pristine and eliminate draw overhead
+          if (isMobile && normY < 0.38 && (ch === '·' || charIdx < 2)) continue;
 
-          // Braun Specular Color Grading
+          // Braun Specular Color Grading with batch-cached fillStyle
+          var targetStyle;
           if (charIdx >= 9) {
-            // Foaming wave crests in Braun Signal Orange (#D94E1F)
-            ctx.fillStyle = 'rgba(217, 78, 31, ' + (textClearance * 0.95).toFixed(2) + ')';
+            targetStyle = (textClearance === 1.0) ? STYLE_ORANGE : 'rgba(217, 78, 31, ' + (textClearance * 0.95).toFixed(2) + ')';
           } else if (charIdx >= 7) {
-            // Dense wave face in deep charcoal (#1C1C1C)
-            ctx.fillStyle = 'rgba(28, 28, 28, ' + (textClearance * 0.90).toFixed(2) + ')';
+            targetStyle = (textClearance === 1.0) ? STYLE_DARK : 'rgba(28, 28, 28, ' + (textClearance * 0.90).toFixed(2) + ')';
           } else if (charIdx >= 4) {
-            // Mid-swell body in muted dark tone (#45433E)
-            ctx.fillStyle = 'rgba(69, 67, 62, ' + (textClearance * 0.75).toFixed(2) + ')';
+            targetStyle = (textClearance === 1.0) ? STYLE_MID : 'rgba(69, 67, 62, ' + (textClearance * 0.75).toFixed(2) + ')';
           } else {
-            // Deep troughs in subtle hairline tone (#8E8A83)
-            ctx.fillStyle = 'rgba(142, 138, 131, ' + (textClearance * 0.55).toFixed(2) + ')';
+            targetStyle = (textClearance === 1.0) ? STYLE_FAINT : 'rgba(142, 138, 131, ' + (textClearance * 0.55).toFixed(2) + ')';
+          }
+
+          if (targetStyle !== activeStyle) {
+            ctx.fillStyle = targetStyle;
+            activeStyle = targetStyle;
           }
 
           ctx.fillText(ch, px, py);
@@ -403,9 +432,9 @@
       gsap.registerPlugin(ScrollTrigger);
     }
 
-    // 1. Hero Entrance Timeline (Plays smoothly on load)
+    // 1. Hero Entrance Timeline (Plays smoothly on load with hardware acceleration)
     var heroTl = gsap.timeline({
-      defaults: { ease: 'power3.out' }
+      defaults: { ease: 'power3.out', force3D: true }
     });
 
     // Synchronize ASCII Ocean Canvas emergence alongside the headline words
@@ -413,35 +442,39 @@
       opacity: 0
     }, {
       opacity: 1,
-      duration: 1.5,
-      ease: 'power2.out'
-    }, 0.12)
+      duration: 1.2,
+      ease: 'power2.out',
+      force3D: true
+    }, 0.08)
     .fromTo('.hero-headline .mask-inner', {
       y: '115%'
     }, {
       y: '0%',
-      duration: 0.95,
-      stagger: 0.14,
-      ease: 'power3.out'
-    }, 0.12)
-    .fromTo('.hero-lead', {
-      y: 20,
-      opacity: 0
-    }, {
-      y: 0,
-      opacity: 1,
       duration: 0.85,
-      ease: 'power3.out'
-    }, '-=0.55')
-    .fromTo('.hero-actions', {
+      stagger: 0.12,
+      ease: 'power3.out',
+      force3D: true
+    }, 0.08)
+    .fromTo('.hero-lead', {
       y: 16,
       opacity: 0
     }, {
       y: 0,
       opacity: 1,
-      duration: 0.85,
-      ease: 'power3.out'
-    }, '-=0.65');
+      duration: 0.75,
+      ease: 'power3.out',
+      force3D: true
+    }, '-=0.55')
+    .fromTo('.hero-actions', {
+      y: 14,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.75,
+      ease: 'power3.out',
+      force3D: true
+    }, '-=0.60');
 
     // 2. Section Hairline Dividers (<hr class="divider"> draws across)
     if (typeof ScrollTrigger !== 'undefined') {
@@ -450,12 +483,14 @@
         gsap.from(divider, {
           scaleX: 0,
           transformOrigin: 'left center',
-          duration: 0.85,
+          duration: 0.75,
           ease: 'power2.out',
+          force3D: true,
           scrollTrigger: {
             trigger: divider,
-            start: 'top 92%',
-            toggleActions: 'play none none none'
+            start: 'top 94%',
+            toggleActions: 'play none none none',
+            fastScrollEnd: true
           }
         });
       });
@@ -468,14 +503,16 @@
 
         if (sidebar) {
           gsap.from(sidebar, {
-            y: 32,
+            y: 28,
             opacity: 0,
-            duration: 0.85,
+            duration: 0.75,
             ease: 'power3.out',
+            force3D: true,
             scrollTrigger: {
               trigger: sec,
-              start: 'top 85%',
-              toggleActions: 'play none none none'
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+              fastScrollEnd: true
             }
           });
         }
@@ -485,28 +522,32 @@
           var principles = main.querySelectorAll('.principle-item');
           if (principles.length > 0) {
             gsap.from(principles, {
-              y: 30,
+              y: 24,
               opacity: 0,
-              duration: 0.8,
-              stagger: 0.15,
+              duration: 0.7,
+              stagger: 0.12,
               ease: 'power3.out',
+              force3D: true,
               scrollTrigger: {
                 trigger: main,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
+                start: 'top 88%',
+                toggleActions: 'play none none none',
+                fastScrollEnd: true
               }
             });
           } else {
             gsap.from(main, {
-              y: 32,
+              y: 28,
               opacity: 0,
-              duration: 0.85,
-              delay: 0.1,
+              duration: 0.75,
+              delay: 0.08,
               ease: 'power3.out',
+              force3D: true,
               scrollTrigger: {
                 trigger: sec,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
+                start: 'top 88%',
+                toggleActions: 'play none none none',
+                fastScrollEnd: true
               }
             });
           }

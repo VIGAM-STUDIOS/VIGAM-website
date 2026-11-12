@@ -304,11 +304,13 @@ html.js .hero-ocean-wrap {
 /* Initially hidden when JS is active so GSAP animates in cleanly */
 html.js .mask-inner {
   transform: translateY(115%);
+  will-change: transform;
 }
 
 html.js .hero-lead,
 html.js .hero-actions {
   opacity: 0;
+  will-change: transform, opacity;
 }
 
 .hero-lead {
@@ -1000,6 +1002,8 @@ html.js .hero-actions {
     width: 100%;
     margin: 0;
     box-sizing: border-box;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 
   .hero-main {
@@ -1071,8 +1075,11 @@ html.js .hero-actions {
     touch-action: pan-y !important;
     overflow: hidden;
     border-top: none;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.12) 34%, rgba(0,0,0,0.32) 52%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,1) 90%);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.12) 34%, rgba(0,0,0,0.32) 52%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,1) 90%);
+    will-change: opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.15) 32%, rgba(0,0,0,0.45) 52%, rgba(0,0,0,1) 75%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.15) 32%, rgba(0,0,0,0.45) 52%, rgba(0,0,0,1) 75%);
   }
 
   #ocean-canvas {
@@ -1081,6 +1088,8 @@ html.js .hero-actions {
     display: block;
     pointer-events: none !important;
     touch-action: pan-y !important;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 
   /* --- 5. CONSISTENT VERTICAL RHYTHM BELOW THE FOLD (64px-80px PADDING) --- */
