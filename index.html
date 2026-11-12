@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VIGAM Labs — Ethical, Local-First AI Solutions</title>
-  <meta name="description" content="VIGAM Labs builds fast, private AI software that runs 100% locally on your hardware. Zero subscriptions, no cloud usage.">
+  <title>VIGAM Labs — Technical Manual &amp; Product Catalog (Local-First AI)</title>
+  <meta name="description" content="VIGAM Labs engineers fast, private AI instruments that execute 100% locally on your hardware. Zero subscriptions, zero cloud dependencies, zero telemetry.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="alternate icon" type="image/png" href="assets/favicon.png">
+
   <script>
     (function () {
-      var saved = localStorage.getItem('vigam_theme');
-      if (saved === 'light' || saved === 'dark') {
-        document.documentElement.setAttribute('data-theme', saved);
-      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      try {
+        var saved = localStorage.getItem('vigam_braun_theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {
         document.documentElement.setAttribute('data-theme', 'light');
       }
     })();
   </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 
   <meta property="og:title" content="VIGAM Labs — Ethical AI solutions. Zero subscriptions. 100% on-device.">
@@ -26,229 +35,397 @@
 </head>
 <body>
 
-  <!-- Navigation -->
-  <header class="nav">
-    <div class="wrap nav-inner">
-      <a href="#" class="brand" aria-label="VIGAM Labs home">
-        <img src="assets/vigam-logo-clean-trans.png" alt="VIGAM Labs" class="brand-logo brand-logo-dark" width="710" height="395">
-        <img src="assets/vigam-logo-clean-dark.png" alt="VIGAM Labs" class="brand-logo brand-logo-light" width="710" height="395">
-      </a>
+  <!-- =========================================================================
+       CHASSIS SPECIFICATION FRAME
+       Inspired by 1970s Braun Operating Manuals & Dieter Rams Industrial Systems
+       ========================================================================= -->
+  <div class="manual-chassis">
 
-      <div class="nav-right">
-        <nav aria-label="Primary">
-          <ul class="nav-links">
-            <li><a href="#klang">KLANG</a></li>
-            <li><a href="#ethos">Ethos</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+    <!-- TOP SPECIFICATION HEADER & HARDWARE CONTROL STRIP -->
+    <header class="topbar" role="banner">
+      <div class="topbar-grid">
+        <!-- Brand Identity Cell -->
+        <div class="topbar-cell topbar-brand-cell">
+          <a href="#" class="brand-mark" aria-label="VIGAM Labs — Return to top of manual">
+            <img src="assets/vigam-logo-clean-dark.png" alt="VIGAM Labs" class="brand-logo brand-logo-light" width="710" height="395">
+            <img src="assets/vigam-logo-clean-trans.png" alt="VIGAM Labs" class="brand-logo brand-logo-dark" width="710" height="395">
+          </a>
+          <div class="doc-stamp">
+            <span class="doc-code">DOC. VG-701 // REV. 26</span>
+            <span class="doc-sub">LOCAL-FIRST AI INSTRUMENTS</span>
+          </div>
+        </div>
+
+        <!-- Index Navigation Tabs -->
+        <nav class="topbar-cell topbar-nav-cell" aria-label="Manual section index">
+          <ul class="index-tabs">
+            <li>
+              <a href="#klang" class="index-tab">
+                <span class="tab-num">01</span>
+                <span class="tab-label">KLANG</span>
+              </a>
+            </li>
+            <li>
+              <a href="#ethos" class="index-tab">
+                <span class="tab-num">02</span>
+                <span class="tab-label">OPERATING RULES</span>
+              </a>
+            </li>
+            <li>
+              <a href="#about" class="index-tab">
+                <span class="tab-num">03</span>
+                <span class="tab-label">PERSONNEL</span>
+              </a>
+            </li>
+            <li>
+              <a href="#contact" class="index-tab">
+                <span class="tab-num">04</span>
+                <span class="tab-label">DISPATCH</span>
+              </a>
+            </li>
           </ul>
         </nav>
 
-        <div class="nav-controls">
-          <button id="theme-toggle" class="icon-btn" type="button" aria-label="Switch color theme" title="Switch theme">
-            <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
-            </svg>
-            <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- Hero -->
-    <section class="hero" id="hero-section">
-      <div class="wrap">
-        <h1 id="hero-title">
-          Ethical AI solutions.<br>
-          <span>Zero subscriptions. 100% <span class="nowrap">on-device.</span></span>
-        </h1>
-        <p class="hero-lede">
-          We build fast, private AI software that runs entirely on your hardware. No cloud, no recurring fees, and no data leaving your machine.
-        </p>
-        <div class="hero-actions">
-          <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic-btn">
-            Explore KLANG
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M7 17L17 7M9 7h8v8"></path>
-            </svg>
-          </a>
-          <a href="#ethos" class="btn btn-ghost magnetic-btn">Our Ethos</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Hairline Signal Divider -->
-    <div class="wrap">
-      <div class="signal-divider" aria-hidden="true">
-        <svg viewBox="0 0 1040 24" preserveAspectRatio="none">
-          <path class="signal-path" d="M 0 12 Q 520 12 1040 12"></path>
-          <line class="signal-glint" x1="456" y1="12" x2="584" y2="12"></line>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Featured Projects / Our Work -->
-    <section id="klang" class="showcase-section" aria-label="Featured projects and instruments">
-      <div class="wrap">
-        <div class="section-head projects-head">
-          <div class="section-head-title">
-            <span class="section-kicker">01 // Projects</span>
-            <h2>Our Work</h2>
+        <!-- Physical Hardware Switches Cell -->
+        <div class="topbar-cell topbar-controls-cell">
+          <!-- Tactile Relay Click Switch -->
+          <div class="switch-assembly" title="Toggle mechanical relay click sound on button actuation">
+            <span class="switch-caption">TACTILE CLICK</span>
+            <button type="button" id="sound-toggle" class="rocker-switch" aria-pressed="true" aria-label="Toggle mechanical button click audio">
+              <span class="rocker-led" aria-hidden="true"></span>
+              <span class="rocker-state" id="sound-toggle-label">ON</span>
+            </button>
           </div>
-          <p>Local instruments and private intelligence engineered to run 100% on-device.</p>
-        </div>
-      </div>
 
-      <div class="wrap stage-perspective">
-        <article id="klang-stage" class="stage">
-          <!-- Stage Header -->
-          <div class="stage-top">
-            <div class="stage-identity">
-              <div class="klang-mark" aria-hidden="true">
-                <svg viewBox="0 0 256 256">
-                  <rect x="52" y="40" width="26" height="176" fill="currentColor"/>
-                  <polyline points="191.5,39.5 103.5,127.5 191.5,215.5" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="butt" stroke-linejoin="miter"/>
-                </svg>
-              </div>
-              <div class="stage-title-group">
-                <h2 class="stage-name">KLANG</h2>
-                <span class="stage-tagline">Search your samples by sound, not filename.</span>
-              </div>
-            </div>
-
-            <!-- Desktop: Interactive Query Chips -->
-            <div class="stage-top-right desktop-only">
-              <div class="query-chips" aria-label="Try sample queries">
-                <span class="query-chips-label">Try:</span>
-                <button type="button" class="query-chip active" data-preset-query="warm analog pad">warm analog pad</button>
-                <button type="button" class="query-chip" data-preset-query="punchy dusty snare">punchy dusty snare</button>
-                <button type="button" class="query-chip" data-preset-query="distorted sub 808">distorted sub 808</button>
-                <button type="button" class="query-chip" data-preset-query="glassy arp pluck">glassy arp pluck</button>
-              </div>
-            </div>
-
-            <!-- Mobile: Minimalist On-Device Engine Badge -->
-            <div class="stage-top-right mobile-only">
-              <span class="stage-engine-badge">
-                <span class="engine-dot-pulse" aria-hidden="true"></span>
-                100% On-Device Engine
+          <!-- Chassis Finish Toggle (Paper / Anodized) -->
+          <div class="switch-assembly" title="Switch surface finish between Matte Paper (Light) and Black Anodized (Dark)">
+            <span class="switch-caption">CHASSIS FINISH</span>
+            <button type="button" id="theme-toggle" class="rocker-switch rocker-theme" aria-label="Toggle between Matte Paper light mode and Anodized dark mode">
+              <span class="rocker-slot" aria-hidden="true">
+                <span class="rocker-actuator"></span>
               </span>
+              <span class="rocker-state" id="theme-toggle-label">PAPER</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="manual-content">
+
+      <!-- =====================================================================
+           SECTION 00 // SYSTEM ARCHITECTURE & ABSTRACT
+           ===================================================================== -->
+      <section class="manual-section hero-section" id="hero-section" aria-labelledby="hero-title">
+        <!-- Section Index Header Strip -->
+        <div class="section-index-bar">
+          <div class="index-bar-left">
+            <span class="index-code">SEC. 00</span>
+            <span class="index-divider">//</span>
+            <span class="index-title">ARCHITECTURAL SPECIFICATION &amp; OPERATING THESIS</span>
+          </div>
+          <div class="index-bar-right">
+            <span class="status-indicator">
+              <span class="led-dot led-green" aria-hidden="true"></span>
+              TELEMETRY EGRESS: 0 B/S
+            </span>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <!-- Left 7 Columns: Primary Statement & Physical Push-Button Bank -->
+          <div class="hero-main-col">
+            <div class="manual-meta-row">
+              <span>CLASSIFICATION: ON-DEVICE NEURAL DSP</span>
+              <span>LICENSING: PERPETUAL HARDWARE OWNERSHIP</span>
+            </div>
+
+            <h1 id="hero-title" class="hero-headline">
+              Ethical AI solutions.<br>
+              <span class="hero-headline-muted">Zero subscriptions. 100% on-device.</span>
+            </h1>
+
+            <p class="hero-abstract">
+              We engineer fast, private AI software that executes entirely on your local silicon. No cloud servers, no recurring rental fees, and zero bytes of user data ever leaving your machine.
+            </p>
+
+            <!-- Physical Push-Button Bank -->
+            <div class="button-bank" role="group" aria-label="Primary actions">
+              <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="mech-btn mech-btn-signal">
+                <span class="mech-btn-cap">
+                  <span class="mech-btn-index">01</span>
+                  <span class="mech-btn-text">EXPLORE KLANG</span>
+                  <svg class="mech-btn-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M4 12L12 4M5.5 4H12v6.5"/>
+                  </svg>
+                </span>
+              </a>
+
+              <a href="#klang" class="mech-btn mech-btn-neutral">
+                <span class="mech-btn-cap">
+                  <span class="mech-btn-index">02</span>
+                  <span class="mech-btn-text">AUDITION DECK</span>
+                </span>
+              </a>
+
+              <a href="#ethos" class="mech-btn mech-btn-neutral">
+                <span class="mech-btn-cap">
+                  <span class="mech-btn-index">03</span>
+                  <span class="mech-btn-text">OPERATING RULES</span>
+                </span>
+              </a>
             </div>
           </div>
 
-          <!-- ==================== DESKTOP: INTERACTIVE WORKING KLANG MOCKUP ==================== -->
-          <div id="klang-mockup-view" class="klang-app desktop-only" role="region" aria-label="Interactive KLANG desktop application mockup">
-            <!-- 1. KLANG Top Search & Utility Bar -->
-            <div class="ka-topbar">
-              <div class="ka-logo" aria-hidden="true">
+          <!-- Right 5 Columns: Technical Block Schematic & Specification Table -->
+          <div class="hero-spec-col">
+            <div class="schematic-box">
+              <div class="schematic-header">
+                <span>FIG. 0.1 — SIGNAL EXECUTION TOPOLOGY</span>
+                <span>SCALE: 1:1</span>
+              </div>
+
+              <!-- 1970s Braun Manual Orthographic Block Diagram SVG -->
+              <div class="schematic-canvas" aria-hidden="true">
+                <svg viewBox="0 0 420 156" class="schematic-svg">
+                  <!-- Background registration grid marks -->
+                  <line x1="12" y1="12" x2="22" y2="12" class="sch-reg"/>
+                  <line x1="12" y1="12" x2="12" y2="22" class="sch-reg"/>
+                  <line x1="408" y1="12" x2="398" y2="12" class="sch-reg"/>
+                  <line x1="408" y1="12" x2="408" y2="22" class="sch-reg"/>
+                  <line x1="12" y1="144" x2="22" y2="144" class="sch-reg"/>
+                  <line x1="12" y1="144" x2="12" y2="134" class="sch-reg"/>
+                  <line x1="408" y1="144" x2="398" y2="144" class="sch-reg"/>
+                  <line x1="408" y1="144" x2="408" y2="134" class="sch-reg"/>
+
+                  <!-- Local Chassis Boundary (Dashed Engineering Enclosure) -->
+                  <rect x="20" y="20" width="276" height="116" class="sch-enclosure"/>
+                  <text x="28" y="34" class="sch-label-muted">LOCAL MACHINE ENCLOSURE (OFFLINE)</text>
+
+                  <!-- Block 1: Input Signal -->
+                  <rect x="32" y="48" width="74" height="48" class="sch-block"/>
+                  <text x="40" y="68" class="sch-text-bold">INPUT</text>
+                  <text x="40" y="82" class="sch-text-sub">AUDIO / TEXT</text>
+
+                  <!-- Arrow 1 -> 2 -->
+                  <line x1="106" y1="72" x2="128" y2="72" class="sch-wire"/>
+                  <polygon points="128,72 122,68.5 122,75.5" class="sch-arrow"/>
+
+                  <!-- Block 2: Local Neural DSP -->
+                  <rect x="130" y="48" width="82" height="48" class="sch-block-active"/>
+                  <circle cx="202" cy="56" r="3" class="sch-led-orange"/>
+                  <text x="138" y="68" class="sch-text-bold">LOCAL DSP</text>
+                  <text x="138" y="82" class="sch-text-sub">ON-SILICON</text>
+
+                  <!-- Arrow 2 -> 3 -->
+                  <line x1="212" y1="72" x2="232" y2="72" class="sch-wire"/>
+                  <polygon points="232,72 226,68.5 226,75.5" class="sch-arrow"/>
+
+                  <!-- Block 3: Output -->
+                  <rect x="234" y="48" width="50" height="48" class="sch-block"/>
+                  <text x="241" y="68" class="sch-text-bold">11 MS</text>
+                  <text x="241" y="82" class="sch-text-sub">RESULT</text>
+
+                  <!-- Severed External Cloud Line -->
+                  <line x1="296" y1="72" x2="334" y2="72" class="sch-wire-cut"/>
+                  <!-- Open circuit / severed cross symbol -->
+                  <line x1="311" y1="64" x2="323" y2="80" class="sch-cut-mark"/>
+                  <line x1="323" y1="64" x2="311" y2="80" class="sch-cut-mark"/>
+
+                  <!-- Block 4: External Cloud (Isolated) -->
+                  <rect x="336" y="48" width="62" height="48" class="sch-block-disabled"/>
+                  <text x="344" y="68" class="sch-text-disabled">CLOUD</text>
+                  <text x="344" y="82" class="sch-text-disabled">0.0 B/S</text>
+
+                  <!-- Bottom Legend -->
+                  <text x="32" y="122" class="sch-caption">FIG. 0.1A: ZERO EXTERNAL NETWORK CALLS</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Specification Data Sheet Table -->
+            <dl class="spec-sheet" aria-label="System technical specifications">
+              <div class="spec-row">
+                <dt>COMPUTE TOPOLOGY</dt>
+                <dd>100% On-Device Execution</dd>
+              </div>
+              <div class="spec-row">
+                <dt>INDEXING LATENCY</dt>
+                <dd>8–14 ms (Mean: 11 ms Local)</dd>
+              </div>
+              <div class="spec-row">
+                <dt>NETWORK REQUIREMENT</dt>
+                <dd>None (Air-Gapped Operational)</dd>
+              </div>
+              <div class="spec-row">
+                <dt>SUBSCRIPTION COST</dt>
+                <dd>$0.00 / Month (Perpetual)</dd>
+              </div>
+              <div class="spec-row">
+                <dt>SUPPORTED HOST OS</dt>
+                <dd>Windows 10/11 &amp; macOS</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           SECTION 01 // INSTRUMENT: KLANG (MODEL KL-01)
+           ===================================================================== -->
+      <section id="klang" class="manual-section klang-section" aria-labelledby="klang-heading">
+        <!-- Section Index Header Strip -->
+        <div class="section-index-bar">
+          <div class="index-bar-left">
+            <span class="index-code">SEC. 01</span>
+            <span class="index-divider">//</span>
+            <span class="index-title">PRIMARY INSTRUMENT SPECIFICATION — MODEL KL-01</span>
+          </div>
+          <div class="index-bar-right">
+            <span class="index-meta">STATUS: PRODUCTION RELEASE // V1.0</span>
+          </div>
+        </div>
+
+        <!-- Instrument Title & Mode Selector Bar -->
+        <div class="instrument-header-grid">
+          <div class="inst-title-cell">
+            <div class="inst-badge-row">
+              <div class="klang-hardware-emblem" aria-hidden="true">
                 <svg viewBox="0 0 256 256">
                   <rect x="52" y="40" width="26" height="176" fill="currentColor"/>
                   <polyline points="191.5,39.5 103.5,127.5 191.5,215.5" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="butt" stroke-linejoin="miter"/>
                 </svg>
               </div>
+              <div>
+                <div class="inst-kicker">INSTRUMENT NO. 01 // ACOUSTIC RETRIEVAL ENGINE</div>
+                <h2 id="klang-heading" class="inst-name">KLANG</h2>
+              </div>
+            </div>
+            <p class="inst-subtitle">
+              Search your local sample library and synthesizer presets by sound description, acoustic macros, or reference audio — not filenames.
+            </p>
+          </div>
 
+          <!-- Right Cell: Test Signal Presets & View Mode Selector -->
+          <div class="inst-controls-cell">
+            <div class="control-group-block">
+              <span class="control-block-label">TEST SIGNAL GENERATOR (CLICK TO AUDITION):</span>
+              <div class="query-chips" role="group" aria-label="Load preset acoustic search queries">
+                <button type="button" class="query-chip active" data-preset-query="warm analog pad">
+                  <span class="chip-led" aria-hidden="true"></span>
+                  <span>01 WARM ANALOG PAD</span>
+                </button>
+                <button type="button" class="query-chip" data-preset-query="punchy dusty snare">
+                  <span class="chip-led" aria-hidden="true"></span>
+                  <span>02 DUSTY SNARE</span>
+                </button>
+                <button type="button" class="query-chip" data-preset-query="distorted sub 808">
+                  <span class="chip-led" aria-hidden="true"></span>
+                  <span>03 DISTORTED 808</span>
+                </button>
+                <button type="button" class="query-chip" data-preset-query="glassy arp pluck">
+                  <span class="chip-led" aria-hidden="true"></span>
+                  <span>04 GLASSY PLUCK</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Inspection Mode Switch: Interactive Deck vs Native App Figures -->
+            <div class="control-group-block view-mode-block">
+              <span class="control-block-label">INSPECTION VIEW:</span>
+              <div class="view-mode-switches" role="tablist" aria-label="KLANG inspection view mode">
+                <button type="button" class="mode-switch-btn active" role="tab" aria-selected="true" data-stage-view="simulator" id="tab-simulator">
+                  <span class="chip-led" aria-hidden="true"></span>
+                  FIG. 1.1 INTERACTIVE DECK
+                </button>
+                <button type="button" class="mode-switch-btn" role="tab" aria-selected="false" data-stage-view="figures" id="tab-figures">
+                  <span class="chip-led" aria-hidden="true"></span>
+                  FIG. 1.2–1.4 NATIVE SCREENSHOTS
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANEL A: INTERACTIVE KLANG STUDIO HARDWARE DECK (FIG. 1.1)
+             =================================================================== -->
+        <div id="klang-simulator-panel" class="klang-rack-container" role="tabpanel" aria-labelledby="tab-simulator">
+          <div class="rack-figure-bar">
+            <span>FIG. 1.1 — INTERACTIVE KLANG AUDITION CONSOLE (WEBAUDIO SYNTHESIS ENABLED)</span>
+            <span>SIGNAL PATH: 44.1 KHZ / STEREO PCM</span>
+          </div>
+
+          <div id="klang-mockup-view" class="klang-app" role="region" aria-label="Interactive KLANG audio search and audition console">
+
+            <!-- 1. Top Control Strip: Query Input, Readout Counter, Library Bank & Master Gain -->
+            <div class="ka-topbar">
               <div class="ka-search-box" id="ka-search-box">
-                <svg class="ka-search-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="11" cy="11" r="7"></circle>
-                  <path d="M20 20l-3.8-3.8"></path>
-                </svg>
+                <span class="ka-input-prefix" aria-hidden="true">QUERY //</span>
                 <input
                   id="ka-search-input"
                   type="text"
                   class="ka-search-input"
                   value="warm analog pad"
-                  placeholder="Describe a sound (e.g. warm analog pad, woody snare, dark 808)..."
+                  placeholder="Enter acoustic description (e.g. warm analog pad, woody snare, dark 808)..."
                   autocomplete="off"
                   spellcheck="false"
                   aria-label="Search audio samples by sound description"
                 >
                 <div class="ka-search-actions">
-                  <button type="button" id="ka-clear-btn" class="ka-icon-action" title="Clear query" aria-label="Clear search query">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M18 6L6 18M6 6l12 12"></path>
-                    </svg>
+                  <button type="button" id="ka-clear-btn" class="ka-hw-key" title="Clear query" aria-label="Clear search query">
+                    CLR
                   </button>
-                  <button type="button" id="ka-mic-btn" class="ka-icon-action" title="Simulate voice / beatbox query" aria-label="Simulate voice query">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <rect x="9" y="2" width="6" height="11" rx="3"></rect>
-                      <path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"></path>
-                    </svg>
+                  <button type="button" id="ka-mic-btn" class="ka-hw-key" title="Simulate voice / beatbox query" aria-label="Simulate voice query">
+                    <span class="mic-led" aria-hidden="true"></span>
+                    MIC
                   </button>
-                  <kbd class="ka-kbd">/</kbd>
+                  <kbd class="ka-kbd" title="Press / to focus search">/</kbd>
                 </div>
               </div>
 
-              <div class="ka-status-meta">
-                <span id="ka-count-text" class="ka-count-main">5 sounds</span>
-                <span class="ka-count-sep">&middot;</span>
-                <span id="ka-latency-text" class="ka-count-sub">11 ms local</span>
+              <!-- Digital Telemetry Readout -->
+              <div class="ka-status-meta" aria-live="polite">
+                <span id="ka-count-text" class="ka-count-main">05 SOUNDS</span>
+                <span class="ka-count-sep">//</span>
+                <span id="ka-latency-text" class="ka-count-sub">11 MS LOCAL</span>
               </div>
 
+              <!-- Bank Selectors & Master Gain Attenuator -->
               <div class="ka-topbar-right">
-                <div class="ka-mode-pill" role="group" aria-label="Library type">
+                <div class="ka-mode-pill" role="group" aria-label="Library bank selector">
                   <button type="button" class="ka-mode-btn active" data-lib-mode="audio">
-                    Audio <span id="ka-audio-badge">25</span>
+                    AUDIO <span id="ka-audio-badge">[25]</span>
                   </button>
                   <button type="button" class="ka-mode-btn" data-lib-mode="presets">
-                    Presets <span>5</span>
+                    PRESETS <span>[05]</span>
                   </button>
                 </div>
 
                 <button type="button" id="ka-filters-toggle" class="ka-pill-btn active" aria-expanded="true">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 6h16M7 12h10M10 18h4"></path>
-                  </svg>
-                  Filters
                   <span class="ka-filter-dot" aria-hidden="true"></span>
+                  MACROS
                 </button>
 
-                <div class="ka-vol-Top" title="Preview output gain">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                  </svg>
+                <div class="ka-vol-unit" title="Master output gain attenuator">
+                  <label for="ka-master-vol" class="ka-vol-caption">GAIN</label>
                   <input id="ka-master-vol" type="range" min="0" max="100" value="75" class="ka-slider" aria-label="Master preview volume">
                   <span id="ka-vol-label" class="ka-vol-val">75%</span>
                 </div>
-
-                <button type="button" id="ka-theme-toggle" class="ka-icon-action ka-theme-btn" title="Switch KLANG dark/light theme" aria-label="Switch KLANG dark or light theme">
-                  <svg class="ka-i-sun" viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
-                  </svg>
-                  <svg class="ka-i-moon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                  </svg>
-                </button>
               </div>
             </div>
 
-            <!-- 2. Analog / Studio Macro Filters Drawer -->
+            <!-- 2. 4-Channel Stepped Rotary Attenuator Drawer (Macro Filters) -->
             <div id="ka-macro-drawer" class="ka-macro-drawer">
               <div class="ka-macro-bar">
                 <div class="ka-macro-title">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <line x1="4" y1="21" x2="4" y2="14"></line>
-                    <line x1="4" y1="10" x2="4" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12" y2="3"></line>
-                    <line x1="20" y1="21" x2="20" y2="16"></line>
-                    <line x1="20" y1="12" x2="20" y2="3"></line>
-                    <line x1="1" y1="14" x2="7" y2="14"></line>
-                    <line x1="9" y1="8" x2="15" y2="8"></line>
-                    <line x1="17" y1="16" x2="23" y2="16"></line>
-                  </svg>
-                  <span>MACRO FILTERS</span>
+                  <span>MODULE 1A // ACOUSTIC MACRO ATTENUATORS &amp; HARMONIC KEY FILTER</span>
                 </div>
 
+                <!-- Braun ET 66 Style Calculator Key Strip for Musical Key -->
                 <div class="ka-key-strip" role="group" aria-label="Filter by musical key">
-                  <span class="ka-key-label">KEY:</span>
-                  <button type="button" class="ka-key-btn active" data-key="Any">Any</button>
+                  <span class="ka-key-label">HARMONIC KEY:</span>
+                  <button type="button" class="ka-key-btn active" data-key="Any">ANY</button>
                   <button type="button" class="ka-key-btn" data-key="C">C</button>
                   <button type="button" class="ka-key-btn" data-key="D">D</button>
                   <button type="button" class="ka-key-btn" data-key="E">E</button>
@@ -259,474 +436,602 @@
                 </div>
 
                 <button type="button" id="ka-reset-filters" class="ka-reset-btn">
-                  Reset
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M18 6L6 18M6 6l12 12"></path>
-                  </svg>
+                  RESET ATTENUATORS [X]
                 </button>
               </div>
 
-              <!-- 4 Studio Rotary Dial Cards -->
+              <!-- 4 Braun Stepped Rotary Dial Modules -->
               <div class="ka-dials-grid">
-                <!-- LENGTH DIAL -->
+                <!-- DIAL 01: LENGTH -->
                 <div class="ka-dial-card" data-macro="length">
                   <div class="ka-dial-col">
-                    <div class="ka-rotary" data-dial="length" title="Click or drag vertically to adjust Length">
-                      <svg viewBox="0 0 56 56" aria-hidden="true">
-                        <circle class="ka-dial-track" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="0"></circle>
-                        <circle class="ka-dial-arc" id="dial-arc-length" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="65"></circle>
-                        <g class="ka-dial-rotor" id="dial-rotor-length" transform="rotate(-90 28 28)">
-                          <line x1="28" y1="28" x2="28" y2="12"></line>
-                          <circle cx="28" cy="28" r="2.2"></circle>
+                    <button type="button" class="ka-rotary" data-dial="length" title="Click rotary knob to step Length filter" aria-label="Step Length rotary attenuator">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <!-- Outer tick scale -->
+                        <line x1="12" y1="32" x2="7" y2="32" class="dial-tick"/>
+                        <line x1="17.8" y1="17.8" x2="14.3" y2="14.3" class="dial-tick"/>
+                        <line x1="32" y1="12" x2="32" y2="6" class="dial-tick"/>
+                        <line x1="46.2" y1="17.8" x2="49.7" y2="14.3" class="dial-tick"/>
+                        <line x1="52" y1="32" x2="57" y2="32" class="dial-tick"/>
+                        <!-- Rotary Body -->
+                        <circle class="ka-dial-outer" cx="32" cy="32" r="21"></circle>
+                        <circle class="ka-dial-track" cx="32" cy="32" r="17" stroke-dasharray="80 110" stroke-dashoffset="0"></circle>
+                        <circle class="ka-dial-arc" id="dial-arc-length" cx="32" cy="32" r="17" stroke-dasharray="80 110" stroke-dashoffset="65"></circle>
+                        <g class="ka-dial-rotor" id="dial-rotor-length" transform="rotate(-90 32 32)">
+                          <line x1="32" y1="32" x2="32" y2="14" class="dial-needle"></line>
+                          <circle cx="32" cy="32" r="3" class="dial-cap-center"></circle>
                         </g>
                       </svg>
-                    </div>
-                    <span class="ka-dial-caption">LENGTH</span>
+                    </button>
+                    <span class="ka-dial-caption">CH.01 // LENGTH</span>
                   </div>
                   <div class="ka-dial-body">
                     <div class="ka-dial-head">
                       <span class="ka-dial-val" id="dial-val-length">Any Length</span>
-                      <span class="ka-dial-unit">min/max</span>
+                      <span class="ka-dial-unit">ENVELOPE</span>
                     </div>
                     <div class="ka-dial-seg">
-                      <button type="button" class="ka-seg-btn active" data-macro-btn="length" data-val="all">All</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="length" data-val="oneshot">1-Shot</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="length" data-val="loop">Loop</button>
+                      <button type="button" class="ka-seg-btn active" data-macro-btn="length" data-val="all">ALL</button>
+                      <button type="button" class="ka-seg-btn" data-macro-btn="length" data-val="oneshot">1-SHOT</button>
+                      <button type="button" class="ka-seg-btn" data-macro-btn="length" data-val="loop">LOOP</button>
                     </div>
                   </div>
                 </div>
 
-                <!-- TONE DIAL -->
+                <!-- DIAL 02: TONE -->
                 <div class="ka-dial-card" data-macro="tone">
                   <div class="ka-dial-col">
-                    <div class="ka-rotary" data-dial="tone" title="Click or drag vertically to adjust Tone">
-                      <svg viewBox="0 0 56 56" aria-hidden="true">
-                        <circle class="ka-dial-track" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="0"></circle>
-                        <circle class="ka-dial-arc" id="dial-arc-tone" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="32"></circle>
-                        <g class="ka-dial-rotor" id="dial-rotor-tone" transform="rotate(0 28 28)">
-                          <line x1="28" y1="28" x2="28" y2="12"></line>
-                          <circle cx="28" cy="28" r="2.2"></circle>
+                    <button type="button" class="ka-rotary" data-dial="tone" title="Click rotary knob to step Tone filter" aria-label="Step Tone rotary attenuator">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <line x1="12" y1="32" x2="7" y2="32" class="dial-tick"/>
+                        <line x1="17.8" y1="17.8" x2="14.3" y2="14.3" class="dial-tick"/>
+                        <line x1="32" y1="12" x2="32" y2="6" class="dial-tick"/>
+                        <line x1="46.2" y1="17.8" x2="49.7" y2="14.3" class="dial-tick"/>
+                        <line x1="52" y1="32" x2="57" y2="32" class="dial-tick"/>
+                        <circle class="ka-dial-outer" cx="32" cy="32" r="21"></circle>
+                        <circle class="ka-dial-track" cx="32" cy="32" r="17" stroke-dasharray="80 110" stroke-dashoffset="0"></circle>
+                        <circle class="ka-dial-arc" id="dial-arc-tone" cx="32" cy="32" r="17" stroke-dasharray="80 110" stroke-dashoffset="32"></circle>
+                        <g class="ka-dial-rotor" id="dial-rotor-tone" transform="rotate(0 32 32)">
+                          <line x1="32" y1="32" x2="32" y2="14" class="dial-needle"></line>
+                          <circle cx="32" cy="32" r="3" class="dial-cap-center"></circle>
                         </g>
                       </svg>
-                    </div>
-                    <span class="ka-dial-caption">TONE</span>
+                    </button>
+                    <span class="ka-dial-caption">CH.02 // TIMBRE</span>
                   </div>
                   <div class="ka-dial-body">
                     <div class="ka-dial-head">
                       <span class="ka-dial-val" id="dial-val-tone">Any Tone</span>
-                      <span class="ka-dial-unit">min/max</span>
+                      <span class="ka-dial-unit">SPECTRUM</span>
                     </div>
                     <div class="ka-dial-seg">
-                      <button type="button" class="ka-seg-btn" data-macro-btn="tone" data-val="warm">Warm</button>
-                      <button type="button" class="ka-seg-btn active" data-macro-btn="tone" data-val="all">Mid</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="tone" data-val="bright">Bright</button>
+                      <button type="button" class="ka-seg-btn" data-macro-btn="tone" data-val="warm">WARM</button>
+                      <button type="button" class="ka-seg-btn active" data-macro-btn="tone" data-val="all">NEUTRAL</button>
+                      <button type="button" class="ka-seg-btn" data-macro-btn="tone" data-val="bright">BRIGHT</button>
                     </div>
                   </div>
                 </div>
 
-                <!-- ATTACK DIAL -->
+                <!-- DIAL 03: ATTACK -->
                 <div class="ka-dial-card" data-macro="attack">
                   <div class="ka-dial-col">
-                    <div class="ka-rotary" data-dial="attack" title="Click or drag vertically to adjust Attack">
-                      <svg viewBox="0 0 56 56" aria-hidden="true">
-                        <circle class="ka-dial-track" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="0"></circle>
-                        <circle class="ka-dial-arc" id="dial-arc-attack" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="48"></circle>
-                        <g class="ka-dial-rotor" id="dial-rotor-attack" transform="rotate(-45 28 28)">
-                          <line x1="28" y1="28" x2="28" y2="12"></line>
-                          <circle cx="28" cy="28" r="2.2"></circle>
+                    <button type="button" class="ka-rotary" data-dial="attack" title="Click rotary knob to step Attack filter" aria-label="Step Attack rotary attenuator">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <line x1="12" y1="32" x2="7" y2="32" class="dial-tick"/>
+                        <line x1="17.8" y1="17.8" x2="14.3" y2="14.3" class="dial-tick"/>
+                        <line x1="32" y1="12" x2="32" y2="6" class="dial-tick"/>
+                        <line x1="46.2" y1="17.8" x2="49.7" y2="14.3" class="dial-tick"/>
+                        <line x1="52" y1="32" x2="57" y2="32" class="dial-tick"/>
+                        <circle class="ka-dial-outer" cx="32" cy="32" r="21"></circle>
+                        <circle class="ka-dial-track" cx="32" cy="32" r="17" stroke-dasharray="80 110" stroke-dashoffset="0"></circle>
+                        <circle class="ka-dial-arc" id="dial-arc-attack" cx="32" cy="32" r="17" stroke-dasharray="80 110" stroke-dashoffset="48"></circle>
+                        <g class="ka-dial-rotor" id="dial-rotor-attack" transform="rotate(-45 32 32)">
+                          <line x1="32" y1="32" x2="32" y2="14" class="dial-needle"></line>
+                          <circle cx="32" cy="32" r="3" class="dial-cap-center"></circle>
                         </g>
                       </svg>
-                    </div>
-                    <span class="ka-dial-caption">ATTACK</span>
+                    </button>
+                    <span class="ka-dial-caption">CH.03 // ATTACK</span>
                   </div>
                   <div class="ka-dial-body">
                     <div class="ka-dial-head">
                       <span class="ka-dial-val" id="dial-val-attack">Any Attack</span>
-                      <span class="ka-dial-unit">min/max</span>
+                      <span class="ka-dial-unit">TRANSIENT</span>
                     </div>
                     <div class="ka-dial-seg">
-                      <button type="button" class="ka-seg-btn active" data-macro-btn="attack" data-val="all">All</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="attack" data-val="punchy">Punchy</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="attack" data-val="soft">Soft</button>
+                      <button type="button" class="ka-seg-btn active" data-macro-btn="attack" data-val="all">ALL</button>
+                      <button type="button" class="ka-seg-btn" data-macro-btn="attack" data-val="punchy">FAST</button>
+                      <button type="button" class="ka-seg-btn" data-macro-btn="attack" data-val="soft">SLOW</button>
                     </div>
                   </div>
                 </div>
 
-                <!-- MATCH CUTOFF DIAL -->
+                <!-- DIAL 04: MATCH CUTOFF -->
                 <div class="ka-dial-card" data-macro="match">
                   <div class="ka-dial-col">
-                    <div class="ka-rotary" data-dial="match" title="Click or drag vertically to adjust Match Cutoff">
-                      <svg viewBox="0 0 56 56" aria-hidden="true">
-                        <circle class="ka-dial-track" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="0"></circle>
-                        <circle class="ka-dial-arc" id="dial-arc-match" cx="28" cy="28" r="21" stroke-dasharray="99 132" stroke-dashoffset="72"></circle>
-                        <g class="ka-dial-rotor" id="dial-rotor-match" transform="rotate(-75 28 28)">
-                          <line x1="28" y1="28" x2="28" y2="12"></line>
-                          <circle cx="28" cy="28" r="2.2"></circle>
+                    <button type="button" class="ka-rotary" data-dial="match" title="Click rotary knob to step Match Threshold" aria-label="Step Match Threshold rotary attenuator">
+                      <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <line x1="12" y1="32" x2="7" y2="32" class="dial-tick"/>
+                        <line x1="17.8" y1="17.8" x2="14.3" y2="14.3" class="dial-tick"/>
+                        <line x1="32" y1="12" x2="32" y2="6" class="dial-tick"/>
+                        <line x1="46.2" y1="17.8" x2="49.7" y2="14.3" class="dial-tick"/>
+                        <line x1="52" y1="32" x2="57" y2="32" class="dial-tick"/>
+                        <circle class="ka-dial-outer" cx="32" cy="32" r="21"></circle>
+                        <circle class="ka-dial-track" cx="32" cy="32" r="17" stroke-dasharray="80 110" stroke-dashoffset="0"></circle>
+                        <circle class="ka-dial-arc" id="dial-arc-match" cx="32" cy="32" r="17" stroke-dasharray="80 110" stroke-dashoffset="72"></circle>
+                        <g class="ka-dial-rotor" id="dial-rotor-match" transform="rotate(-75 32 32)">
+                          <line x1="32" y1="32" x2="32" y2="14" class="dial-needle"></line>
+                          <circle cx="32" cy="32" r="3" class="dial-cap-center"></circle>
                         </g>
                       </svg>
-                    </div>
-                    <span class="ka-dial-caption">MATCH</span>
+                    </button>
+                    <span class="ka-dial-caption">CH.04 // THRESHOLD</span>
                   </div>
                   <div class="ka-dial-body">
                     <div class="ka-dial-head">
                       <span class="ka-dial-val" id="dial-val-match">&ge; 20% Match</span>
-                      <span class="ka-dial-unit">cutoff</span>
+                      <span class="ka-dial-unit">SIMILARITY</span>
                     </div>
                     <div class="ka-dial-seg">
-                      <button type="button" class="ka-seg-btn active" data-macro-btn="match" data-val="20">All</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="match" data-val="50">&gt;50%</button>
-                      <button type="button" class="ka-seg-btn" data-macro-btn="match" data-val="75">&gt;75%</button>
+                      <button type="button" class="ka-seg-btn active" data-macro-btn="match" data-val="20">&ge;20%</button>
+                      <button type="button" class="ka-seg-btn" data-macro-btn="match" data-val="50">&ge;50%</button>
+                      <button type="button" class="ka-seg-btn" data-macro-btn="match" data-val="75">&ge;75%</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 3. Sample Results List -->
-            <div id="ka-rows" class="ka-rows" role="list" aria-label="Matching audio samples">
-              <!-- Populated and animated via JS -->
+            <!-- 3. Column Header Bar for Sample Matrix -->
+            <div class="ka-matrix-header" aria-hidden="true">
+              <span>IDX</span>
+              <span>TRIG</span>
+              <span>FILE IDENTIFIER / CLASSIFICATION</span>
+              <span>OSCILLOGRAM (CLICK TO SCRUB &amp; AUDITION)</span>
+              <span>KEY</span>
+              <span>DURATION / FORMAT</span>
+              <span>SIMILARITY</span>
+              <span>ACTION</span>
             </div>
 
-            <!-- 4. Bottom Studio Transport Bar -->
+            <!-- 4. Sample Results List -->
+            <div id="ka-rows" class="ka-rows" role="list" aria-label="Matching audio samples">
+              <!-- Populated dynamically via js/main.js -->
+            </div>
+
+            <!-- 5. Master Studio Transport Deck -->
             <div class="ka-transport">
-              <div class="ka-transport-progress" id="ka-transport-track" title="Click to seek">
+              <div class="ka-transport-progress" id="ka-transport-track" title="Click linear scale to seek playback position">
                 <div id="ka-transport-fill" class="ka-transport-fill"></div>
               </div>
 
               <div class="ka-transport-inner">
                 <div class="ka-transport-left">
-                  <button type="button" id="ka-transport-play" class="ka-transport-play" aria-label="Play or pause active sample">
+                  <button type="button" id="ka-transport-play" class="ka-transport-play" aria-label="Play or stop active sample">
                     <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true">
                       <polygon points="6 4 20 12 6 20 6 4"></polygon>
                     </svg>
                     <svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true">
-                      <rect x="6" y="6" width="12" height="12" rx="1.5"></rect>
+                      <rect x="6" y="6" width="12" height="12"></rect>
                     </svg>
                   </button>
-                  <span id="ka-transport-time" class="ka-transport-time">0.00s / 3.99s</span>
+                  <span id="ka-transport-time" class="ka-transport-time">1.74s / 3.99s</span>
                   <span id="ka-transport-name" class="ka-transport-name">pad_warm_detuned_analog_Dmin.wav</span>
                   <span id="ka-transport-key" class="ka-key-tag">Dm</span>
                 </div>
 
                 <div class="ka-transport-center">
                   <div class="ka-pitch-stepper" role="group" aria-label="Real-time pitch transpose in semitones">
+                    <span class="stepper-label">PITCH:</span>
                     <button type="button" id="ka-pitch-down" class="ka-step-btn" aria-label="Transpose down 1 semitone">&minus;</button>
                     <span id="ka-pitch-val" class="ka-pitch-val">0 st</span>
                     <button type="button" id="ka-pitch-up" class="ka-step-btn" aria-label="Transpose up 1 semitone">+</button>
                   </div>
-                  <button type="button" id="ka-loop-btn" class="ka-loop-btn" aria-pressed="false">Loop</button>
+                  <button type="button" id="ka-loop-btn" class="ka-loop-btn" aria-pressed="false">
+                    <span class="loop-led" aria-hidden="true"></span>
+                    LOOP
+                  </button>
                 </div>
 
                 <div class="ka-transport-right">
-                  <span class="ka-engine-badge">Local Engine &middot; Offline</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ==================== MOBILE VIEW: CLEAN PRODUCT PICTURE SHOWCASE ==================== -->
-          <div id="klang-mobile-view" class="stage-viewport mobile-only">
-            <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="stage-frame-link" aria-label="Explore KLANG on Cloudflare">
-              <div class="stage-window-bar" aria-hidden="true">
-                <div class="window-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <div class="window-title">KLANG &mdash; Local Sound Search &amp; Sampler</div>
-                <div class="window-badge">Standalone App</div>
-              </div>
-              <div class="stage-img-wrap">
-                <img
-                  src="assets/klang-hero.png"
-                  alt="KLANG desktop application searching audio samples by sound description"
-                  class="stage-img"
-                  loading="eager"
-                  width="1920"
-                  height="1080"
-                >
-                <div class="stage-hover-overlay">
-                  <span class="stage-cta-pill">
-                    Explore KLANG
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M7 17L17 7M9 7h8v8"></path>
-                    </svg>
+                  <span class="ka-engine-badge">
+                    <span class="led-dot led-green" aria-hidden="true"></span>
+                    LOCAL ENGINE // OFFLINE
                   </span>
                 </div>
               </div>
-            </a>
-          </div>
-
-          <!-- Stage Footer Summary -->
-          <div class="stage-bottom">
-            <div class="stage-summary">
-              <p>
-                Type what you hear, dial in acoustic macros, or drop in a reference file. KLANG finds matching sounds and synth presets across your local library in milliseconds.
-              </p>
-              <ul class="stage-specs">
-                <li>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                    <path d="M8 21h8M12 17v4"></path>
-                  </svg>
-                  Windows &amp; macOS
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                  </svg>
-                  Works 100% offline
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                  Free tier &middot; $24 one-time Pro
-                </li>
-              </ul>
-              <p class="stage-mockup-note desktop-only">Interactive web mockup of the KLANG desktop application.</p>
             </div>
-
-            <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic-btn">
-              Explore KLANG
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7 17L17 7M9 7h8v8"></path>
-              </svg>
-            </a>
           </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Scroll-Reactive Hairline Divider -->
-    <div class="wrap">
-      <div class="signal-divider" aria-hidden="true">
-        <svg viewBox="0 0 1040 24" preserveAspectRatio="none">
-          <path class="signal-path" d="M 0 12 Q 520 12 1040 12"></path>
-          <line class="signal-glint" x1="456" y1="12" x2="584" y2="12"></line>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Ethos / Local AI Stance -->
-    <section id="ethos" class="ethos-section">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Our stance on AI</h2>
-          <p>Every tool we build follows three non-negotiable rules.</p>
         </div>
 
-        <div class="ethos-grid">
-          <!-- Cell 1: Local Inference -->
-          <div class="ethos-cell">
-            <div class="ethos-cell-top">
-              <div class="ethos-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-                  <rect x="9" y="9" width="6" height="6"></rect>
-                  <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"></path>
-                </svg>
+        <!-- ===================================================================
+             PANEL B: NATIVE DESKTOP APPLICATION FIGURES (FIG. 1.2 – FIG. 1.4)
+             =================================================================== -->
+        <div id="klang-figures-panel" class="klang-figures-container" role="tabpanel" aria-labelledby="tab-figures" hidden>
+          <div class="figures-grid">
+            <!-- Figure 1.2: Main Application Screen -->
+            <figure class="manual-figure figure-primary">
+              <div class="figure-caption-bar">
+                <span>FIG. 1.2 — KLANG NATIVE DESKTOP INTERFACE (MAIN SAMPLE MATRIX &amp; WAVEFORM VIEW)</span>
+                <span>RESOLUTION: 1920 &times; 1080</span>
               </div>
-              <span class="ethos-metric" data-count-target="11" data-count-suffix=" ms">11 ms</span>
-            </div>
-            <h3>100% Local Inference</h3>
-            <p>Models execute directly on your machine. Your files, audio, and queries never touch a cloud server.</p>
-          </div>
-
-          <!-- Cell 2: Zero Subscriptions -->
-          <div class="ethos-cell">
-            <div class="ethos-cell-top">
-              <div class="ethos-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <circle cx="7.5" cy="15.5" r="4.5"></circle>
-                  <path d="M21 2l-9.6 9.6M15.5 7.5l3 3M18 5l2 2"></path>
-                </svg>
+              <div class="figure-img-well">
+                <img src="assets/klang-hero.png" alt="KLANG native desktop application searching audio samples by sound description" width="1920" height="1080" loading="lazy">
               </div>
-              <span class="ethos-metric">$0 / mo</span>
-            </div>
-            <h3>Zero Subscriptions</h3>
-            <p>Pay once and own your software outright. No monthly rent, credit packs, or API lock-in.</p>
-          </div>
+            </figure>
 
-          <!-- Cell 3: Zero Telemetry -->
-          <div class="ethos-cell">
-            <div class="ethos-cell-top">
-              <div class="ethos-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                  <line x1="1" y1="1" x2="23" y2="23"></line>
-                </svg>
-              </div>
-              <span class="ethos-metric">0 B / s</span>
-            </div>
-            <h3>Zero Telemetry</h3>
-            <p>No mandatory accounts, no background analytics, and full functionality completely offline.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+            <!-- Figure 1.3 & 1.4 Split Row -->
+            <div class="figures-subgrid">
+              <figure class="manual-figure">
+                <div class="figure-caption-bar">
+                  <span>FIG. 1.3 — ACOUSTIC MACRO ROTARY FILTERS</span>
+                  <span>LENGTH / TONE / ATTACK / CUTOFF</span>
+                </div>
+                <div class="figure-img-well">
+                  <img src="assets/klang-sliders.png" alt="KLANG acoustic macro rotary filter dials for length, tone, attack, and match cutoff" width="1280" height="460" loading="lazy">
+                </div>
+              </figure>
 
-    <!-- Hairline Signal Divider -->
-    <div class="wrap">
-      <div class="signal-divider" aria-hidden="true">
-        <svg viewBox="0 0 1040 24" preserveAspectRatio="none">
-          <path class="signal-path" d="M 0 12 Q 520 12 1040 12"></path>
-          <line class="signal-glint" x1="456" y1="12" x2="584" y2="12"></line>
-        </svg>
-      </div>
-    </div>
-
-    <!-- About Us -->
-    <section id="about" class="about-section">
-      <div class="wrap about-layout">
-        <div class="about-copy">
-          <h2>About Us</h2>
-          <p>
-            VIGAM Labs is Shivam Thakur and Vignesh A. Palan, two enthusiastic and passionate AI developers (M.Tech AI &amp; Decision Science '26, MIT Manipal) building fast, local-first tools we actually want to use.
-          </p>
-        </div>
-
-        <div class="founders-list">
-          <!-- Shivam Thakur -->
-          <div class="founder-row">
-            <div class="founder-person">
-              <img src="assets/shivam.jpg" alt="Shivam Thakur" class="founder-avatar founder-avatar-shivam" loading="lazy">
-              <span class="founder-name">Shivam Thakur</span>
-            </div>
-            <div class="founder-links">
-              <a href="https://shivam-thakur-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="social-link">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                </svg>
-                Portfolio
-              </a>
-              <a href="https://github.com/MavihsLH" target="_blank" rel="noopener noreferrer" class="social-link">
-                <svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.02 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58A12 12 0 0 0 12 .5z"></path>
-                </svg>
-                GitHub
-              </a>
-              <a href="https://www.linkedin.com/in/shivam-thakur-swe/" target="_blank" rel="noopener noreferrer" class="social-link">
-                <svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path>
-                </svg>
-                LinkedIn
-              </a>
-            </div>
-          </div>
-
-          <!-- Vignesh A. Palan -->
-          <div class="founder-row">
-            <div class="founder-person">
-              <img src="assets/vignesh.jpg" alt="Vignesh A. Palan" class="founder-avatar" loading="lazy">
-              <span class="founder-name">Vignesh A. Palan</span>
-            </div>
-            <div class="founder-links">
-              <a href="https://github.com/Vigneshpalan" target="_blank" rel="noopener noreferrer" class="social-link">
-                <svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.02 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58A12 12 0 0 0 12 .5z"></path>
-                </svg>
-                GitHub
-              </a>
-              <a href="https://www.linkedin.com/in/vignesh-palan-692251246/" target="_blank" rel="noopener noreferrer" class="social-link">
-                <svg class="icon-fill" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path>
-                </svg>
-                LinkedIn
-              </a>
+              <figure class="manual-figure">
+                <div class="figure-caption-bar">
+                  <span>FIG. 1.4 — SYNTHESIZER PRESET RETRIEVAL</span>
+                  <span>VITAL / SURGE XT / U-HE</span>
+                </div>
+                <div class="figure-img-well">
+                  <img src="assets/klang-vital.png" alt="KLANG synthesizer preset search indexing Vital, Surge XT, and u-he patches" width="1280" height="420" loading="lazy">
+                </div>
+              </figure>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Hairline Signal Divider -->
-    <div class="wrap">
-      <div class="signal-divider" aria-hidden="true">
-        <svg viewBox="0 0 1040 24" preserveAspectRatio="none">
-          <path class="signal-path" d="M 0 12 Q 520 12 1040 12"></path>
-          <line class="signal-glint" x1="456" y1="12" x2="584" y2="12"></line>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Contact -->
-    <section id="contact" class="contact-section">
-      <div class="wrap contact-layout">
-        <div class="contact-copy">
-          <h2>Contact</h2>
-          <p>
-            Have a question, feedback on KLANG, or interested in local-first AI solutions? Reach out to the studio.
-          </p>
-        </div>
-
-        <div class="contact-channels">
-          <div class="contact-card">
-            <div class="contact-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                <path d="M22 6L12 13 2 6"></path>
-              </svg>
-            </div>
-            <div class="contact-details">
-              <span class="contact-label">Email</span>
-              <a href="mailto:vigam4ai@gmail.com" class="contact-value">vigam4ai@gmail.com</a>
-            </div>
-            <button type="button" class="copy-btn" data-copy="vigam4ai@gmail.com" aria-label="Copy email address" style="margin-left: auto;">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="9" y="9" width="13" height="13" rx="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-              Copy
-            </button>
+        <!-- Instrument Specification Footer & Primary Action Bar -->
+        <div class="inst-footer-grid">
+          <div class="inst-spec-cell">
+            <span class="spec-cell-label">SPEC. 1.A // PLATFORM</span>
+            <strong class="spec-cell-val">Windows &amp; macOS</strong>
+            <span class="spec-cell-note">Standalone Native Binary</span>
           </div>
-
-          <div class="contact-card">
-            <div class="contact-icon" aria-hidden="true">
-              <svg class="icon-fill" viewBox="0 0 24 24">
-                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path>
-              </svg>
-            </div>
-            <div class="contact-details">
-              <span class="contact-label">LinkedIn</span>
-              <a href="https://www.linkedin.com/company/vigam-labs/" target="_blank" rel="noopener noreferrer" class="contact-value">linkedin.com/company/vigam-labs</a>
-            </div>
-            <a href="https://www.linkedin.com/company/vigam-labs/" target="_blank" rel="noopener noreferrer" class="social-link" style="margin-left: auto;">
-              Follow
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7 17L17 7M9 7h8v8"></path>
-              </svg>
+          <div class="inst-spec-cell">
+            <span class="spec-cell-label">SPEC. 1.B // PRIVACY</span>
+            <strong class="spec-cell-val">100% Offline Indexing</strong>
+            <span class="spec-cell-note">Audio files never leave disk</span>
+          </div>
+          <div class="inst-spec-cell">
+            <span class="spec-cell-label">SPEC. 1.C // OWNERSHIP</span>
+            <strong class="spec-cell-val">Free Tier &middot; $24 Pro</strong>
+            <span class="spec-cell-note">One-time perpetual license</span>
+          </div>
+          <div class="inst-cta-cell">
+            <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="mech-btn mech-btn-signal mech-btn-full">
+              <span class="mech-btn-cap">
+                <span class="mech-btn-index">KL-01</span>
+                <span class="mech-btn-text">LAUNCH KLANG PRODUCT SITE</span>
+                <svg class="mech-btn-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M4 12L12 4M5.5 4H12v6.5"/>
+                </svg>
+              </span>
             </a>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <span>&copy; 2026 VIGAM Labs</span>
-      <div class="footer-links">
-        <a href="https://www.linkedin.com/company/vigam-labs/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
-        <span class="footer-dot">&middot;</span>
-        <a href="mailto:vigam4ai@gmail.com" class="footer-link">vigam4ai@gmail.com</a>
-      </div>
-    </div>
-  </footer>
+      <!-- =====================================================================
+           SECTION 02 // OPERATING RULES & STANCE ON AI
+           ===================================================================== -->
+      <section id="ethos" class="manual-section ethos-section" aria-labelledby="ethos-heading">
+        <!-- Section Index Header Strip -->
+        <div class="section-index-bar">
+          <div class="index-bar-left">
+            <span class="index-code">SEC. 02</span>
+            <span class="index-divider">//</span>
+            <span class="index-title">NON-NEGOTIABLE OPERATING CONSTRAINTS</span>
+          </div>
+          <div class="index-bar-right">
+            <span class="index-meta">COMPLIANCE: MANDATORY ACROSS ALL VIGAM INSTRUMENTS</span>
+          </div>
+        </div>
 
-  <!-- Toast -->
-  <div id="toast" class="toast" role="status" aria-live="polite">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-    <span id="toast-text">Email copied</span>
+        <div class="ethos-layout">
+          <!-- Left Column: Section Thesis -->
+          <div class="ethos-intro-col">
+            <span class="section-kicker">SPECIFICATION 02 // DESIGN DOCTRINE</span>
+            <h2 id="ethos-heading" class="section-title">Our stance on AI</h2>
+            <p class="section-lead">
+              Good software, like good hardware, is honest, unobtrusive, and self-contained. Every instrument engineered by VIGAM Labs is bound by three non-negotiable architectural rules.
+            </p>
+            <div class="doctrine-stamp">
+              <div class="stamp-line"><span>PRINCIPLE:</span> <strong>WENIGER, ABER BESSER</strong></div>
+              <div class="stamp-line"><span>CLOUD DEPENDENCY:</span> <strong>NONE PERMITTED</strong></div>
+              <div class="stamp-line"><span>REVENUE MODEL:</span> <strong>DIRECT SALE ONLY</strong></div>
+            </div>
+          </div>
+
+          <!-- Right Column: 3-Row Engineering Verification Matrix -->
+          <div class="ethos-matrix-col">
+            <!-- Rule 01 -->
+            <article class="rule-row">
+              <div class="rule-index-cell">
+                <span class="rule-code">RULE 01</span>
+                <span class="rule-class">EXECUTION</span>
+              </div>
+              <div class="rule-body-cell">
+                <h3>100% Local Inference</h3>
+                <p>
+                  Neural models execute directly on your workstation CPU and GPU. Your sample libraries, project files, and acoustic queries never touch an external server.
+                </p>
+              </div>
+              <div class="rule-metric-cell">
+                <span class="metric-label">BENCHMARK LATENCY</span>
+                <span class="metric-readout">11 ms</span>
+                <span class="metric-sub">ON-SILICON EXECUTION</span>
+              </div>
+            </article>
+
+            <!-- Rule 02 -->
+            <article class="rule-row">
+              <div class="rule-index-cell">
+                <span class="rule-code">RULE 02</span>
+                <span class="rule-class">OWNERSHIP</span>
+              </div>
+              <div class="rule-body-cell">
+                <h3>Zero Subscriptions</h3>
+                <p>
+                  An instrument should belong to its operator. Pay once and own your software outright — no monthly rent, no cloud token packs, and no remote kill-switches.
+                </p>
+              </div>
+              <div class="rule-metric-cell">
+                <span class="metric-label">RECURRING FEE</span>
+                <span class="metric-readout">$0 / mo</span>
+                <span class="metric-sub">PERPETUAL LICENSE</span>
+              </div>
+            </article>
+
+            <!-- Rule 03 -->
+            <article class="rule-row">
+              <div class="rule-index-cell">
+                <span class="rule-code">RULE 03</span>
+                <span class="rule-class">PRIVACY</span>
+              </div>
+              <div class="rule-body-cell">
+                <h3>Zero Telemetry</h3>
+                <p>
+                  No mandatory user accounts, no background analytics daemons, and full deterministic functionality inside completely air-gapped studio environments.
+                </p>
+              </div>
+              <div class="rule-metric-cell">
+                <span class="metric-label">NETWORK EGRESS</span>
+                <span class="metric-readout">0 B / s</span>
+                <span class="metric-sub">AIR-GAP VERIFIED</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           SECTION 03 // ENGINEERING PERSONNEL (ABOUT US)
+           ===================================================================== -->
+      <section id="about" class="manual-section about-section" aria-labelledby="about-heading">
+        <!-- Section Index Header Strip -->
+        <div class="section-index-bar">
+          <div class="index-bar-left">
+            <span class="index-code">SEC. 03</span>
+            <span class="index-divider">//</span>
+            <span class="index-title">ENGINEERING PERSONNEL &amp; LABORATORY RECORD</span>
+          </div>
+          <div class="index-bar-right">
+            <span class="index-meta">ORIGIN: MIT MANIPAL // M.TECH AI &amp; DECISION SCIENCE '26</span>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <!-- Left 4 Columns: Laboratory Dossier Copy -->
+          <div class="about-copy-col">
+            <span class="section-kicker">SPECIFICATION 03 // LABORATORY</span>
+            <h2 id="about-heading" class="section-title">About Us</h2>
+            <p class="section-lead">
+              VIGAM Labs is founded by <strong>Shivam Thakur</strong> and <strong>Vignesh A. Palan</strong> — two AI engineers (M.Tech AI &amp; Decision Science '26, MIT Manipal) building fast, local-first software instruments we actually want to use on our own machines.
+            </p>
+            <dl class="lab-metadata">
+              <div class="lab-meta-item">
+                <dt>INSTITUTIONAL ORIGIN</dt>
+                <dd>Manipal Institute of Technology (MIT)</dd>
+              </div>
+              <div class="lab-meta-item">
+                <dt>DISCIPLINE</dt>
+                <dd>M.Tech AI &amp; Decision Science ('26)</dd>
+              </div>
+              <div class="lab-meta-item">
+                <dt>RESEARCH FOCUS</dt>
+                <dd>Low-Latency On-Device Neural Audio &amp; DSP</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Right 8 Columns: Two Engineering Personnel Plates -->
+          <div class="personnel-cards-col">
+            <!-- Personnel 01: Shivam Thakur -->
+            <article class="personnel-plate">
+              <div class="plate-header">
+                <span class="plate-id">ENG. ID // ST-01</span>
+                <span class="plate-role">CO-FOUNDER &amp; AI SYSTEMS ENGINEER</span>
+              </div>
+
+              <div class="plate-body">
+                <div class="portrait-frame">
+                  <img src="assets/shivam.jpg" alt="Shivam Thakur" class="personnel-photo photo-shivam" loading="lazy" width="320" height="320">
+                  <span class="portrait-reg" aria-hidden="true">FIG. 3.1</span>
+                </div>
+
+                <div class="personnel-details">
+                  <h3 class="personnel-name">Shivam Thakur</h3>
+                  <p class="personnel-cred">M.Tech AI &amp; Decision Science '26 &middot; MIT Manipal</p>
+
+                  <div class="personnel-links" role="group" aria-label="Shivam Thakur external links">
+                    <a href="https://shivam-thakur-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="mech-key-link">
+                      <span class="key-cap">
+                        <span>PORTFOLIO</span>
+                        <span class="key-arrow" aria-hidden="true">&#8599;</span>
+                      </span>
+                    </a>
+                    <a href="https://github.com/MavihsLH" target="_blank" rel="noopener noreferrer" class="mech-key-link">
+                      <span class="key-cap">
+                        <span>GITHUB</span>
+                        <span class="key-arrow" aria-hidden="true">&#8599;</span>
+                      </span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/shivam-thakur-swe/" target="_blank" rel="noopener noreferrer" class="mech-key-link">
+                      <span class="key-cap">
+                        <span>LINKEDIN</span>
+                        <span class="key-arrow" aria-hidden="true">&#8599;</span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Personnel 02: Vignesh A. Palan -->
+            <article class="personnel-plate">
+              <div class="plate-header">
+                <span class="plate-id">ENG. ID // VP-02</span>
+                <span class="plate-role">CO-FOUNDER &amp; AI SYSTEMS ENGINEER</span>
+              </div>
+
+              <div class="plate-body">
+                <div class="portrait-frame">
+                  <img src="assets/vignesh.jpg" alt="Vignesh A. Palan" class="personnel-photo photo-vignesh" loading="lazy" width="320" height="320">
+                  <span class="portrait-reg" aria-hidden="true">FIG. 3.2</span>
+                </div>
+
+                <div class="personnel-details">
+                  <h3 class="personnel-name">Vignesh A. Palan</h3>
+                  <p class="personnel-cred">M.Tech AI &amp; Decision Science '26 &middot; MIT Manipal</p>
+
+                  <div class="personnel-links" role="group" aria-label="Vignesh A. Palan external links">
+                    <a href="https://github.com/Vigneshpalan" target="_blank" rel="noopener noreferrer" class="mech-key-link">
+                      <span class="key-cap">
+                        <span>GITHUB</span>
+                        <span class="key-arrow" aria-hidden="true">&#8599;</span>
+                      </span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/vignesh-palan-692251246/" target="_blank" rel="noopener noreferrer" class="mech-key-link">
+                      <span class="key-cap">
+                        <span>LINKEDIN</span>
+                        <span class="key-arrow" aria-hidden="true">&#8599;</span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           SECTION 04 // COMMUNICATIONS & DIRECT DISPATCH (CONTACT)
+           ===================================================================== -->
+      <section id="contact" class="manual-section contact-section" aria-labelledby="contact-heading">
+        <!-- Section Index Header Strip -->
+        <div class="section-index-bar">
+          <div class="index-bar-left">
+            <span class="index-code">SEC. 04</span>
+            <span class="index-divider">//</span>
+            <span class="index-title">EXTERNAL COMMUNICATIONS &amp; DIRECT DISPATCH</span>
+          </div>
+          <div class="index-bar-right">
+            <span class="index-meta">RESPONSE PROTOCOL: DIRECT ENGINEER ACCESS</span>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-copy-col">
+            <span class="section-kicker">SPECIFICATION 04 // DISPATCH</span>
+            <h2 id="contact-heading" class="section-title">Contact</h2>
+            <p class="section-lead">
+              Have a technical question, feedback on KLANG, or an inquiry regarding local-first AI instruments? Reach out directly to the studio.
+            </p>
+          </div>
+
+          <div class="contact-channels-col">
+            <!-- Channel 01: Electronic Mail -->
+            <div class="dispatch-row">
+              <div class="dispatch-meta">
+                <span class="dispatch-code">CHANNEL 01 // ELECTRONIC MAIL</span>
+                <a href="mailto:vigam4ai@gmail.com" class="dispatch-address">vigam4ai@gmail.com</a>
+              </div>
+              <div class="dispatch-actions">
+                <button type="button" class="mech-btn mech-btn-neutral copy-btn" data-copy="vigam4ai@gmail.com" aria-label="Copy email address vigam4ai@gmail.com">
+                  <span class="mech-btn-cap">
+                    <span class="copy-led" aria-hidden="true"></span>
+                    <span class="mech-btn-text" id="copy-email-label">COPY ADDRESS</span>
+                  </span>
+                </button>
+                <a href="mailto:vigam4ai@gmail.com" class="mech-btn mech-btn-signal">
+                  <span class="mech-btn-cap">
+                    <span class="mech-btn-text">DISPATCH MAIL</span>
+                    <span aria-hidden="true">&#8599;</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Channel 02: Company LinkedIn -->
+            <div class="dispatch-row">
+              <div class="dispatch-meta">
+                <span class="dispatch-code">CHANNEL 02 // CORPORATE DIRECTORY</span>
+                <a href="https://www.linkedin.com/company/vigam-labs/" target="_blank" rel="noopener noreferrer" class="dispatch-address">linkedin.com/company/vigam-labs</a>
+              </div>
+              <div class="dispatch-actions">
+                <a href="https://www.linkedin.com/company/vigam-labs/" target="_blank" rel="noopener noreferrer" class="mech-btn mech-btn-neutral">
+                  <span class="mech-btn-cap">
+                    <span class="mech-btn-text">OPEN LINKEDIN</span>
+                    <span aria-hidden="true">&#8599;</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- =======================================================================
+         DOCUMENT COLOPHON & SPECIFICATION FOOTER
+         ======================================================================= -->
+    <footer class="manual-footer" role="contentinfo">
+      <div class="footer-grid">
+        <div class="footer-cell">
+          <span class="footer-label">MANUFACTURER</span>
+          <strong class="footer-val">&copy; 2026 VIGAM Labs. All rights reserved.</strong>
+        </div>
+        <div class="footer-cell">
+          <span class="footer-label">DESIGN SYSTEM</span>
+          <span class="footer-val">Functionalist Grid // DIN Specification Manual</span>
+        </div>
+        <div class="footer-cell">
+          <span class="footer-label">TELEMETRY &amp; COOKIES</span>
+          <span class="footer-val">0 Trackers &middot; 100% Static Execution</span>
+        </div>
+        <div class="footer-cell footer-links-cell">
+          <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="footer-link">KLANG &#8599;</a>
+          <a href="https://www.linkedin.com/company/vigam-labs/" target="_blank" rel="noopener noreferrer" class="footer-link">LINKEDIN &#8599;</a>
+          <a href="mailto:vigam4ai@gmail.com" class="footer-link">VIGAM4AI@GMAIL.COM</a>
+        </div>
+      </div>
+    </footer>
+
   </div>
 
-  <script src="js/lenis.min.js"></script>
-  <script src="js/gsap.min.js"></script>
-  <script src="js/ScrollTrigger.min.js"></script>
+  <!-- Hardware Status Readout Banner (Replaces floating SaaS toast) -->
+  <div id="toast" class="status-readout-toast" role="status" aria-live="polite">
+    <span class="led-dot led-orange" aria-hidden="true"></span>
+    <span id="toast-text">CLIPBOARD REGISTER UPDATED: VIGAM4AI@GMAIL.COM</span>
+  </div>
+
   <script src="js/main.js"></script>
 </body>
 </html>
