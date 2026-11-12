@@ -127,7 +127,7 @@ button {
   line-height: 1;
 }
 
-/* Increased logo size for solid industrial brand presence */
+/* Solid industrial brand presence */
 .brand-logo {
   height: 38px;
   width: auto;
@@ -201,11 +201,16 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   5. HERO SECTION (12-COLUMN ASYMMETRIC SWISS BALANCE)
+   5. HERO SECTION & SUBTLE SWISS MODULAR DOT GRID BACKGROUND
    ----------------------------------------------------------------------------- */
 .hero-section {
+  position: relative;
   padding-top: 64px;
   padding-bottom: 96px;
+  /* Faint architectural Swiss coordinate dot grid (Otl Aicher Ulm grid) */
+  background-image: radial-gradient(circle at 1px 1px, rgba(28, 28, 28, 0.065) 1px, transparent 0);
+  background-size: 36px 36px;
+  background-position: -1px -1px;
 }
 
 .hero-content {
@@ -311,8 +316,8 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   6. INTERACTIVE ACOUSTIC SPACE GRAPHIC (HERO RIGHT COLUMN)
-   Inspired by Josef Müller-Brockmann & Otl Aicher Coordinate Graphics
+   6. INTERACTIVE 3D ASCII TENSOR FIELD (HERO RIGHT COLUMN)
+   Inspired by 1970s Cybernetics, Bell Labs ASCII Graphics, & Dieter Rams Functionalism
    ----------------------------------------------------------------------------- */
 .hero-graphic {
   grid-column: 8 / span 5;
@@ -328,7 +333,7 @@ button {
   align-items: baseline;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--divider);
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .graphic-title {
@@ -344,154 +349,37 @@ button {
   color: var(--text-faint);
 }
 
-/* Vector Coordinate Plane */
-.vector-plane {
+/* ASCII Canvas Viewport */
+.ascii-viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 360 / 280;
+  aspect-ratio: 400 / 280;
   background-color: transparent;
-  cursor: crosshair;
+  cursor: grab;
   touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.plane-grid-svg {
-  position: absolute;
-  inset: 0;
+.ascii-viewport:active {
+  cursor: grabbing;
+}
+
+#ascii-canvas {
   width: 100%;
   height: 100%;
   display: block;
-  pointer-events: none;
 }
 
-.plane-line {
-  stroke: var(--divider);
-  stroke-width: 1;
-}
-
-.plane-mark {
-  stroke: var(--text-faint);
-  stroke-width: 1;
-  fill: none;
-}
-
-.proximity-line {
-  stroke: var(--accent);
-  stroke-width: 1;
-  stroke-dasharray: 2 3;
-  opacity: 0.45;
-  transition: opacity 0.15s ease;
-}
-
-/* Compass Labels */
-.axis-label {
-  position: absolute;
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-faint);
-  pointer-events: none;
-}
-
-.axis-top {
-  top: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.axis-bottom {
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.axis-left {
-  top: 50%;
-  left: -2px;
-  transform: translateY(-50%) rotate(-90deg);
-  transform-origin: left center;
-}
-
-.axis-right {
-  top: 50%;
-  right: -2px;
-  transform: translateY(-50%) rotate(90deg);
-  transform-origin: right center;
-}
-
-/* Plotted Acoustic Nodes */
-.plane-node {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-}
-
-.node-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--text-faint);
-  transition: background-color 0.15s ease, transform 0.15s ease;
-}
-
-.node-label {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text-muted);
-  white-space: nowrap;
-  transition: color 0.15s ease;
-}
-
-.plane-node.active .node-dot {
-  background-color: var(--text);
-  transform: scale(1.3);
-}
-
-.plane-node.active .node-label {
-  color: var(--text);
-}
-
-/* Reticle / Crosshair Tracker */
-.plane-reticle {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 22px;
-  height: 22px;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-  transition: transform 0.06s ease-out;
-}
-
-.reticle-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px solid var(--text);
-  opacity: 0.65;
-}
-
-/* Tiny orange center dot */
-.reticle-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: var(--accent);
-}
-
-/* Telemetry Readout & Live Oscillogram */
+/* Telemetry Readout */
 .graphic-footer {
-  display: grid;
-  grid-template-columns: 1.4fr auto 90px;
-  align-items: center;
-  gap: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
   padding-top: 14px;
   border-top: 1px solid var(--divider);
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .graphic-readout {
@@ -512,17 +400,6 @@ button {
   font-size: 13px;
   font-weight: 500;
   color: var(--text);
-}
-
-.graphic-wave {
-  display: flex;
-  align-items: center;
-}
-
-#wave-canvas {
-  display: block;
-  width: 120px;
-  height: 24px;
 }
 
 .graphic-latency {

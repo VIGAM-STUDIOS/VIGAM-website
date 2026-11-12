@@ -71,75 +71,24 @@
             </div>
           </div>
 
-          <!-- Right Column: Interactive Acoustic Space Graphic -->
-          <div class="hero-graphic" aria-label="Interactive acoustic vector coordinate plane">
+          <!-- Right Column: Interactive 3D ASCII Tensor Field -->
+          <div class="hero-graphic" aria-label="Interactive 3D tensor field graphic">
             <div class="graphic-header">
-              <span class="graphic-title">Acoustic space</span>
-              <span class="graphic-hint">Move or click to audition coordinates</span>
+              <span class="graphic-title">Neural kernel</span>
+              <span class="graphic-hint">Drag or move cursor to rotate</span>
             </div>
 
-            <!-- Coordinate Plane -->
-            <div class="vector-plane" id="vector-plane" role="region" aria-label="Interactive 2D sound space map">
-              <!-- Axis Compass Labels -->
-              <span class="axis-label axis-top">Soft envelope</span>
-              <span class="axis-label axis-bottom">Sharp transient</span>
-              <span class="axis-label axis-left">Warm timbre</span>
-              <span class="axis-label axis-right">Bright timbre</span>
-
-              <!-- Orthogonal Grid SVG with Intersections -->
-              <svg class="plane-grid-svg" viewBox="0 0 360 280" preserveAspectRatio="none" aria-hidden="true">
-                <!-- Hairline coordinate lines -->
-                <line x1="0" y1="93" x2="360" y2="93" class="plane-line"/>
-                <line x1="0" y1="187" x2="360" y2="187" class="plane-line"/>
-                <line x1="120" y1="0" x2="120" y2="280" class="plane-line"/>
-                <line x1="240" y1="0" x2="240" y2="280" class="plane-line"/>
-
-                <!-- Delicate registration marks at intersections -->
-                <path d="M 116 93 H 124 M 120 89 V 97" class="plane-mark"/>
-                <path d="M 236 93 H 244 M 240 89 V 97" class="plane-mark"/>
-                <path d="M 116 187 H 124 M 120 183 V 191" class="plane-mark"/>
-                <path d="M 236 187 H 244 M 240 183 V 191" class="plane-mark"/>
-
-                <!-- Proximity guide line to nearest node -->
-                <line id="proximity-line" x1="90" y1="70" x2="90" y2="70" class="proximity-line"/>
-              </svg>
-
-              <!-- Plotted Acoustic Nodes -->
-              <div class="plane-node" style="left: 25%; top: 25%;" data-node="pad">
-                <span class="node-dot"></span>
-                <span class="node-label">Warm analog pad</span>
-              </div>
-              <div class="plane-node" style="left: 75%; top: 25%;" data-node="pluck">
-                <span class="node-dot"></span>
-                <span class="node-label">Glassy pluck</span>
-              </div>
-              <div class="plane-node" style="left: 25%; top: 75%;" data-node="sub">
-                <span class="node-dot"></span>
-                <span class="node-label">Sub 808 glide</span>
-              </div>
-              <div class="plane-node" style="left: 75%; top: 75%;" data-node="snare">
-                <span class="node-dot"></span>
-                <span class="node-label">Acoustic snare</span>
-              </div>
-
-              <!-- Interactive Reticle / Cursor -->
-              <div class="plane-reticle" id="plane-reticle" style="left: 25%; top: 25%;">
-                <span class="reticle-ring"></span>
-                <span class="reticle-dot"></span>
-              </div>
+            <div class="ascii-viewport" id="ascii-viewport">
+              <canvas id="ascii-canvas" width="400" height="280" aria-label="Rotating 3D ASCII tensor field rendered in real time"></canvas>
             </div>
 
-            <!-- Dynamic Telemetry Readout & Live Oscillogram -->
             <div class="graphic-footer">
               <div class="graphic-readout">
-                <span class="readout-label">Nearest point</span>
-                <span class="readout-value" id="readout-node">Warm analog pad</span>
-              </div>
-              <div class="graphic-wave">
-                <canvas id="wave-canvas" width="120" height="24" aria-hidden="true"></canvas>
+                <span class="readout-label">Compute topology</span>
+                <span class="readout-value">Local tensor projection</span>
               </div>
               <div class="graphic-latency">
-                <span class="mono">0 ms local</span>
+                <span class="mono">0 B cloud egress</span>
               </div>
             </div>
           </div>

@@ -1,254 +1,184 @@
 /* =============================================================================
-   VIGAM LABS — Minimalist Acoustic Vector Map & Utility Script
-   Interactive 2D Acoustic Embedding Space | On-Device Sound Synthesis
+   VIGAM LABS — Interactive 3D ASCII Tensor Field & Minimalist Utilities
+   Pure Trigonometric Mathematical Projection | 60 FPS Canvas | Zero Bloat
    ============================================================================= */
 
 (function () {
   'use strict';
 
   /* -------------------------------------------------------------------------
-     1. WEBAUDIO REAL-TIME ACOUSTIC INTERPOLATOR
+     1. 3D ASCII TENSOR FIELD GENERATOR (BELL LABS / CYBERNETIC GEOMETRY)
      ------------------------------------------------------------------------- */
-  var audioCtx = null;
-  var activeNodes = [];
+  var canvas = document.getElementById('ascii-canvas');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
 
-  function ensureAudioCtx() {
-    if (!audioCtx) {
-      var Ctx = window.AudioContext || window.webkitAudioContext;
-      if (Ctx) audioCtx = new Ctx();
-    }
-    if (audioCtx && audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    return audioCtx;
-  }
+    // Fixed internal resolution
+    var width = 400;
+    var height = 280;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
 
-  function stopActiveAudio() {
-    activeNodes.forEach(function (n) {
-      try { n.stop(); } catch (e) {}
-    });
-    activeNodes = [];
-  }
+    // ASCII Character Ramp
+    var CHARS = [' ', '·', ':', '-', '=', '+', '*', '#', '%', '@'];
+    var COLS = 46;
+    var ROWS = 23;
+    var cellW = width / COLS;
+    var cellH = height / ROWS;
 
-  // Synthesizes an interpolated tone based on normalized (x, y) coordinates
-  // x: 0 (Warm / Low) -> 1 (Bright / Sparkling)
-  // y: 0 (Soft / Evolving) -> 1 (Sharp Transient / Punchy)
-  function playCoordinateTone(x, y) {
-    var ctx = ensureAudioCtx();
-    if (!ctx) return;
-    stopActiveAudio();
+    // 3D Rotation Angles & Physics
+    var angleA = 0.6;
+    var angleB = 0.4;
+    var targetRotX = 0;
+    var targetRotY = 0;
+    var velA = 0.009;
+    var velB = 0.006;
+    var isHovered = false;
+    var isDragging = false;
+    var lastPointerX = 0;
+    var lastPointerY = 0;
 
-    var now = ctx.currentTime;
-    var master = ctx.createGain();
-    master.gain.setValueAtTime(0.18, now);
-    master.connect(ctx.destination);
+    // Torus Mathematical Constants
+    var R1 = 1.0;
+    var R2 = 2.0;
+    var K2 = 5.0;
+    var K1 = (COLS * K2 * 3) / (8 * (R1 + R2));
 
-    // Dynamic lowpass filter based on X (Timbre)
-    var filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    var cutoff = 320 + Math.pow(x, 2) * 3200;
-    filter.frequency.setValueAtTime(cutoff, now);
-    filter.Q.value = 1.0 + x * 2.5;
-    filter.connect(master);
+    var buffer = new Array(COLS * ROWS);
+    var zbuffer = new Float32Array(COLS * ROWS);
 
-    // Envelope shaping based on Y (Attack)
-    var isTransient = y > 0.55;
-    var osc = ctx.createOscillator();
-    var osc2 = ctx.createOscillator();
-    var env = ctx.createGain();
+    function renderAsciiFrame() {
+      // Clear buffers
+      buffer.fill(' ');
+      zbuffer.fill(0);
 
-    if (isTransient) {
-      // Punchy transient (Snare / Sub 808 click)
-      var baseFreq = x > 0.5 ? 180 : 110;
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(baseFreq * 2.2, now);
-      osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.75, now + 0.08);
+      // Inertial physics
+      angleA += velA + targetRotY * 0.04;
+      angleB += velB + targetRotX * 0.04;
+      targetRotX *= 0.92;
+      targetRotY *= 0.92;
 
-      env.gain.setValueAtTime(0.001, now);
-      env.gain.linearRampToValueAtTime(0.7, now + 0.004);
-      env.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+      var cosA = Math.cos(angleA);
+      var sinA = Math.sin(angleA);
+      var cosB = Math.cos(angleB);
+      var sinB = Math.sin(angleB);
 
-      osc.connect(env);
-      env.connect(filter);
-      osc.start(now);
-      osc.stop(now + 0.3);
-      activeNodes.push(osc);
-    } else {
-      // Soft evolving tone (Pad / Glassy Pluck)
-      var padFreq = x > 0.5 ? 220 : 146.83;
-      osc.type = 'sine';
-      osc2.type = 'triangle';
-      osc.frequency.setValueAtTime(padFreq, now);
-      osc2.frequency.setValueAtTime(padFreq * (x > 0.5 ? 2 : 1.5), now);
-      osc2.detune.setValueAtTime(6, now);
+      // Theta: circle cross section
+      for (var theta = 0; theta < 6.28; theta += 0.12) {
+        var costheta = Math.cos(theta);
+        var sintheta = Math.sin(theta);
 
-      env.gain.setValueAtTime(0.0001, now);
-      env.gain.linearRampToValueAtTime(0.45, now + 0.12);
-      env.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
+        // Phi: revolution around torus center
+        for (var phi = 0; phi < 6.28; phi += 0.05) {
+          var cosphi = Math.cos(phi);
+          var sinphi = Math.sin(phi);
 
-      osc.connect(env);
-      osc2.connect(env);
-      env.connect(filter);
+          var circlex = R2 + R1 * costheta;
+          var circley = R1 * sintheta;
 
-      osc.start(now);
-      osc2.start(now);
-      osc.stop(now + 0.88);
-      osc2.stop(now + 0.88);
-      activeNodes.push(osc, osc2);
-    }
-  }
+          var x = circlex * (cosB * cosphi + sinA * sinB * sinphi) - circley * cosA * sinB;
+          var y = circlex * (sinB * cosphi - sinA * cosB * sinphi) + circley * cosA * cosB;
+          var z = K2 + cosA * circlex * sinphi + circley * sinA;
+          var ooz = 1 / z;
 
-  /* -------------------------------------------------------------------------
-     2. INTERACTIVE ACOUSTIC LATENT SPACE (2D COORDINATE PLANE)
-     ------------------------------------------------------------------------- */
-  var plane = document.getElementById('vector-plane');
-  var reticle = document.getElementById('plane-reticle');
-  var readoutNode = document.getElementById('readout-node');
-  var proximityLine = document.getElementById('proximity-line');
-  var canvas = document.getElementById('wave-canvas');
-  var ctx2d = canvas ? canvas.getContext('2d') : null;
+          var xp = Math.floor(COLS / 2 + K1 * ooz * x);
+          var yp = Math.floor(ROWS / 2 - (K1 * 0.55) * ooz * y);
 
-  var NODES = [
-    { id: 'pad', name: 'Warm analog pad', x: 0.25, y: 0.25 },
-    { id: 'pluck', name: 'Glassy pluck', x: 0.75, y: 0.25 },
-    { id: 'sub', name: 'Sub 808 glide', x: 0.25, y: 0.75 },
-    { id: 'snare', name: 'Acoustic snare', x: 0.75, y: 0.75 }
-  ];
+          // Surface normal lighting calculation
+          var L = cosphi * costheta * sinB - cosA * costheta * sinphi - sinA * sintheta +
+                  cosB * (cosA * sintheta - costheta * sinA * sinphi);
 
-  var currentX = 0.25;
-  var currentY = 0.25;
-  var isDragging = false;
-  var lastSoundTime = 0;
-
-  function drawWaveform(x, y) {
-    if (!ctx2d) return;
-    var w = canvas.width;
-    var h = canvas.height;
-    ctx2d.clearRect(0, 0, w, h);
-
-    ctx2d.strokeStyle = '#1C1C1C';
-    ctx2d.lineWidth = 1.25;
-    ctx2d.beginPath();
-
-    var points = 48;
-    var midY = h / 2;
-    var freq = 1.5 + x * 4.5;
-    var sharpness = 0.4 + y * 1.6;
-
-    for (var i = 0; i < points; i++) {
-      var t = i / (points - 1);
-      var px = t * w;
-      var env = Math.sin(t * Math.PI);
-      var wave = Math.sin(t * Math.PI * 2 * freq) * Math.pow(env, sharpness);
-      var py = midY - wave * (h * 0.38);
-
-      if (i === 0) ctx2d.moveTo(px, py);
-      else ctx2d.lineTo(px, py);
-    }
-    ctx2d.stroke();
-  }
-
-  function updatePlanePosition(normX, normY, triggerAudio) {
-    currentX = Math.max(0.04, Math.min(0.96, normX));
-    currentY = Math.max(0.04, Math.min(0.96, normY));
-
-    if (reticle) {
-      reticle.style.left = (currentX * 100).toFixed(1) + '%';
-      reticle.style.top = (currentY * 100).toFixed(1) + '%';
-    }
-
-    // Find nearest acoustic node
-    var nearest = NODES[0];
-    var minDistance = Infinity;
-
-    NODES.forEach(function (n) {
-      var dx = n.x - currentX;
-      var dy = n.y - currentY;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < minDistance) {
-        minDistance = dist;
-        nearest = n;
-      }
-    });
-
-    // Update active node styling
-    document.querySelectorAll('.plane-node').forEach(function (el) {
-      el.classList.toggle('active', el.getAttribute('data-node') === nearest.id);
-    });
-
-    if (readoutNode) {
-      readoutNode.textContent = nearest.name;
-    }
-
-    // Update proximity dashed line
-    if (proximityLine) {
-      proximityLine.setAttribute('x1', (currentX * 360).toFixed(1));
-      proximityLine.setAttribute('y1', (currentY * 280).toFixed(1));
-      proximityLine.setAttribute('x2', (nearest.x * 360).toFixed(1));
-      proximityLine.setAttribute('y2', (nearest.y * 280).toFixed(1));
-      proximityLine.style.opacity = minDistance < 0.28 ? '0.7' : '0.25';
-    }
-
-    drawWaveform(currentX, currentY);
-
-    if (triggerAudio) {
-      var now = Date.now();
-      if (now - lastSoundTime > 120) {
-        lastSoundTime = now;
-        playCoordinateTone(currentX, currentY);
-      }
-    }
-  }
-
-  if (plane) {
-    function handlePointer(e, triggerSound) {
-      var rect = plane.getBoundingClientRect();
-      var nx = (e.clientX - rect.left) / rect.width;
-      var ny = (e.clientY - rect.top) / rect.height;
-      updatePlanePosition(nx, ny, triggerSound);
-    }
-
-    plane.addEventListener('pointerdown', function (e) {
-      isDragging = true;
-      plane.setPointerCapture(e.pointerId);
-      handlePointer(e, true);
-    });
-
-    plane.addEventListener('pointermove', function (e) {
-      if (isDragging) {
-        handlePointer(e, true);
-      } else {
-        handlePointer(e, false);
-      }
-    });
-
-    plane.addEventListener('pointerup', function (e) {
-      isDragging = false;
-      try { plane.releasePointerCapture(e.pointerId); } catch (err) {}
-    });
-
-    plane.addEventListener('pointercancel', function () {
-      isDragging = false;
-    });
-
-    // Click on node directly
-    document.querySelectorAll('.plane-node').forEach(function (nodeEl) {
-      nodeEl.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var nodeId = nodeEl.getAttribute('data-node');
-        var target = NODES.find(function (n) { return n.id === nodeId; });
-        if (target) {
-          updatePlanePosition(target.x, target.y, true);
+          if (xp >= 0 && xp < COLS && yp >= 0 && yp < ROWS) {
+            var idx = xp + yp * COLS;
+            if (ooz > zbuffer[idx]) {
+              zbuffer[idx] = ooz;
+              var luminanceIdx = Math.floor(L * 8);
+              luminanceIdx = Math.max(0, Math.min(CHARS.length - 1, luminanceIdx));
+              buffer[idx] = CHARS[luminanceIdx];
+            }
+          }
         }
-      });
+      }
+
+      // Draw character matrix onto canvas
+      ctx.clearRect(0, 0, width, height);
+      ctx.font = '11px "JetBrains Mono", Menlo, monospace';
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+
+      for (var r = 0; r < ROWS; r++) {
+        for (var c = 0; c < COLS; c++) {
+          var ch = buffer[c + r * COLS];
+          if (!ch || ch === ' ') continue;
+
+          var posX = c * cellW + cellW / 2;
+          var posY = r * cellH + cellH / 2;
+
+          // Color grading: charcoal with subtle Braun orange highlight at peak luminance
+          if (ch === '@' || ch === '%') {
+            ctx.fillStyle = '#D94E1F'; // Peak highlight in Braun signal orange
+          } else if (ch === '#' || ch === '*') {
+            ctx.fillStyle = '#1C1C1C'; // Foreground dense charcoal
+          } else if (ch === '+' || ch === '=') {
+            ctx.fillStyle = '#45433E'; // Mid-tone charcoal
+          } else {
+            ctx.fillStyle = '#949088'; // Ambient hairline tone
+          }
+
+          ctx.fillText(ch, posX, posY);
+        }
+      }
+
+      requestAnimationFrame(renderAsciiFrame);
+    }
+
+    // Pointer event listeners
+    canvas.addEventListener('pointerenter', function () {
+      isHovered = true;
     });
 
-    // Initial render
-    updatePlanePosition(0.25, 0.25, false);
+    canvas.addEventListener('pointerleave', function () {
+      isHovered = false;
+      isDragging = false;
+    });
+
+    canvas.addEventListener('pointerdown', function (e) {
+      isDragging = true;
+      lastPointerX = e.clientX;
+      lastPointerY = e.clientY;
+      // Pulse of rotational acceleration on click
+      targetRotX += (Math.random() - 0.5) * 0.4;
+      targetRotY += (Math.random() - 0.5) * 0.4;
+    });
+
+    window.addEventListener('pointerup', function () {
+      isDragging = false;
+    });
+
+    canvas.addEventListener('pointermove', function (e) {
+      if (isDragging) {
+        var dx = e.clientX - lastPointerX;
+        var dy = e.clientY - lastPointerY;
+        lastPointerX = e.clientX;
+        lastPointerY = e.clientY;
+        targetRotX = dx * 0.08;
+        targetRotY = dy * 0.08;
+      } else {
+        var rect = canvas.getBoundingClientRect();
+        var cx = (e.clientX - rect.left) / rect.width - 0.5;
+        var cy = (e.clientY - rect.top) / rect.height - 0.5;
+        targetRotX = cx * 0.06;
+        targetRotY = cy * 0.06;
+      }
+    });
+
+    requestAnimationFrame(renderAsciiFrame);
   }
 
   /* -------------------------------------------------------------------------
-     3. EMAIL CLIPBOARD COPY
+     2. EMAIL CLIPBOARD COPY
      ------------------------------------------------------------------------- */
   var copyBtn = document.querySelector('[data-copy]');
   var copyLabel = document.getElementById('copy-label');
