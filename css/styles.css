@@ -113,8 +113,8 @@ button {
    3. HEADER & NAVIGATION (PERFECT BILATERAL SWISS BALANCE)
    ----------------------------------------------------------------------------- */
 .header {
-  padding-top: 40px;
-  padding-bottom: 32px;
+  padding-top: 20px;
+  padding-bottom: 18px;
   background-color: var(--bg);
   border-bottom: 1px solid var(--divider);
 }
@@ -136,7 +136,7 @@ button {
 
 /* Solid industrial brand presence */
 .brand-logo {
-  height: 55px;
+  height: 36px;
   width: auto;
   display: block;
 }
@@ -739,65 +739,23 @@ html.js .hero-actions {
 }
 
 /* -----------------------------------------------------------------------------
-   12. RESPONSIVE BREAKPOINTS (STRICT 12-COLUMN ADAPTATION)
+   12. RESPONSIVE BREAKPOINTS: DEDICATED TABLET & MOBILE ARCHITECTURE
+   Authentic Dieter Rams Minimalism · 100% Optical Clarity & Touch Ergonomics
    ----------------------------------------------------------------------------- */
-@media (max-width: 960px) {
+
+/* =============================================================================
+   TABLET TIER (768px - 1024px)
+   ============================================================================= */
+@media (min-width: 768px) and (max-width: 1024px) {
   .grid-wrap {
+    padding-left: 28px;
+    padding-right: 28px;
     column-gap: 24px;
-    padding-left: 24px;
-    padding-right: 24px;
   }
 
-  .hero-main {
-    grid-column: 1 / -1;
-  }
-
-  .hero-spacer {
-    display: none;
-  }
-
-  .col-sidebar {
-    grid-column: 1 / -1;
-    margin-bottom: 40px;
-  }
-
-  .sidebar-text {
-    max-width: 100%;
-    margin-bottom: 24px;
-  }
-
-  .col-main {
-    grid-column: 1 / -1;
-  }
-
-  .hero-headline {
-    font-size: 38px;
-  }
-
-  .hero-lead {
-    font-size: 18px;
-  }
-
-  .team-list {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .footer-left {
-    grid-column: 1 / -1;
-    margin-bottom: 16px;
-  }
-
-  .footer-right {
-    grid-column: 1 / -1;
-    justify-content: flex-start;
-  }
-}
-
-@media (max-width: 600px) {
   .header {
-    padding-top: 24px;
-    padding-bottom: 20px;
+    padding-top: 18px;
+    padding-bottom: 16px;
   }
 
   .brand-logo {
@@ -805,16 +763,15 @@ html.js .hero-actions {
   }
 
   .col-logo {
-    grid-column: 1 / span 5;
+    grid-column: 1 / span 4;
   }
 
   .col-nav {
-    grid-column: 6 / span 7;
+    grid-column: 5 / span 8;
   }
 
   .nav-list {
-    gap: 16px;
-    justify-content: flex-end;
+    gap: 24px;
   }
 
   .nav-link {
@@ -822,34 +779,481 @@ html.js .hero-actions {
   }
 
   .section {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 72px;
+    padding-bottom: 72px;
   }
 
   .hero-section {
-    padding-top: 48px;
-    padding-bottom: 64px;
+    padding-top: 52px;
+    padding-bottom: 72px;
+    min-height: 480px;
+  }
+
+  .hero-ocean-wrap {
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 38%, rgba(0,0,0,1) 75%);
+    mask-image: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 38%, rgba(0,0,0,1) 75%);
+  }
+
+  .hero-main {
+    grid-column: 1 / span 8;
+  }
+
+  .hero-spacer {
+    grid-column: 9 / span 4;
+    min-height: 300px;
   }
 
   .hero-headline {
-    font-size: 32px;
+    font-size: 42px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .hero-lead {
+    font-size: 17.5px;
+    line-height: 1.55;
+    max-width: 38ch;
+    margin-bottom: 30px;
+  }
+
+  .col-sidebar {
+    grid-column: 1 / span 4;
+    margin-bottom: 0;
+  }
+
+  .col-main {
+    grid-column: 5 / span 8;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .sidebar-text {
+    font-size: 15px;
+  }
+
+  .spec-list {
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .principles-list {
+    gap: 44px;
+  }
+
+  .principle-heading {
+    font-size: 20px;
+  }
+
+  .team-list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 28px;
+    row-gap: 20px;
+  }
+
+  .footer {
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+
+  .footer-left {
+    grid-column: 1 / span 6;
+  }
+
+  .footer-right {
+    grid-column: 7 / span 6;
+    gap: 20px;
+  }
+}
+
+/* =============================================================================
+   MOBILE TIER (<= 767px)
+   ============================================================================= */
+@media (max-width: 767px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .grid-wrap {
+    display: flex;
+    flex-direction: column;
+    padding-left: 18px;
+    padding-right: 18px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* --- HEADER & COMPACT NAV --- */
+  .header {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .header-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .col-logo {
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .brand-logo {
+    height: 26px;
+    width: auto;
+  }
+
+  .col-nav {
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .nav-link {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* --- HERO SECTION & ADAPTIVE OCEAN MASK --- */
+  .hero-section {
+    padding-top: 36px;
+    padding-bottom: 48px;
+    min-height: auto;
+    background-size: 24px 24px;
+  }
+
+  .hero-ocean-wrap {
+    /* Subtle background wash behind mobile copy, surging to full density near bottom */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.85) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.85) 100%);
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-main {
+    width: 100%;
+  }
+
+  .hero-spacer {
+    display: none;
+  }
+
+  .hero-headline {
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
   }
 
   .hero-lead {
     font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 100%;
+    margin-bottom: 24px;
   }
 
-  .channel-address {
-    font-size: 17px;
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 14px;
+  }
+
+  .hero-actions .text-link {
+    text-align: center;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+
+  /* --- SECTIONS COMMON --- */
+  .section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .col-sidebar {
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .kicker {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-text {
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .col-main {
+    width: 100%;
+  }
+
+  /* --- PRODUCT (KLANG CAROUSEL & SPECS) --- */
+  .spec-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .spec-item:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .sidebar-action {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  .carousel-viewport {
+    border-radius: 2px;
   }
 
   .carousel-meta {
+    display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-top: 12px;
+  }
+
+  .carousel-caption-wrap {
+    width: 100%;
+  }
+
+  .carousel-caption {
+    font-size: 12.5px;
+    line-height: 1.45;
   }
 
   .carousel-controls {
-    width: 100%;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .carousel-indicators {
+    gap: 10px;
+  }
+
+  .indicator-btn {
+    font-size: 12px;
+    padding: 6px 2px;
+  }
+
+  .carousel-arrows {
+    gap: 8px;
+  }
+
+  .nav-arrow-btn {
+    font-size: 16px;
+    padding: 6px 12px;
+    background-color: rgba(28, 28, 28, 0.04);
+    border-radius: 2px;
+  }
+
+  /* --- PRINCIPLES --- */
+  .principles-list {
+    gap: 32px;
+  }
+
+  .principle-item {
+    gap: 6px;
+  }
+
+  .principle-heading {
+    font-size: 19px;
+    line-height: 1.25;
+  }
+
+  .principle-body {
+    font-size: 14.5px;
+    line-height: 1.55;
+    max-width: 100%;
+  }
+
+  .principle-metric {
+    margin-top: 4px;
+    gap: 8px;
+  }
+
+  .metric-value {
+    font-size: 14px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+  }
+
+  /* --- ABOUT --- */
+  .about-lead {
+    font-size: 15.5px;
+    line-height: 1.55;
+    margin-bottom: 24px;
+    max-width: 100%;
+  }
+
+  .team-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .team-member {
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(221, 217, 208, 0.5);
+  }
+
+  .team-member:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .member-name {
+    font-size: 15px;
+  }
+
+  .member-role {
+    font-size: 12.5px;
+  }
+
+  .member-links {
+    gap: 16px;
+    margin-top: 6px;
+  }
+
+  .link-item {
+    font-size: 13px;
+    padding: 4px 0;
+  }
+
+  /* --- CONTACT --- */
+  .contact-channels {
+    gap: 22px;
+    width: 100%;
+  }
+
+  .contact-channel {
+    gap: 4px;
+    width: 100%;
+  }
+
+  .channel-label {
+    font-size: 11px;
+  }
+
+  .channel-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .channel-address {
+    font-size: clamp(16px, 4.8vw, 19px);
+    word-break: break-all;
+  }
+
+  .btn-copy {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  /* --- FOOTER --- */
+  .footer {
+    padding-top: 24px;
+    padding-bottom: 36px;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .footer-left {
+    font-size: 12px;
+    color: var(--text-faint);
+    line-height: 1.45;
+  }
+
+  .footer-right {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-size: 12px;
+  }
+}
+
+/* =============================================================================
+   MICRO-MOBILE TIER (<= 380px)
+   ============================================================================= */
+@media (max-width: 380px) {
+  .grid-wrap {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .brand-logo {
+    height: 23px;
+  }
+
+  .nav-list {
+    gap: 10px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .hero-headline {
+    font-size: 26px;
+  }
+
+  .spec-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }
