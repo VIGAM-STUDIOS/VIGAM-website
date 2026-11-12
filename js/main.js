@@ -58,9 +58,14 @@
 
       if (width === 0 || height === 0) return;
 
+      // On mobile (<= 768px), use high-density 4.2px x 6.8px character cells for intricate halftone detail
+      var isMobile = width <= 768;
+      cellW = isMobile ? 4.2 : 7.0;
+      cellH = isMobile ? 6.8 : 11.0;
+
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     window.addEventListener('resize', resize);
@@ -156,7 +161,9 @@
       var rows = Math.floor(height / cellH);
       var time = now * 0.0016;
 
-      ctx.font = '500 10.5px "JetBrains Mono", Menlo, monospace';
+      var isMobile = width <= 768;
+      var fontSize = isMobile ? '6.5px' : '10.5px';
+      ctx.font = '500 ' + fontSize + ' "JetBrains Mono", Menlo, monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
@@ -172,10 +179,10 @@
           var px = c * cellW + cellW * 0.5;
 
           // Panoramic Text Clearance:
-          // On desktop (width >= 1025), left side (normX < 0.38) is cleared so headline & copy sit in unblemished whitespace.
-          // On mobile & tablet portrait (width < 1025), ocean occupies its dedicated lower deck, rendering edge-to-edge across full width!
+          // On desktop (width > 768), left side (normX < 0.38) is cleared so headline & copy sit in unblemished whitespace.
+          // On mobile (width <= 768), ocean occupies its dedicated lower deck flush against bottom: 0 with top gradient mask, rendering edge-to-edge!
           var textClearance = 1.0;
-          if (width >= 1025) {
+          if (width > 768) {
             if (normX < 0.38) {
               continue;
             } else if (normX < 0.52) {

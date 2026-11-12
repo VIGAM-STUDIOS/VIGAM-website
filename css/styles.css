@@ -747,9 +747,9 @@ html.js .hero-actions {
    ----------------------------------------------------------------------------- */
 
 /* =============================================================================
-   TABLET TIER (768px - 1024px)
+   TABLET TIER (769px - 1024px)
    ============================================================================= */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .grid-wrap {
     padding-left: 28px;
     padding-right: 28px;
@@ -893,82 +893,122 @@ html.js .hero-actions {
 }
 
 /* =============================================================================
-   MOBILE TIER (<= 767px)
+   MOBILE TIER (<= 768px)
+   Dieter Rams Modernist Mobile Architecture
    ============================================================================= */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   html, body {
     overflow-x: hidden;
     width: 100%;
   }
 
+  /* Consistent 20px horizontal side margins across the entire mobile page */
   .grid-wrap {
     display: flex;
     flex-direction: column;
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
     width: 100%;
     box-sizing: border-box;
   }
 
-  /* --- HEADER & COMPACT NAV --- */
+  /* --- 3. CLEAN TWO-TIER MOBILE HEADER --- */
   .header {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding: 0;
+    width: 100%;
+    border-bottom: 1px solid var(--divider);
+    background-color: var(--bg);
   }
 
   .header-inner {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
     width: 100%;
   }
 
+  /* Top Row: VIGAM LABS logo */
   .col-logo {
-    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 14px 20px 12px;
+    width: 100%;
+    border-bottom: 1px solid var(--divider);
+    box-sizing: border-box;
     flex-shrink: 0;
   }
 
   .brand-logo {
-    height: 26px;
+    height: 28px;
     width: auto;
+    display: block;
   }
 
+  /* Second Row: Four links evenly organized across a clean full-width horizontal strip */
   .col-nav {
-    width: auto;
+    width: 100%;
     flex-shrink: 0;
   }
 
   .nav-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-list li {
     display: flex;
     align-items: center;
-    gap: 14px;
+    justify-content: center;
+    width: 100%;
   }
 
   .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
     font-size: 13px;
     font-weight: 500;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 0 4px;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: color 0.15s ease;
   }
 
-  /* --- HERO SECTION: FULL-VIEWPORT HERO POSTER --- */
+  .nav-link:hover,
+  .nav-link:active {
+    color: var(--accent);
+  }
+
+  /* --- 1. FULL-VIEWPORT POSTER HERO (100svh) --- */
   .hero-section {
     position: relative;
-    min-height: calc(100svh - 54px);
-    min-height: calc(100dvh - 54px);
+    height: calc(100svh - 99px);
+    min-height: calc(100svh - 99px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 0;
     overflow: hidden;
+    box-sizing: border-box;
   }
 
-  /* Upper Deck: Pure Unobscured Dieter Rams Typography */
+  /* Upper ~55%: Logo/nav strip above, headline, subheadline, and CTA buttons */
   .hero-content {
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
-    padding: 28px 20px 20px;
+    padding: 24px 20px 0;
     flex: 0 0 auto;
     width: 100%;
     margin: 0;
@@ -983,19 +1023,21 @@ html.js .hero-actions {
     display: none;
   }
 
+  /* --- 4. THUMB-FRIENDLY CTA ROW & TYPOGRAPHY --- */
   .hero-headline {
-    font-size: clamp(26px, 7.2vw, 32px);
-    line-height: 1.12;
-    letter-spacing: -0.03em;
-    margin-bottom: 12px;
+    font-size: clamp(2.2rem, 8.5vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    margin-bottom: 14px;
+    font-weight: 500;
   }
 
   .hero-lead {
-    font-size: 14.5px;
+    font-size: 15px;
     line-height: 1.5;
     color: var(--text-muted);
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
   }
 
   .hero-actions {
@@ -1010,29 +1052,42 @@ html.js .hero-actions {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-height: 48px;
     width: auto;
-    padding: 11px 22px;
-    font-size: 13.5px;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: 500;
+    box-sizing: border-box;
   }
 
   .hero-actions .text-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 4px;
+    font-size: 14px;
+    font-weight: 500;
     text-align: left;
-    padding: 4px 0;
-    font-size: 13.5px;
   }
 
-  /* Lower Deck: Dedicated Living ASCII Ocean Deck */
+  /* --- 2. ANCHOR & INCREASE RESOLUTION OF ASCII OCEAN --- */
   .hero-ocean-wrap {
-    position: relative;
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    flex: 1 1 auto;
-    min-height: 240px;
-    border-top: 1px solid var(--divider);
-    background-color: var(--bg);
+    height: 42%;
+    min-height: 220px;
+    max-height: 380px;
+    z-index: 1;
+    pointer-events: auto;
     overflow: hidden;
     touch-action: none;
-    -webkit-mask-image: none;
-    mask-image: none;
+    border-top: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 35%);
   }
 
   #ocean-canvas {
@@ -1042,34 +1097,37 @@ html.js .hero-actions {
     cursor: crosshair;
   }
 
-  /* --- SECTIONS COMMON --- */
-  .section {
-    padding-top: 48px;
-    padding-bottom: 48px;
+  /* --- 5. CONSISTENT VERTICAL RHYTHM BELOW THE FOLD (64px-80px PADDING) --- */
+  .section:not(.hero-section) {
+    padding-top: 72px;
+    padding-bottom: 72px;
   }
 
   .col-sidebar {
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   }
 
   .kicker {
     font-size: 11px;
     letter-spacing: 0.08em;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    color: var(--text-faint);
   }
 
   .section-title {
-    font-size: 26px;
-    line-height: 1.2;
-    margin-bottom: 10px;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
   }
 
   .sidebar-text {
     font-size: 15px;
     line-height: 1.55;
+    color: var(--text-muted);
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .col-main {
@@ -1080,20 +1138,40 @@ html.js .hero-actions {
   .spec-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-bottom: 20px;
+    gap: 16px;
+    margin-bottom: 24px;
   }
 
   .spec-item:last-child {
     grid-column: 1 / -1;
   }
 
+  .spec-label {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    margin-bottom: 4px;
+  }
+
+  .spec-value {
+    font-size: 14px;
+    color: var(--text);
+  }
+
   .sidebar-action {
-    margin-top: 8px;
+    margin-top: 4px;
     margin-bottom: 8px;
   }
 
+  .sidebar-action .text-link {
+    font-size: 14.5px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
   .carousel-viewport {
+    width: 100%;
     border-radius: 2px;
   }
 
@@ -1101,7 +1179,7 @@ html.js .hero-actions {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 12px;
+    margin-top: 14px;
   }
 
   .carousel-caption-wrap {
@@ -1109,7 +1187,7 @@ html.js .hero-actions {
   }
 
   .carousel-caption {
-    font-size: 12.5px;
+    font-size: 13px;
     line-height: 1.45;
   }
 
@@ -1121,75 +1199,94 @@ html.js .hero-actions {
   }
 
   .carousel-indicators {
-    gap: 10px;
+    gap: 12px;
   }
 
   .indicator-btn {
-    font-size: 12px;
-    padding: 6px 2px;
+    font-size: 13px;
+    padding: 8px 4px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .carousel-arrows {
-    gap: 8px;
+    gap: 10px;
   }
 
   .nav-arrow-btn {
     font-size: 16px;
-    padding: 6px 12px;
+    padding: 8px 14px;
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: rgba(28, 28, 28, 0.04);
     border-radius: 2px;
   }
 
   /* --- PRINCIPLES --- */
   .principles-list {
-    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    width: 100%;
   }
 
   .principle-item {
-    gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .principle-heading {
-    font-size: 19px;
+    font-size: 20px;
     line-height: 1.25;
+    letter-spacing: -0.02em;
   }
 
   .principle-body {
-    font-size: 14.5px;
+    font-size: 15px;
     line-height: 1.55;
+    color: var(--text-muted);
     max-width: 100%;
   }
 
   .principle-metric {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
     margin-top: 4px;
-    gap: 8px;
   }
 
   .metric-value {
-    font-size: 14px;
+    font-size: 14.5px;
+    font-weight: 500;
   }
 
   .metric-label {
     font-size: 12px;
+    color: var(--text-muted);
   }
 
   /* --- ABOUT --- */
   .about-lead {
-    font-size: 15.5px;
+    font-size: 16px;
     line-height: 1.55;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     max-width: 100%;
   }
 
   .team-list {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 22px;
     width: 100%;
   }
 
   .team-member {
-    padding-bottom: 16px;
+    padding-bottom: 20px;
     border-bottom: 1px solid rgba(221, 217, 208, 0.5);
   }
 
@@ -1199,83 +1296,100 @@ html.js .hero-actions {
   }
 
   .member-name {
-    font-size: 15px;
+    font-size: 15.5px;
+    font-weight: 500;
   }
 
   .member-role {
-    font-size: 12.5px;
+    font-size: 13px;
+    color: var(--text-muted);
   }
 
   .member-links {
-    gap: 16px;
-    margin-top: 6px;
+    display: flex;
+    gap: 18px;
+    margin-top: 8px;
   }
 
   .link-item {
     font-size: 13px;
-    padding: 4px 0;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   /* --- CONTACT --- */
   .contact-channels {
-    gap: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
     width: 100%;
   }
 
   .contact-channel {
-    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     width: 100%;
   }
 
   .channel-label {
     font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
   }
 
   .channel-detail {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
     width: 100%;
   }
 
   .channel-address {
-    font-size: clamp(16px, 4.8vw, 19px);
+    font-size: clamp(17px, 5vw, 20px);
     word-break: break-all;
   }
 
   .btn-copy {
-    font-size: 12px;
-    padding: 5px 10px;
+    font-size: 12.5px;
+    padding: 8px 14px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
   }
 
   /* --- FOOTER --- */
   .footer {
-    padding-top: 24px;
-    padding-bottom: 36px;
+    padding-top: 40px;
+    padding-bottom: 56px;
   }
 
   .footer-inner {
     display: flex;
     flex-direction: column-reverse;
-    gap: 16px;
+    gap: 20px;
     align-items: flex-start;
   }
 
   .footer-left {
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--text-faint);
-    line-height: 1.45;
+    line-height: 1.5;
   }
 
   .footer-right {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     flex-wrap: wrap;
   }
 
   .footer-link {
-    font-size: 12px;
+    font-size: 13px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 }
 
@@ -1284,16 +1398,17 @@ html.js .hero-actions {
    ============================================================================= */
 @media (max-width: 380px) {
   .grid-wrap {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .col-logo {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .brand-logo {
-    height: 23px;
-  }
-
-  .nav-list {
-    gap: 10px;
+    height: 24px;
   }
 
   .nav-link {
@@ -1301,11 +1416,11 @@ html.js .hero-actions {
   }
 
   .hero-headline {
-    font-size: 26px;
+    font-size: clamp(2rem, 8.5vw, 2.3rem);
   }
 
   .spec-list {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 14px;
   }
 }
