@@ -127,7 +127,7 @@ button {
   line-height: 1;
 }
 
-/* Increased logo size from 24px to 38px for solid industrial brand presence */
+/* Increased logo size for solid industrial brand presence */
 .brand-logo {
   height: 38px;
   width: auto;
@@ -213,7 +213,7 @@ button {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 32px;
-  align-items: start;
+  align-items: center;
 }
 
 /* Left column (cols 1-7): Big statement & Call to action */
@@ -310,51 +310,229 @@ button {
   transform: translateY(1px);
 }
 
-/* Right column (cols 9-12): Disciplined at-a-glance system tenets */
-.hero-aside {
-  grid-column: 9 / span 4;
+/* -----------------------------------------------------------------------------
+   6. INTERACTIVE ACOUSTIC SPACE GRAPHIC (HERO RIGHT COLUMN)
+   Inspired by Josef Müller-Brockmann & Otl Aicher Coordinate Graphics
+   ----------------------------------------------------------------------------- */
+.hero-graphic {
+  grid-column: 8 / span 5;
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding-top: 48px;
+  user-select: none;
+  padding-left: 8px;
 }
 
-.aside-item {
+.graphic-header {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 18px;
 }
 
-.aside-label {
-  font-size: 12px;
+.graphic-title {
+  font-size: 13px;
   font-weight: 500;
-  color: var(--text-faint);
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-.aside-text {
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--text);
+.graphic-hint {
+  font-size: 12px;
+  color: var(--text-faint);
 }
 
-.text-link-primary {
-  font-size: 15px;
+/* Vector Coordinate Plane */
+.vector-plane {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 360 / 280;
+  background-color: transparent;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.plane-grid-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.plane-line {
+  stroke: var(--divider);
+  stroke-width: 1;
+}
+
+.plane-mark {
+  stroke: var(--text-faint);
+  stroke-width: 1;
+  fill: none;
+}
+
+.proximity-line {
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+}
+
+/* Compass Labels */
+.axis-label {
+  position: absolute;
+  font-size: 10px;
   font-weight: 500;
-  color: var(--text);
-  display: inline-flex;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+.axis-top {
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.axis-bottom {
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.axis-left {
+  top: 50%;
+  left: -2px;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
+}
+
+.axis-right {
+  top: 50%;
+  right: -2px;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: right center;
+}
+
+/* Plotted Acoustic Nodes */
+.plane-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
   align-items: center;
   gap: 6px;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.node-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--text-faint);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.node-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
   transition: color 0.15s ease;
 }
 
-.text-link-primary:hover {
-  color: var(--accent);
+.plane-node.active .node-dot {
+  background-color: var(--text);
+  transform: scale(1.3);
+}
+
+.plane-node.active .node-label {
+  color: var(--text);
+}
+
+/* Reticle / Crosshair Tracker */
+.plane-reticle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  transition: transform 0.06s ease-out;
+}
+
+.reticle-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--text);
+  opacity: 0.65;
+}
+
+/* Tiny orange center dot */
+.reticle-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
+/* Telemetry Readout & Live Oscillogram */
+.graphic-footer {
+  display: grid;
+  grid-template-columns: 1.4fr auto 90px;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--divider);
+  margin-top: 16px;
+}
+
+.graphic-readout {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.readout-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+
+.readout-value {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.graphic-wave {
+  display: flex;
+  align-items: center;
+}
+
+#wave-canvas {
+  display: block;
+  width: 120px;
+  height: 24px;
+}
+
+.graphic-latency {
+  font-size: 12px;
+  color: var(--text-faint);
+  text-align: right;
 }
 
 /* -----------------------------------------------------------------------------
-   6. PRODUCT SECTION (KLANG)
+   7. PRODUCT SECTION (KLANG)
    ----------------------------------------------------------------------------- */
 .spec-list {
   display: flex;
@@ -410,8 +588,22 @@ button {
   line-height: 1.5;
 }
 
+.text-link-primary {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+
+.text-link-primary:hover {
+  color: var(--accent);
+}
+
 /* -----------------------------------------------------------------------------
-   7. PRINCIPLES SECTION (UNBOXED, RESTRAINED SWISS TYPOGRAPHY)
+   8. PRINCIPLES SECTION (UNBOXED, RESTRAINED SWISS TYPOGRAPHY)
    ----------------------------------------------------------------------------- */
 .principles-list {
   display: flex;
@@ -458,7 +650,7 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   8. ABOUT SECTION (COMPACT & TEXT-FOCUSED)
+   9. ABOUT SECTION (COMPACT & TEXT-FOCUSED)
    ----------------------------------------------------------------------------- */
 .about-lead {
   font-size: 18px;
@@ -517,7 +709,7 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   9. CONTACT SECTION
+   10. CONTACT SECTION
    ----------------------------------------------------------------------------- */
 .contact-channels {
   display: flex;
@@ -582,7 +774,7 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   10. FOOTER
+   11. FOOTER
    ----------------------------------------------------------------------------- */
 .footer {
   padding-top: 48px;
@@ -618,9 +810,9 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   11. RESPONSIVE BREAKPOINTS (STRICT 12-COLUMN ADAPTATION)
+   12. RESPONSIVE BREAKPOINTS (STRICT 12-COLUMN ADAPTATION)
    ----------------------------------------------------------------------------- */
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .grid-wrap {
     column-gap: 24px;
     padding-left: 24px;
@@ -631,14 +823,11 @@ button {
     grid-column: 1 / -1;
   }
 
-  .hero-aside {
+  .hero-graphic {
     grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    padding-top: 40px;
-    border-top: 1px solid var(--divider);
-    margin-top: 40px;
+    max-width: 440px;
+    margin-top: 48px;
+    padding-left: 0;
   }
 
   .col-sidebar {
@@ -722,11 +911,6 @@ button {
 
   .hero-lead {
     font-size: 16px;
-  }
-
-  .hero-aside {
-    grid-template-columns: 1fr;
-    gap: 20px;
   }
 
   .channel-address {
