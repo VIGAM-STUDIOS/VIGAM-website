@@ -407,7 +407,16 @@
       opacity: 1,
       duration: 0.85,
       ease: 'power3.out'
-    }, '-=0.65');
+    }, '-=0.65')
+    .fromTo('.hero-baseline', {
+      y: 16,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.85,
+      ease: 'power3.out'
+    }, '-=0.55');
 
     // 2. Section Hairline Dividers (<hr class="divider"> draws across)
     if (typeof ScrollTrigger !== 'undefined') {
