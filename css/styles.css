@@ -112,6 +112,7 @@ button {
   padding-top: 40px;
   padding-bottom: 32px;
   background-color: var(--bg);
+  border-bottom: 1px solid var(--divider);
 }
 
 .header-inner {
@@ -265,29 +266,6 @@ button {
   grid-column: 8 / span 5;
   min-height: 340px;
   pointer-events: none;
-}
-
-.status-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-/* The accent color is used as a tiny indicator dot */
-.indicator-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--accent);
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.status-text {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
 }
 
 .hero-headline {
