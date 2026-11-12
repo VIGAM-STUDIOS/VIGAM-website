@@ -253,12 +253,8 @@ html.js .divider.revealed {
 
 html.js .hero-ocean-wrap {
   opacity: 0;
-  transition: opacity 1.2s ease 0.1s;
+  animation: heroOceanFade 1.4s ease 0.15s forwards;
   will-change: opacity;
-}
-
-html.js .hero-ocean-wrap.revealed {
-  opacity: 1;
 }
 
 #ocean-canvas {
@@ -312,27 +308,22 @@ html.js .hero-ocean-wrap.revealed {
 }
 
 html.js .mask-inner {
-  transform: translateY(105%);
+  transform: translateY(115%);
   opacity: 0;
-  transition: transform 0.8s var(--ease-swiss), opacity 0.8s ease;
+  animation: heroLineRise 0.85s var(--ease-swiss) forwards;
   will-change: transform, opacity;
 }
 
-html.js .hero-headline.revealed .mask-inner {
-  transform: translateY(0);
-  opacity: 1;
+html.js .hero-headline .mask-line:nth-child(1) .mask-inner {
+  animation-delay: 0.15s;
 }
 
-html.js .hero-headline.revealed .mask-line:nth-child(1) .mask-inner {
-  transition-delay: 0.05s;
+html.js .hero-headline .mask-line:nth-child(2) .mask-inner {
+  animation-delay: 0.28s;
 }
 
-html.js .hero-headline.revealed .mask-line:nth-child(2) .mask-inner {
-  transition-delay: 0.12s;
-}
-
-html.js .hero-headline.revealed .mask-line:nth-child(3) .mask-inner {
-  transition-delay: 0.19s;
+html.js .hero-headline .mask-line:nth-child(3) .mask-inner {
+  animation-delay: 0.40s;
 }
 
 .hero-lead {
@@ -346,15 +337,9 @@ html.js .hero-headline.revealed .mask-line:nth-child(3) .mask-inner {
 
 html.js .hero-lead {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.75s ease, transform 0.75s var(--ease-swiss);
+  transform: translateY(18px);
+  animation: heroFadeSlide 0.8s var(--ease-swiss) 0.52s forwards;
   will-change: opacity, transform;
-}
-
-html.js .hero-main.revealed .hero-lead {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.28s;
 }
 
 .hero-actions {
@@ -366,15 +351,40 @@ html.js .hero-main.revealed .hero-lead {
 
 html.js .hero-actions {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.75s ease, transform 0.75s var(--ease-swiss);
+  transform: translateY(18px);
+  animation: heroFadeSlide 0.8s var(--ease-swiss) 0.65s forwards;
   will-change: opacity, transform;
 }
 
-html.js .hero-main.revealed .hero-actions {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.38s;
+@keyframes heroLineRise {
+  0% {
+    transform: translateY(115%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroFadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroOceanFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Single primary button in accent color with tactile physical state */
@@ -913,8 +923,8 @@ html.js .hero-main.revealed .hero-actions {
    ----------------------------------------------------------------------------- */
 html.js .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.7s ease, transform 0.7s var(--ease-swiss);
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s var(--ease-swiss);
   will-change: opacity, transform;
 }
 
@@ -925,15 +935,15 @@ html.js .reveal-on-scroll.revealed {
 
 /* Stagger variants for sequential elements */
 html.js .reveal-on-scroll.stagger-1 {
-  transition-delay: 0.08s;
+  transition-delay: 0.1s;
 }
 
 html.js .reveal-on-scroll.stagger-2 {
-  transition-delay: 0.16s;
+  transition-delay: 0.2s;
 }
 
 html.js .reveal-on-scroll.stagger-3 {
-  transition-delay: 0.24s;
+  transition-delay: 0.3s;
 }
 
 /* -----------------------------------------------------------------------------
@@ -946,6 +956,7 @@ html.js .reveal-on-scroll.stagger-3 {
   html.js .hero-ocean-wrap,
   html.js .divider,
   html.js .reveal-on-scroll {
+    animation: none !important;
     transition-duration: 0.001s !important;
     transition-delay: 0s !important;
     transform: none !important;
