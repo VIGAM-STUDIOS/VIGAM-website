@@ -106,17 +106,7 @@ button {
   border: 0;
   border-top: 1px solid var(--divider);
   margin: 0;
-}
-
-html.js .divider {
   transform-origin: left center;
-  transform: scaleX(0);
-  transition: transform 0.75s var(--ease-swiss);
-  will-change: transform;
-}
-
-html.js .divider.revealed {
-  transform: scaleX(1);
 }
 
 /* -----------------------------------------------------------------------------
@@ -146,7 +136,7 @@ html.js .divider.revealed {
 
 /* Solid industrial brand presence */
 .brand-logo {
-  height: 38px;
+  height: 55px;
   width: auto;
   display: block;
 }
@@ -249,12 +239,12 @@ html.js .divider.revealed {
   pointer-events: auto;
   user-select: none;
   touch-action: none;
+  will-change: opacity;
 }
 
+/* Initially hidden when JS is active so it animates in with the tagline */
 html.js .hero-ocean-wrap {
   opacity: 0;
-  animation: heroOceanFade 1.4s ease 0.15s forwards;
-  will-change: opacity;
 }
 
 #ocean-canvas {
@@ -305,25 +295,17 @@ html.js .hero-ocean-wrap {
 
 .mask-inner {
   display: block;
+  will-change: transform;
 }
 
+/* Initially hidden when JS is active so GSAP animates in cleanly */
 html.js .mask-inner {
   transform: translateY(115%);
+}
+
+html.js .hero-lead,
+html.js .hero-actions {
   opacity: 0;
-  animation: heroLineRise 0.85s var(--ease-swiss) forwards;
-  will-change: transform, opacity;
-}
-
-html.js .hero-headline .mask-line:nth-child(1) .mask-inner {
-  animation-delay: 0.15s;
-}
-
-html.js .hero-headline .mask-line:nth-child(2) .mask-inner {
-  animation-delay: 0.28s;
-}
-
-html.js .hero-headline .mask-line:nth-child(3) .mask-inner {
-  animation-delay: 0.40s;
 }
 
 .hero-lead {
@@ -335,56 +317,11 @@ html.js .hero-headline .mask-line:nth-child(3) .mask-inner {
   margin-bottom: 36px;
 }
 
-html.js .hero-lead {
-  opacity: 0;
-  transform: translateY(18px);
-  animation: heroFadeSlide 0.8s var(--ease-swiss) 0.52s forwards;
-  will-change: opacity, transform;
-}
-
 .hero-actions {
   display: flex;
   align-items: center;
   gap: 28px;
   flex-wrap: wrap;
-}
-
-html.js .hero-actions {
-  opacity: 0;
-  transform: translateY(18px);
-  animation: heroFadeSlide 0.8s var(--ease-swiss) 0.65s forwards;
-  will-change: opacity, transform;
-}
-
-@keyframes heroLineRise {
-  0% {
-    transform: translateY(115%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes heroFadeSlide {
-  0% {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes heroOceanFade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 /* Single primary button in accent color with tactile physical state */
@@ -916,51 +853,3 @@ html.js .hero-actions {
     justify-content: space-between;
   }
 }
-
-/* -----------------------------------------------------------------------------
-   12. SCROLL REVEAL (INTERSECTIONOBSERVER)
-   Dieter Rams / Ulm Clean Print Entrance · 0 KB Overhead · GPU Composited
-   ----------------------------------------------------------------------------- */
-html.js .reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.75s ease, transform 0.75s var(--ease-swiss);
-  will-change: opacity, transform;
-}
-
-html.js .reveal-on-scroll.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger variants for sequential elements */
-html.js .reveal-on-scroll.stagger-1 {
-  transition-delay: 0.1s;
-}
-
-html.js .reveal-on-scroll.stagger-2 {
-  transition-delay: 0.2s;
-}
-
-html.js .reveal-on-scroll.stagger-3 {
-  transition-delay: 0.3s;
-}
-
-/* -----------------------------------------------------------------------------
-   13. ACCESSIBILITY: PREFERS REDUCED MOTION
-   ----------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  html.js .mask-inner,
-  html.js .hero-lead,
-  html.js .hero-actions,
-  html.js .hero-ocean-wrap,
-  html.js .divider,
-  html.js .reveal-on-scroll {
-    animation: none !important;
-    transition-duration: 0.001s !important;
-    transition-delay: 0s !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-}
-

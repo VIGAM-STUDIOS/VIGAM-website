@@ -359,42 +359,147 @@
   }
 
   /* -------------------------------------------------------------------------
-     4. SCROLL REVEALS (VANILLA INTERSECTIONOBSERVER)
-     Dieter Rams Precision Print Entrance · 0 KB Overhead · GPU Composited
+     4. GSAP & SCROLLTRIGGER ENTRANCES & REVEALS
+     Dieter Rams Precision Print Mechanics · Silky Smooth & 100% Reliable
      ------------------------------------------------------------------------- */
-  function initScrollReveals() {
-    if (!('IntersectionObserver' in window)) {
-      var elements = document.querySelectorAll('.reveal-on-scroll, .divider');
-      elements.forEach(function (el) {
-        el.classList.add('revealed');
-      });
-      return;
+  function initGSAPAnimations() {
+    if (typeof gsap === 'undefined') return;
+
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
     }
 
-    var observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -40px 0px',
-      threshold: 0
-    };
+    // 1. Hero Entrance Timeline (Plays smoothly on load)
+    var heroTl = gsap.timeline({
+      defaults: { ease: 'power3.out' }
+    });
 
-    var revealObserver = new IntersectionObserver(function (entries, observer) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
+    // Synchronize ASCII Ocean Canvas emergence alongside the headline words
+    heroTl.fromTo('.hero-ocean-wrap', {
+      opacity: 0
+    }, {
+      opacity: 1,
+      duration: 1.5,
+      ease: 'power2.out'
+    }, 0.12)
+    .fromTo('.hero-headline .mask-inner', {
+      y: '115%'
+    }, {
+      y: '0%',
+      duration: 0.95,
+      stagger: 0.14,
+      ease: 'power3.out'
+    }, 0.12)
+    .fromTo('.hero-lead', {
+      y: 20,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.85,
+      ease: 'power3.out'
+    }, '-=0.55')
+    .fromTo('.hero-actions', {
+      y: 16,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.85,
+      ease: 'power3.out'
+    }, '-=0.65');
+
+    // 2. Section Hairline Dividers (<hr class="divider"> draws across)
+    if (typeof ScrollTrigger !== 'undefined') {
+      var dividers = gsap.utils.toArray('.divider');
+      dividers.forEach(function (divider) {
+        gsap.from(divider, {
+          scaleX: 0,
+          transformOrigin: 'left center',
+          duration: 0.85,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: divider,
+            start: 'top 92%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+
+      // 3. Section Scroll Reveals
+      var sections = document.querySelectorAll('.section:not(.hero-section)');
+      sections.forEach(function (sec) {
+        var sidebar = sec.querySelector('.col-sidebar');
+        var main = sec.querySelector('.col-main');
+
+        if (sidebar) {
+          gsap.from(sidebar, {
+            y: 32,
+            opacity: 0,
+            duration: 0.85,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sec,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          });
+        }
+
+        if (main) {
+          // If section contains principles list, stagger the cards
+          var principles = main.querySelectorAll('.principle-item');
+          if (principles.length > 0) {
+            gsap.from(principles, {
+              y: 30,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.15,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: main,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
+            });
+          } else {
+            gsap.from(main, {
+              y: 32,
+              opacity: 0,
+              duration: 0.85,
+              delay: 0.1,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: sec,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
+            });
+          }
         }
       });
-    }, observerOptions);
 
-    var revealTargets = document.querySelectorAll('.reveal-on-scroll, .divider');
-    revealTargets.forEach(function (target) {
-      revealObserver.observe(target);
-    });
+      // 4. Footer Entrance
+      var footerInner = document.querySelector('.footer-inner');
+      if (footerInner) {
+        gsap.from(footerInner, {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.footer',
+            start: 'top 92%',
+            toggleActions: 'play none none none'
+          }
+        });
+      }
+    }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initScrollReveals);
+    document.addEventListener('DOMContentLoaded', initGSAPAnimations);
   } else {
-    initScrollReveals();
+    initGSAPAnimations();
   }
 })();
