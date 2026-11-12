@@ -44,27 +44,51 @@
     <section class="section hero-section">
       <div class="grid-wrap">
         <div class="hero-content">
-          <div class="status-indicator">
-            <span class="indicator-dot" aria-hidden="true"></span>
-            <span class="status-text">All software runs locally on your machine</span>
+          <!-- Left Column: Primary Headline, Rationale & CTA -->
+          <div class="hero-main">
+            <div class="status-indicator">
+              <span class="indicator-dot" aria-hidden="true"></span>
+              <span class="status-text">All software runs locally on your machine</span>
+            </div>
+
+            <h1 class="hero-headline">
+              Ethical AI solutions.<br>
+              Zero subscriptions.<br>
+              100% on-device.
+            </h1>
+
+            <p class="hero-lead">
+              We build fast, private AI software that runs entirely on your own hardware. No cloud servers, no recurring fees, and no data leaving your computer.
+            </p>
+
+            <div class="hero-actions">
+              <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                Explore KLANG
+              </a>
+              <a href="#principles" class="text-link">
+                Read our principles &rarr;
+              </a>
+            </div>
           </div>
 
-          <h1 class="hero-headline">
-            Ethical AI solutions.<br>
-            Zero subscriptions. 100% on-device.
-          </h1>
-
-          <p class="hero-lead">
-            We build fast, private AI software that runs entirely on your own hardware. No cloud servers, no recurring fees, and no data leaving your computer.
-          </p>
-
-          <div class="hero-actions">
-            <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="btn-primary">
-              Explore KLANG
-            </a>
-            <a href="#principles" class="text-link">
-              Read our principles &rarr;
-            </a>
+          <!-- Right Column: System Overview & Tenets (Resolving Empty Right Space) -->
+          <div class="hero-aside">
+            <div class="aside-item">
+              <span class="aside-label">Execution</span>
+              <p class="aside-text">100% on-device inference. Audio files, projects, and queries never leave your local hardware.</p>
+            </div>
+            <div class="aside-item">
+              <span class="aside-label">Ownership</span>
+              <p class="aside-text">Zero subscriptions. Buy software once and own it outright, with no monthly rent or forced upgrades.</p>
+            </div>
+            <div class="aside-item">
+              <span class="aside-label">Privacy</span>
+              <p class="aside-text">Zero telemetry. Full offline functionality with zero background trackers or cloud dependencies.</p>
+            </div>
+            <div class="aside-item">
+              <span class="aside-label">Current instrument</span>
+              <p class="aside-text">KLANG &mdash; intelligent sound search and sample management for producers and sound designers.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -108,7 +132,7 @@
           </div>
         </div>
 
-        <!-- Right Column: Visual Showcase & Sample Audition -->
+        <!-- Right Column: Visual Showcase -->
         <div class="col-main">
           <figure class="product-figure">
             <a href="https://klang.vigamai.com/" target="_blank" rel="noopener noreferrer" class="image-link" aria-label="Open KLANG product page">
@@ -125,60 +149,6 @@
               KLANG desktop interface with acoustic descriptor search and oscillogram audition.
             </figcaption>
           </figure>
-
-          <!-- Quiet, Unboxed Sample Audition -->
-          <div class="audition-block">
-            <div class="audition-header">
-              <span class="audition-title">Audition search queries</span>
-              <span class="audition-note">Click to preview with local audio synthesis</span>
-            </div>
-
-            <div class="sample-list" role="list" aria-label="Sample audio search results">
-              <!-- Sample 1 -->
-              <div class="sample-row active" role="listitem" data-sample-id="s1">
-                <button type="button" class="sample-trigger" aria-label="Play warm analog pad sample">
-                  <span class="sample-dot" aria-hidden="true"></span>
-                  <span class="sample-name">Warm analog pad</span>
-                  <span class="sample-category">Ambient chord · D min</span>
-                  <span class="sample-duration mono">3.99s</span>
-                  <span class="sample-latency mono">11 ms local</span>
-                </button>
-              </div>
-
-              <!-- Sample 2 -->
-              <div class="sample-row" role="listitem" data-sample-id="s6">
-                <button type="button" class="sample-trigger" aria-label="Play punchy dusty snare sample">
-                  <span class="sample-dot" aria-hidden="true"></span>
-                  <span class="sample-name">Punchy dusty snare</span>
-                  <span class="sample-category">Acoustic transient · D</span>
-                  <span class="sample-duration mono">0.42s</span>
-                  <span class="sample-latency mono">9 ms local</span>
-                </button>
-              </div>
-
-              <!-- Sample 3 -->
-              <div class="sample-row" role="listitem" data-sample-id="s10">
-                <button type="button" class="sample-trigger" aria-label="Play distorted sub 808 sample">
-                  <span class="sample-dot" aria-hidden="true"></span>
-                  <span class="sample-name">Distorted sub 808</span>
-                  <span class="sample-category">Low-end glide · F min</span>
-                  <span class="sample-duration mono">1.38s</span>
-                  <span class="sample-latency mono">12 ms local</span>
-                </button>
-              </div>
-
-              <!-- Sample 4 -->
-              <div class="sample-row" role="listitem" data-sample-id="s13">
-                <button type="button" class="sample-trigger" aria-label="Play glassy arp pluck sample">
-                  <span class="sample-dot" aria-hidden="true"></span>
-                  <span class="sample-name">Glassy arp pluck</span>
-                  <span class="sample-category">Crystal sequence · A maj</span>
-                  <span class="sample-duration mono">0.88s</span>
-                  <span class="sample-latency mono">8 ms local</span>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -241,39 +211,38 @@
       </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section: Compact & Text-Focused -->
     <section class="section about-section" id="about">
       <div class="grid-wrap">
         <div class="col-sidebar">
           <span class="kicker">Company</span>
           <h2 class="section-title">About</h2>
-          <p class="sidebar-text">
-            VIGAM Labs is Shivam Thakur and Vignesh A. Palan. We are two AI engineers based at Manipal Institute of Technology (M.Tech AI &amp; Decision Science &rsquo;26), building fast, local-first tools we actually want to use every day.
-          </p>
         </div>
 
         <div class="col-main">
-          <div class="founders-grid">
-            <!-- Shivam Thakur -->
-            <div class="founder-item">
-              <img src="assets/shivam.jpg" alt="Shivam Thakur" class="founder-photo" width="320" height="320" loading="lazy">
-              <h3 class="founder-name">Shivam Thakur</h3>
-              <p class="founder-role">Co-founder &amp; AI Systems Engineer</p>
-              <p class="founder-affiliation">M.Tech AI &amp; Decision Science &rsquo;26, MIT Manipal</p>
-              <div class="founder-links">
+          <p class="about-lead">
+            VIGAM Labs was founded by Shivam Thakur and Vignesh A. Palan &mdash; two AI engineers based at Manipal Institute of Technology (M.Tech AI &amp; Decision Science &rsquo;26), building fast, local-first software tools we want to use every day.
+          </p>
+
+          <div class="team-list">
+            <div class="team-member">
+              <div class="member-header">
+                <span class="member-name">Shivam Thakur</span>
+                <span class="member-role">Co-founder &middot; AI Systems</span>
+              </div>
+              <div class="member-links">
                 <a href="https://shivam-thakur-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-item">Portfolio &rarr;</a>
                 <a href="https://github.com/MavihsLH" target="_blank" rel="noopener noreferrer" class="link-item">GitHub &rarr;</a>
                 <a href="https://www.linkedin.com/in/shivam-thakur-swe/" target="_blank" rel="noopener noreferrer" class="link-item">LinkedIn &rarr;</a>
               </div>
             </div>
 
-            <!-- Vignesh A. Palan -->
-            <div class="founder-item">
-              <img src="assets/vignesh.jpg" alt="Vignesh A. Palan" class="founder-photo founder-photo-vignesh" width="320" height="320" loading="lazy">
-              <h3 class="founder-name">Vignesh A. Palan</h3>
-              <p class="founder-role">Co-founder &amp; AI Systems Engineer</p>
-              <p class="founder-affiliation">M.Tech AI &amp; Decision Science &rsquo;26, MIT Manipal</p>
-              <div class="founder-links">
+            <div class="team-member">
+              <div class="member-header">
+                <span class="member-name">Vignesh A. Palan</span>
+                <span class="member-role">Co-founder &middot; AI Systems</span>
+              </div>
+              <div class="member-links">
                 <a href="https://github.com/Vigneshpalan" target="_blank" rel="noopener noreferrer" class="link-item">GitHub &rarr;</a>
                 <a href="https://www.linkedin.com/in/vignesh-palan-692251246/" target="_blank" rel="noopener noreferrer" class="link-item">LinkedIn &rarr;</a>
               </div>

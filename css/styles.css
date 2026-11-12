@@ -127,8 +127,9 @@ button {
   line-height: 1;
 }
 
+/* Increased logo size from 24px to 38px for solid industrial brand presence */
 .brand-logo {
-  height: 24px;
+  height: 38px;
   width: auto;
   display: block;
 }
@@ -200,22 +201,31 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   5. HERO SECTION
+   5. HERO SECTION (12-COLUMN ASYMMETRIC SWISS BALANCE)
    ----------------------------------------------------------------------------- */
 .hero-section {
-  padding-top: 72px;
+  padding-top: 64px;
   padding-bottom: 96px;
 }
 
 .hero-content {
-  grid-column: 1 / span 11;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 32px;
+  align-items: start;
+}
+
+/* Left column (cols 1-7): Big statement & Call to action */
+.hero-main {
+  grid-column: 1 / span 7;
 }
 
 .status-indicator {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 /* The accent color is used as a tiny indicator dot */
@@ -235,22 +245,21 @@ button {
 }
 
 .hero-headline {
-  font-size: clamp(38px, 5.2vw, 62px);
+  font-size: clamp(38px, 4.8vw, 58px);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.035em;
   color: var(--text);
-  margin-bottom: 28px;
-  max-width: 20ch;
+  margin-bottom: 24px;
 }
 
 .hero-lead {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 400;
   line-height: 1.55;
   color: var(--text-muted);
-  max-width: 36ch;
-  margin-bottom: 40px;
+  max-width: 44ch;
+  margin-bottom: 36px;
 }
 
 .hero-actions {
@@ -260,7 +269,7 @@ button {
   flex-wrap: wrap;
 }
 
-/* The single primary button in accent color with tactile physical state */
+/* Single primary button in accent color with tactile physical state */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -299,6 +308,35 @@ button {
 
 .text-link:active {
   transform: translateY(1px);
+}
+
+/* Right column (cols 9-12): Disciplined at-a-glance system tenets */
+.hero-aside {
+  grid-column: 9 / span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-top: 48px;
+}
+
+.aside-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.aside-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.aside-text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
 }
 
 .text-link-primary {
@@ -351,7 +389,7 @@ button {
 
 /* Unboxed Product Figure */
 .product-figure {
-  margin-bottom: 48px;
+  margin-bottom: 0;
 }
 
 .image-link {
@@ -370,103 +408,6 @@ button {
   color: var(--text-muted);
   margin-top: 12px;
   line-height: 1.5;
-}
-
-/* Quiet, Unboxed Audition List */
-.audition-block {
-  margin-top: 40px;
-}
-
-.audition-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--divider);
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.audition-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text);
-}
-
-.audition-note {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.sample-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.sample-row {
-  border-bottom: 1px solid rgba(221, 217, 208, 0.4);
-}
-
-.sample-row:last-child {
-  border-bottom: none;
-}
-
-.sample-trigger {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 16px 1.4fr 1.2fr 60px 90px;
-  align-items: center;
-  column-gap: 16px;
-  padding: 14px 4px;
-  text-align: left;
-  transition: background-color 0.1s ease;
-  user-select: none;
-}
-
-.sample-trigger:hover {
-  background-color: rgba(221, 217, 208, 0.35);
-}
-
-.sample-trigger:active {
-  transform: translateY(1px);
-}
-
-/* Tiny orange dot indicating playback or selection */
-.sample-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: transparent;
-  transition: background-color 0.15s ease;
-}
-
-.sample-row.active .sample-dot,
-.sample-row.playing .sample-dot {
-  background-color: var(--accent);
-}
-
-.sample-name {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text);
-}
-
-.sample-category {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.sample-duration {
-  font-size: 13px;
-  color: var(--text-muted);
-  text-align: right;
-}
-
-.sample-latency {
-  font-size: 12px;
-  color: var(--text-faint);
-  text-align: right;
 }
 
 /* -----------------------------------------------------------------------------
@@ -517,64 +458,57 @@ button {
 }
 
 /* -----------------------------------------------------------------------------
-   8. ABOUT SECTION (FOUNDERS)
+   8. ABOUT SECTION (COMPACT & TEXT-FOCUSED)
    ----------------------------------------------------------------------------- */
-.founders-grid {
+.about-lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 52ch;
+  margin-bottom: 36px;
+}
+
+.team-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 40px;
-  row-gap: 32px;
+  row-gap: 24px;
 }
 
-.founder-item {
+.team-member {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
-.founder-photo {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: center 10%;
-  margin-bottom: 20px;
-  border-radius: 2px;
+.member-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.founder-photo-vignesh {
-  object-position: 60% 20%;
-}
-
-.founder-name {
-  font-size: 18px;
+.member-name {
+  font-size: 16px;
   font-weight: 500;
-  letter-spacing: -0.01em;
   color: var(--text);
-  margin-bottom: 4px;
 }
 
-.founder-role {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--text);
-  margin-bottom: 2px;
-}
-
-.founder-affiliation {
+.member-role {
   font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 16px;
 }
 
-.founder-links {
+.member-links {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  margin-top: 4px;
 }
 
 .link-item {
   font-size: 13px;
   font-weight: 500;
-  color: var(--text);
+  color: var(--text-muted);
   transition: color 0.15s ease;
 }
 
@@ -693,6 +627,20 @@ button {
     padding-right: 24px;
   }
 
+  .hero-main {
+    grid-column: 1 / -1;
+  }
+
+  .hero-aside {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding-top: 40px;
+    border-top: 1px solid var(--divider);
+    margin-top: 40px;
+  }
+
   .col-sidebar {
     grid-column: 1 / -1;
     margin-bottom: 40px;
@@ -707,10 +655,6 @@ button {
     grid-column: 1 / -1;
   }
 
-  .hero-content {
-    grid-column: 1 / -1;
-  }
-
   .hero-headline {
     font-size: 38px;
   }
@@ -719,22 +663,9 @@ button {
     font-size: 18px;
   }
 
-  .sample-trigger {
-    grid-template-columns: 14px 1fr auto;
-    row-gap: 4px;
-  }
-
-  .sample-category {
-    grid-column: 2 / 3;
-  }
-
-  .sample-duration {
-    grid-column: 3 / 4;
-    grid-row: 1;
-  }
-
-  .sample-latency {
-    display: none;
+  .team-list {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .footer-left {
@@ -752,6 +683,10 @@ button {
   .header {
     padding-top: 24px;
     padding-bottom: 20px;
+  }
+
+  .brand-logo {
+    height: 32px;
   }
 
   .col-logo {
@@ -789,9 +724,9 @@ button {
     font-size: 16px;
   }
 
-  .founders-grid {
+  .hero-aside {
     grid-template-columns: 1fr;
-    row-gap: 40px;
+    gap: 20px;
   }
 
   .channel-address {
